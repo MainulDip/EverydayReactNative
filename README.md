@@ -1,2 +1,16 @@
-### React Native:
+## React Native:
 Personalized Instruction With Jumpstart Docs for React Native using both React-Native-CLI and Expo
+
+### Components:
+> Core Components:
+
+All the core components are [here](https://reactnative.dev/docs/components-and-apis). Most common Core Components:
+
+| React Native UI Component | Android View   | iOS View         | Web Analog               | Description                                                                                           |
+| ------------------------- | -------------- | ---------------- | ------------------------ | ----------------------------------------------------------------------------------------------------- |
+| `<View>`                  | `<ViewGroup>`  | `<UIView>`       | A non-scrollling `<div>` | A container that supports layout with flexbox, style, some touch handling, and accessibility controls |
+| `<Text>`                  | `<TextView>`   | `<UITextView>`   | `<p>`                    | Displays, styles, and nests strings of text and even handles touch events                             |
+| `<Image>`                 | `<ImageView>`  | `<UIImageView>`  | `<img>`                  | Displays different types of images                                                                    |
+| `<ScrollView>`            | `<ScrollView>` | `<UIScrollView>` | `<div>`                  | A generic scrolling container that can contain multiple components and views                          |
+| `<TextInput>`             | `<EditText>`   | `<UITextField>`  | `<input type="text">`    | Allows the user to enter text                                                                         |
+
