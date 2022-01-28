@@ -25,3 +25,6 @@ All the core components are [here](https://reactnative.dev/docs/components-and-a
 ```
 
 > TouchableOpacity: props => activeOpacity={.9}
+
+### Linking External Libraries: link both Android/iOS native module with react native
+> npx react-native link
