@@ -14,3 +14,14 @@ All the core components are [here](https://reactnative.dev/docs/components-and-a
 | `<ScrollView>`            | `<ScrollView>` | `<UIScrollView>` | `<div>`                  | A generic scrolling container that can contain multiple components and views                          |
 | `<TextInput>`             | `<EditText>`   | `<UITextField>`  | `<input type="text">`    | Allows the user to enter text                                                                         |
 
+> FlatList:
+```js
+<FlatList
+    data={items}
+    renderItem={ ({item})=> <Text>{item}<Text/> }
+    keyExtractor={item => item.id} 
+    extraData={stateGetter} />
+    // extraData for re-render if that state change
+```
+
+> TouchableOpacity: props => activeOpacity={.9}
