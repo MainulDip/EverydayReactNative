@@ -26,5 +26,28 @@ All the core components are [here](https://reactnative.dev/docs/components-and-a
 
 > TouchableOpacity: props => activeOpacity={.9}
 
-### Linking External Libraries: link both Android/iOS native module with react native
-> npx react-native link
+### Linking | Unlinking External Libraries: link both Android/iOS native module with react native
+> npx react-native link | npx react-native unlink libraryname
+
+### Building APK:
+> cd /c/Program Files/OpenJDK/openjdk-11.0.13_8/bin
+
+Then Run
+```bash
+keytool -genkeypair -v -storetype PKCS12 -keystore my-upload-key.keystore -alias my-key-alias -keyalg RSA -keysize 2048 -validity 10000
+```
+
+Gradle Command
+```bash
+# From Android Directory
+./gradlew clean
+# Generate APK File/s
+./gradlew assembleRelease
+# Bundling For Google Playstore with aab extension
+./gradlew bundleRelease
+```
+
+Final Testing Using React Native:
+```bash
+npx react-native run-android --variant=release
+```
