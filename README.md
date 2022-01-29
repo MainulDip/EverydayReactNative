@@ -30,10 +30,13 @@ All the core components are [here](https://reactnative.dev/docs/components-and-a
 > npx react-native link | npx react-native unlink libraryname
 
 ### Building APK:
-> cd /c/Program Files/OpenJDK/openjdk-11.0.13_8/bin
+> Production Build Docs: https://reactnative.dev/docs/signed-apk-android
 
 Then Run
 ```bash
+cd android/app
+
+# then run
 keytool -genkeypair -v -storetype PKCS12 -keystore my-upload-key.keystore -alias my-key-alias -keyalg RSA -keysize 2048 -validity 10000
 ```
 
