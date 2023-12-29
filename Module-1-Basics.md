@@ -51,6 +51,11 @@ Troubleshooting -> if wifi is blocking access, then install expo-cli globally (l
 Docs: https://docs.expo.dev/router/installation/#quick-start
 
 ### Directory Structure:
-`app` (required), entry directory
-`app/index.js` (required), entry file
-`app/_layout.js` (optional), Container Layout that contain other app files.
+`./app` (required), entry directory in root project directory
+`./app/index.tsx` (required), entry file
+`./app/_layout.tsx` (optional), Container Layout that contain other app files.
+
+other helper/assets/stylesheet files can be in root `./` directory (ie, assets, component, constants, styles, etc)
+
+### Always use TS:
+Get better IDE suggestion using TypeScript. Just rename the index.jsx to `index.tsx`, if expo server is running, it will automatically add all the types and will provide a `tsconfig.json` as well

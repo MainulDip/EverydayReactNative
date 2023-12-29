@@ -58,4 +58,5 @@ npx react-native run-android --variant=release
 
 
 ### Initialize Expo Project:
-`npx create-expo-app@latest -e with-router ./`
+`npx create-expo-app@latest -e with-router ./` or use typescript
+`npx create-expo-app -t expo-template-blank-typescript`
