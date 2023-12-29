@@ -54,3 +54,8 @@ Final Testing Using React Native:
 ```bash
 npx react-native run-android --variant=release
 ```
+
+
+
+### Initialize Expo Project:
+`npx create-expo-app@latest -e with-router ./`
