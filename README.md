@@ -46,7 +46,7 @@ Gradle Command
 ./gradlew clean
 # Generate APK File/s
 ./gradlew assembleRelease
-# Bundling For Google Playstore with aab extension
+# Bundling For Google PlayStore with aab extension
 ./gradlew bundleRelease
 ```
 
