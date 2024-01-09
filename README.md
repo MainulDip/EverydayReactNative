@@ -60,3 +60,40 @@ npx react-native run-android --variant=release
 ### Initialize Expo Project:
 `npx create-expo-app@latest -e with-router ./` or use typescript
 `npx create-expo-app -t expo-template-blank-typescript`
+
+### Design System and Component (open source for expo):
+
+1. Tamagui: https://tamagui.dev/
+2. React Native Elements: https://reactnativeelements.com/
+3. React Native Paper: https://reactnativepaper.com/
+4. Nativebase: https://nativebase.io/
+5. NativeWind: https://www.nativewind.dev/
+6. UI Kitten: https://github.com/akveo/react-native...
+7. RNUI Lib: https://wix.github.io/react-native-ui...
+8. Gluestack-ui: https://ui.gluestack.io/
+9. Restyle: https://github.com/Shopify/restyle
+
+1. Bouncy checkbox https://github.com/WrathChaos/react-n...
+2. Bottom sheet https://github.com/gorhom/react-nativ...
+3. Gifted Chat https://github.com/FaridSafi/react-na...
+4. Charts https://github.com/FormidableLabs/vic...
+5. Toast https://github.com/calintamas/react-n...
+6. Skeleton https://github.com/danilowoz/react-co...
+7. Pager view https://github.com/callstack/react-na...
+8. Blur view https://docs.expo.dev/versions/latest...
+9. Calendar https://github.com/wix/react-native-c...
+10. FlashList https://shopify.github.io/flash-list/
+
+
+### Topics RN:
+navigation -> 1. Expo Router, 2. React Navigation
+UI Style -> 1. NativeWind, 2. Tamagui
+state management -> 1. Redux, 2. Zustand
+network api call -> 1. TenStackQuery/ReactQuery 2. Fetch, 3. Axios
+data storage -> 1. SqlLite (for structured), 2. MMKV 3. Expo Secure 4. WaterMelon DB
+animation -> 1. reanimated 2. motee
+debugging -> 1. expo tools, 2. flipper, 3. flash-light
+error-reporting -> 1. Bugs net 2. Centree
+components -> don't re-invent the wheel, some open source component are already built by community on RN (like Cha Component, list, loading, skeleton view, etc )
+
+`TenStackQuery` -> https://tanstack.com/query/latest/docs/react/overview
