@@ -59,7 +59,7 @@ All of the core components accept a prop named `style`, and style names follow `
 
 The style prop can be a plain old JavaScript object. An array of styles can also be passed, the last style in the array has precedence.
 
-* As a component grows in complexity, it is often cleaner to use `StyleSheet.create` to define several styles in one place
+* As a component grows in complexity, it is often cleaner to use `StyleSheet.create({...})` to define several styles in one place
 
 ```jsx
 import React from 'react';
