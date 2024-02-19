@@ -1,3 +1,4 @@
+import '@expo/metro-runtime'; // Fixing Expo Web `Hot Reload Not Working`  
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, Image } from 'react-native';
 import ImageViewer from './components/ImageViewer';
@@ -12,7 +13,7 @@ export default function App() {
         <ImageViewer placeholderImageSource={PlaceHolderImage} style={styles.image} />
       </View>
       <View style={styles.footerContainer}>
-        <Button label="Choose a photo" />
+        <Button label="Choose a photo" theme="primary" />
         <Button label="Use this photo" />
       </View>
       <StatusBar style="auto" />

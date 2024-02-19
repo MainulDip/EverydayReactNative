@@ -97,8 +97,11 @@ export default StyleExampleComponent;
 ### icon library `@expo/vector-icons`:
 install by `npx expo install @expo/vector-icons` and import specific module by `import FontAwesome from "@expo/vector-icons/FontAwesome"`
 
+* Note => comes default with expo ^50.0.7. No Need to install
+
 ```js
 import FontAwesome from "@expo/vector-icons/FontAwesome
+// import {FontAwesome} from "@expo/vector-icons
 //....
 <FontAwesome
   name="picture-o"
@@ -109,8 +112,35 @@ import FontAwesome from "@expo/vector-icons/FontAwesome
 //....
 ```
 
+
+### Expo web different browser and hot reload issue:
+add .env file and inject `BROWSER=google-chrome` entry (for ubuntu) then run `npm run web` script
+
+For hot reload on web, install `@expo/metro-runtime` as dev dependency and import that into the `App.js/ts` file at the first place using just `import "@expo/metro-runtime"`
+
 ### Debugging:
+Use `npx expo install <package_name>` whenever possible. Its a wrapper that takes care of version compatibility.
+npm install installs the latest version of a package by default, while `npx expo install` installs the version of the package that's compatible with the current version of the Expo SDK
+
+* For installing Dev Dependency `npx expo install @expo/metro-runtime -- --save-dev` not working currently. So get the version running `npx expo install @expo/metro-runtime` and then run `npm install @expo/metro-runtime@VERSION -D`
+
+
 Sometimes error can happen, when developing, be up-to-date with the latest release. Sometimes installing a new project with `npx create-expo-app app-name` and test the specific component that threw error previously in the fresh environment. Copy the exact versions from the package.json and put that in working project
+
 
 npx expo install --check
 npx expo-doctor
+
+### NPM Versioning:
+`~version`	Approximately equivalent to version, i.e., only accept new patch versions See npm semver - Tilde Ranges
+`^version`	Compatible with version, i.e., accept new minor and patch versions See npm semver - Caret Ranges
+`version`	Must match version exactly
+`>version`	Must be greater than version
+`>=`version	Must be equal or greater than version
+`<version`	Must be lesser than version
+`<=`version	Must be equal or lesser than version
+`1`.2.x	1.2.0, 1.2.1, etc., but not 1.3.0
+`*`	Matches any version
+`latest`	Obtains latest release
+
+Note: When installing use `npm install package_name@version`. Only `package_name` will install the latest package available.
