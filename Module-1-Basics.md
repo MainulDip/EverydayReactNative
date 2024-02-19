@@ -60,7 +60,7 @@ other helper/assets/stylesheet files can be in root `./` directory (ie, assets, 
 ### Always use TS:
 Get better IDE suggestion using TypeScript. Just rename the index.jsx to `index.tsx`, if expo server is running, it will automatically add all the types and will provide a `tsconfig.json` as well
 
-### Stack and Stack.Screen:
+### Stack and Stack.Screen
 ```tsx
 /**
  * Showing a view with a ActionBar/NavigationBar/HeaderBar and 3 Components

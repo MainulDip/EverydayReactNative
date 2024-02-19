@@ -1,7 +1,7 @@
 ## React Native:
 Personalized Instruction With Jumpstart Docs for React Native using both React-Native-CLI and Expo
 
-### Components:
+### Components
 > Core Components:
 
 All the core components are [here](https://reactnative.dev/docs/components-and-apis). Most common Core Components:

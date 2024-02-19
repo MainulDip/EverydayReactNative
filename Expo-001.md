@@ -93,3 +93,18 @@ const styles = StyleSheet.create({
 
 export default StyleExampleComponent;
 ```
+
+### icon library `@expo/vector-icons`:
+install by `npx expo install @expo/vector-icons` and import specific module by `import FontAwesome from "@expo/vector-icons/FontAwesome"`
+
+```js
+import FontAwesome from "@expo/vector-icons/FontAwesome
+//....
+<FontAwesome
+  name="picture-o"
+  size={18}
+  color="#25292e"
+  style={{color: '#fff'}}
+/>
+//....
+```
