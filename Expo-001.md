@@ -71,7 +71,7 @@ const StyleExampleComponent = () => {
       <Text style={{ color: '#fff' }}>White Text</Text>
       <Text style={styles.red}>just red</Text>
       <Text style={styles.bigBlue}>just bigBlue</Text>
-      <Text style={[styles.bigBlue, styles.red]}>bigBlue, then red</Text>
+      <Text style={ [ styles.bigBlue, styles.red, {backgroundColor: '#000'} ] }>bigBlue, then red</Text>
       <Text style={[styles.red, styles.bigBlue]}>red, then bigBlue</Text>
     </View>
   );
@@ -108,3 +108,9 @@ import FontAwesome from "@expo/vector-icons/FontAwesome
 />
 //....
 ```
+
+### Debugging:
+Sometimes error can happen, when developing, be up-to-date with the latest release. Sometimes installing a new project with `npx create-expo-app app-name` and test the specific component that threw error previously in the fresh environment. Copy the exact versions from the package.json and put that in working project
+
+npx expo install --check
+npx expo-doctor

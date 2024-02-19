@@ -1,13 +1,33 @@
-import { StyleSheet, View, Pressable, Text } from 'react-native'
+import React from 'react';
+import { StyleSheet, View, Pressable, Text } from 'react-native';
+import {FontAwesome} from '@expo/vector-icons';
 
 export default function Button({ label }) {
-    return (
-        <View style={ styles.buttonContainer }>
-            <Pressable style={styles.button} onPress={()=>alert('You Pressed a button')}>
-                <Text style={{color: '#fff'}}>{label}</Text>
-            </Pressable>
-        </View>
-    )
+    if (1 == 1) {
+        return (
+            <View style={[styles.buttonContainer, { borderWidth: 4, borderColor: "#ffd33d", borderRadius: 18 }]}>
+                <Pressable
+                    style={[styles.button, { backgroundColor: "#fff" }]}
+                    onPress={() => alert('You Pressed a button')}>
+                    <FontAwesome
+                        name="picture-o"
+                        size={18}
+                        color="#25292e"
+                        style={styles.buttonIcon}
+                    />
+                    <Text style={[styles.buttonLabel, { color: "#25292e" }]}>{label}</Text>
+                </Pressable>
+            </View>
+        )
+    } else {
+        return (
+            <View style={styles.buttonContainer}>
+                <Pressable style={styles.button} onPress={() => alert('You Pressed a button')}>
+                    <Text style={styles.buttonLabel}>{label}</Text>
+                </Pressable>
+            </View>
+        )
+    }
 }
 
 const styles = StyleSheet.create({
