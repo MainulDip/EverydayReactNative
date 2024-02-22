@@ -4,7 +4,7 @@ const ImageViewer = ({placeholderImageSource}) => {
   return (
     <Image source={placeholderImageSource} style={styles.image} />
   )
-}
+};
 
 export default ImageViewer
 

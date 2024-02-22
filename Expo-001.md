@@ -118,6 +118,12 @@ add .env file and inject `BROWSER=google-chrome` entry (for ubuntu) then run `np
 
 For hot reload on web, install `@expo/metro-runtime` as dev dependency and import that into the `App.js/ts` file at the first place using just `import "@expo/metro-runtime"`
 
+```sh
+# Sample .env for setting default development browser for React Native Web
+BROWSER=google-chrome
+# BROWSER=firefox
+```
+
 ### Debugging:
 Use `npx expo install <package_name>` whenever possible. Its a wrapper that takes care of version compatibility.
 npm install installs the latest version of a package by default, while `npx expo install` installs the version of the package that's compatible with the current version of the Expo SDK
@@ -144,3 +150,6 @@ npx expo-doctor
 `latest`	Obtains latest release
 
 Note: When installing use `npm install package_name@version`. Only `package_name` will install the latest package available.
+
+### Expo Image Picker:
+`npx expo install expo-image-picker`

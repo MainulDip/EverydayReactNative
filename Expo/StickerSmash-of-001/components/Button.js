@@ -2,13 +2,13 @@ import React from 'react';
 import { StyleSheet, View, Pressable, Text } from 'react-native';
 import { FontAwesome } from '@expo/vector-icons';
 
-export default function Button({ label, theme }) {
+export default function Button({ label, theme, onPress }) {
     if (theme == "primary") {
         return (
             <View style={[styles.buttonContainer, { borderWidth: 4, borderColor: "#ffd33d", borderRadius: 18 }]}>
                 <Pressable
                     style={[styles.button, { backgroundColor: "#fff" }]}
-                    onPress={() => alert('You Pressed a button')}>
+                    onPress={onPress} >
                     <FontAwesome
                         name="picture-o"
                         size={18}
@@ -23,6 +23,12 @@ export default function Button({ label, theme }) {
         return (
             <View style={styles.buttonContainer}>
                 <Pressable style={styles.button} onPress={() => alert('You Pressed a button')}>
+                <FontAwesome
+                        name="picture-o"
+                        size={18}
+                        color="#fff"
+                        style={styles.buttonIcon}
+                    />
                     <Text style={styles.buttonLabel}>{label}</Text>
                 </Pressable>
             </View>
@@ -46,6 +52,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         flexDirection: 'row',
+        backgroundColor: '#000'
     },
     buttonIcon: {
         paddingRight: 8,
