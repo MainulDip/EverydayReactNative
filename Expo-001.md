@@ -1,4 +1,25 @@
 #### Expo-001:
+Initialize an expo project `npx create-expo-app AppName --template blank`, which will create a new directory of `AppName` and put all the project code inside of it. Using `./` instead will create the project in the current directory and the project name will be the directory name.
+`npx create-expo-app <path> [options]`
+Upcoming version is `npx create-expo <path> [options]`
+
+https://www.npmjs.com/package/create-expo-app
+
+
+### --template default vs blank For entry point:
+default template uses `Expo router` and the `entry point` is `node-modules/expo-router/entry.js`. But blank template doesn't use that and the entry point is `node-modules/expo/AppEntry.js`
+
+For changing app's entry file see
+https://stackoverflow.com/questions/47742280/how-to-define-entry-point-for-react-native-app
+https://docs.expo.dev/versions/latest/sdk/register-root-component/#common-questions
+
+https://docs.expo.dev/router/reference/src-directory/ | expo-router can use both `src/app` and `app/` directory (one or another). 
+Custom entry and directory structure is discouraged 
+
+
+### Expo Router:
+Installation and manual setups https://docs.expo.dev/router/installation/#quick-start
+
 ### React Native Core Components:
 * View => Like div in web, used for structuring the layout. used like `<View> <Text>Hello, React Native!</Text> </View>`
 
@@ -51,8 +72,6 @@ There are also `TouchableOpacity` and `TouchableWithoutFeedback`
 ```
 
 Also => `VirtualizedList`, `DrawerLayoutAndroid`, `TouchAbleNativeFeedback`, `InputAccessoryView` and `SafeAreaView`, etc.
-
-### Expo Components:
 
 ### Styling in RN:
 All of the core components accept a prop named `style`, and style names follow `camelCasing` rule.
