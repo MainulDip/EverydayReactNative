@@ -1,4 +1,4 @@
-import { Image, StyleSheet, Platform } from 'react-native';
+import { Image, StyleSheet, Platform, Text } from 'react-native';
 
 import { HelloWave } from '@/components/HelloWave';
 import ParallaxScrollView from '@/components/ParallaxScrollView';
@@ -16,8 +16,9 @@ export default function HomeScreen() {
         />
       }>
       <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">Welcome!</ThemedText>
+        <ThemedText type="title">Welcome!!!</ThemedText>
         <HelloWave />
+        <Text style={styles2.textColor}>Bismillah</Text>
       </ThemedView>
       <ThemedView style={styles.stepContainer}>
         <ThemedText type="subtitle">Step 1: Try it</ThemedText>
@@ -68,3 +69,9 @@ const styles = StyleSheet.create({
     position: 'absolute',
   },
 });
+
+const styles2 = StyleSheet.create ({
+  textColor: {
+    color: "#40df20"
+  }
+})

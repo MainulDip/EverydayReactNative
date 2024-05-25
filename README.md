@@ -8,7 +8,7 @@ All the core components are [here](https://reactnative.dev/docs/components-and-a
 
 | React Native UI Component | Android View   | iOS View         | Web Analog               | Description                                                                                           |
 | ------------------------- | -------------- | ---------------- | ------------------------ | ----------------------------------------------------------------------------------------------------- |
-| `<View>`                  | `<ViewGroup>`  | `<UIView>`       | A non-scrollling `<div>` | A container that supports layout with flexbox, style, some touch handling, and accessibility controls |
+| `<View>`                  | `<ViewGroup>`  | `<UIView>`       | A non-scrolling `<div>` | A container that supports layout with flexbox, style, some touch handling, and accessibility controls |
 | `<Text>`                  | `<TextView>`   | `<UITextView>`   | `<p>`                    | Displays, styles, and nests strings of text and even handles touch events                             |
 | `<Image>`                 | `<ImageView>`  | `<UIImageView>`  | `<img>`                  | Displays different types of images                                                                    |
 | `<ScrollView>`            | `<ScrollView>` | `<UIScrollView>` | `<div>`                  | A generic scrolling container that can contain multiple components and views                          |
@@ -27,7 +27,7 @@ All the core components are [here](https://reactnative.dev/docs/components-and-a
 > TouchableOpacity: props => activeOpacity={.9}
 
 ### Linking | Unlinking External Libraries: link both Android/iOS native module with react native
-> npx react-native link | npx react-native unlink libraryname
+> npx react-native link | npx react-native unlink library-name
 
 ### Building APK:
 > Production Build Docs: https://reactnative.dev/docs/signed-apk-android
@@ -44,7 +44,7 @@ Gradle Command
 ```bash
 # From Android Directory
 ./gradlew clean
-# Generate APK File/s
+# Generate the APK File/s
 ./gradlew assembleRelease
 # Bundling For Google PlayStore with aab extension
 ./gradlew bundleRelease

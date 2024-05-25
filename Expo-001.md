@@ -20,6 +20,12 @@ Custom entry and directory structure is discouraged
 ### Expo Router:
 Installation and manual setups https://docs.expo.dev/router/installation/#quick-start
 
+### App.json | App.config.js:
+Both will work, but App.config.js can do calculations/scripting inside of it.
+
+"slug" is for deep-linking into ios/android app's specific page/route/navigation. 
+### Expo Stack navigation:
+
 ### React Native Core Components:
 * View => Like div in web, used for structuring the layout. used like `<View> <Text>Hello, React Native!</Text> </View>`
 
