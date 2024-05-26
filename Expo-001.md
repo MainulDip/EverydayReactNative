@@ -17,9 +17,66 @@ https://docs.expo.dev/router/reference/src-directory/ | expo-router can use both
 Custom entry and directory structure is discouraged 
 
 
-### Expo Router:
+### Expo Router and Directory structure:
 Installation and manual setups https://docs.expo.dev/router/installation/#quick-start
 
+`app` or `src/app` is the application source directory and the directory structure will be used as router instructions by `expo-router`
+- `index.tsx` is the entry point (page) of the route
+- `_layout.tsx` holds layout information 
+- `any_other_file.tsx` other pages of the directory
+- `+html.tsx` web specific structure that will hold layout and page as `{children}` 
+- `+not-found.tsx` web specific 404
+- `(dir)` is group-route syntax to hide a directory from url and programmatically navigation by Stack navigation or other from `_layout` file. ie, `<Stack.Screen name="(dir)" options={{ headerShown: false }} />`
+
+- `[anything].tsx` dynamic route, it will match any unmatched path at a given segment/directory/route level. ie, `app/blog/[slug].tsx` will match	`/blog/123` path. Dynamic segments are accessible as search parameters in the page component.
+
+### Stack Navigation | Expo Router:
+Expo Router uses a stack-based navigation approach (newly navigated route gets added to a stack).
+
+`push` and `replace` props can be used with `<Link>` component to replace default behavior. ie, `<Link push href="/feed">Login</Link>`.
+
+- `router` object form `expo-router` can be used to to perform navigation outside of React Component (from event handlers or utility functions). 
+
+```tsx
+import { router } from 'expo-router';
+export function logout() {
+  router.replace('/login');
+}
+```
+
+The router object is immutable and contains the following functions:
+
+- `navigate`: (href: Href) => void. Perform a navigate action.
+- `push`: (href: Href) => void. Perform a push action.
+- `replace`: (href: Href) => void. Perform a replace action.
+- `back`: () => void. Navigate back to previous route.
+- `canGoBack`: () => boolean Returns true if a valid history stack exists and the back() function can pop back.
+`setParams`: (params: Record<string, string>) => void Update the query params for the currently selected route.
+
+
+https://docs.expo.dev/router/navigating-pages/#understanding-native-navigation
+
+### `_layout.tsx` | Layout Routes:
+provide slots for shared elements like headers and tab bars to persist between pages. 
+
+```tsx
+// app/_layout.tsx
+import { Slot } from 'expo-router';
+
+// the default exported Component will be used as layout
+export default function HomeLayout() {
+  return (
+    <>
+      <Header />
+      <Slot />
+      <Footer />
+    </>
+  );
+}
+```
+* `Slot` will render the current child route, think of this like the children prop in React.
+
+* `Stack` can be used to add routes for multiple layout routes, through multiple directories or for `Group Routes, ie, (dir)`
 ### App.json | App.config.js:
 Both will work, but App.config.js can do calculations/scripting inside of it.
 
