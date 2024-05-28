@@ -83,6 +83,19 @@ Both will work, but App.config.js can do calculations/scripting inside of it.
 "slug" is for deep-linking into ios/android app's specific page/route/navigation. 
 ### Expo Stack navigation:
 
+### NativeWind | TailwindCSS Setup For Mobile and Web:
+For installing NativeWind V2, follow the docs https://www.nativewind.dev/quick-starts/expo
+
+For web, expo uses tailwindcss directly (not nativewind, which is a transpiler for tailwindcss in the native mobile platforms). So web package needs to be installed. 
+
+For NativeWind V2 (Not V4) install the specific tailwindcss and postcss-loader webpack plugin.
+`npm i -D tailwindcss@3.3.2 postcss autoprefixer postcss-loader@4.2.0`
+
+Add postcss.config.js and styles.css to as shown in the docs
+
+Then add a webpack.config.js file with this https://www.nativewind.dev/quick-starts/expo#example-webpack-setup
+
+Finally import the style-sheet into the `_layout.tsx` file
 ### React Native Core Components:
 * View => Like div in web, used for structuring the layout. used like `<View> <Text>Hello, React Native!</Text> </View>`
 

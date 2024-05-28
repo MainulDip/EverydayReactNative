@@ -9,7 +9,7 @@
 
 `SafeAreaView` provides a safe zone to render content without covered by notch, home indicator or status bar.
 
-### Touchable Components:
+### Touchable Component:
 `<TouchableOpacity onPress={props.onPress}>...</...>`: suitable for button or another interactive element that fades in opacity if pressed.
 
 `<ActivityIndicator>...</...>` used for showing a spinner or loading indicator. Has `size` and `color` property

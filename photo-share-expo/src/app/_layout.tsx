@@ -1,4 +1,5 @@
 import { Slot, Stack } from 'expo-router';
+import '../assets/styles/tailwind-styles.css'
 
 export default function RootLayout() {
   return (
