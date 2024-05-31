@@ -93,7 +93,7 @@ For NativeWind V2 (Not V4) install the specific tailwindcss and postcss-loader w
 
 Add postcss.config.js and styles.css to as shown in the docs
 
-Then add a webpack.config.js file with this https://www.nativewind.dev/quick-starts/expo#example-webpack-setup
+Then add a webpack.config.js file with this https://www.nativewind.dev/quick-starts/expo#example-webpack-setup.
 
 Finally import the style-sheet into the `_layout.tsx` file
 ### React Native Core Components:

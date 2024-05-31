@@ -26,3 +26,4 @@ export default function TabsLayout () {
   )
 }
 ```
+### Image | React Native & Expo-Image:
