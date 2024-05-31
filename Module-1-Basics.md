@@ -16,7 +16,7 @@
 
 ### Expo App Initialization:
 - install starting project on current directory with expo router ``npx create-expo-app@latest -e with-router ./``
-- install font sdk `npx expo install expo-font`
+- install font sdk `npx expo install expo-font`.
 - install some other dependency `npm install axios react-native-dotenv` where axios for fetching apis and dotenv for environment variable
 
 Then Create an `app` directory and add `index.js` and `_layout.js`

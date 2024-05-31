@@ -1,6 +1,6 @@
 import { Slot, SplashScreen, Stack } from 'expo-router';
 import '../assets/styles/tailwind-styles.css'
-import React, { useEffect } from'react';
+import React, { useEffect } from 'react';
 import { useFonts } from 'expo-font';
 
 
@@ -23,7 +23,7 @@ export default function RootLayout() {
   useEffect(() => {
     if (error) throw error;
     if (fontsLoaded) SplashScreen.hideAsync();
-  },[fontsLoaded, error]);
+  }, [fontsLoaded, error]);
 
   if (!fontsLoaded && !error) return null;
 
@@ -31,6 +31,7 @@ export default function RootLayout() {
     <>
       <Stack>
         <Stack.Screen name="index" options={{ headerShown: false }} />
+        <Stack.Screen name="(tabs)" options={{ headerShown: true, title: "Tabs" }} />
       </Stack>
     </>
 

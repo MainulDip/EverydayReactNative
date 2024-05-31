@@ -103,7 +103,7 @@ Finally import the style-sheet into the `_layout.tsx` file
 
  + StatusBar, Switch, Text, KeyboardAvoidingView, etc Components
 
-* TextInput => `<TextInput placeholder="Enter your username" style={styles.input} onChangeText={text => onChangeText(text)} />`
+* TextInput => `<TextInput placeholder="Enter your username" style={styles.input} onChangeText={text => onChangeText(text)} />`.
 
 * Button => `<Button title="Click me" onPress={() => alert('Button pressed!')} />`
 

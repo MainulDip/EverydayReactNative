@@ -1,2 +1,2 @@
-### Data Storage System in RN:
+### Data Storage System in RN and Expo:
 `SqlLite`, `MMKV` and `Expo Secure`.
