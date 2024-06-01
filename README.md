@@ -96,4 +96,4 @@ debugging -> 1. expo tools, 2. flipper, 3. flash-light
 error-reporting -> 1. Bugs net 2. Centree
 components -> don't re-invent the wheel, some open source component are already built by community on RN (like Cha Component, list, loading, skeleton view, etc )
 
-`TenStackQuery` -> https://tanstack.com/query/latest/docs/react/overview
+`TenStackQuery` -> https://tanstack.com/query/latest/docs/react/overview.
