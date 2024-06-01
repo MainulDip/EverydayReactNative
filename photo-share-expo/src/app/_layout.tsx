@@ -32,7 +32,7 @@ export default function RootLayout() {
       <Stack>
         <Stack.Screen name="index" options={{ headerShown: false }} />
         <Stack.Screen name="(tabs)" options={{ headerShown: true, title: "Tabs" }} />
-        <Stack.Screen name="(auth)" options={{ headerShown: true, title: "Authentication" }} />
+        {/* <Stack.Screen name="(auth)" options={{ headerShown: true, title: "Authentication" }} /> */}
       </Stack>
     </>
 

@@ -80,17 +80,16 @@ export default TabsLayout
 ```jsx
 import { View, Text, ScrollView, Image } from 'react-native'
 import React from 'react'
-import { Link } from 'expo-router'
 import { StatusBar } from 'expo-status-bar'
 import { SafeAreaView } from 'react-native-safe-area-context'
-import { images } from '../constants'
-import CustomButton from '../components/CustomButton'
 
 export default function App() {
   return (
     <SafeAreaView className='bg-primary h-full'  >
-      <ScrollView contentContainerStyle={{/* 'height': '100%' */}}>
-        <View className="...">
+          <SafeAreaView className='bg-primary'  >
+          // ScrollView with centered content for smaller devices
+            <ScrollView className='h-full' contentContainerStyle={{ flexGrow: 1 }}>
+              <View className="w-full flex-1 items-center justify-center px-4">
         </View>
       </ScrollView>
 

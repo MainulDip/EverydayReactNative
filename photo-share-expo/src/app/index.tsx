@@ -1,4 +1,4 @@
-import { View, Text, ScrollView, Image } from 'react-native'
+import { View, Text, ScrollView, Image, Dimensions } from 'react-native'
 import React from 'react'
 import { router } from 'expo-router'
 import { StatusBar } from 'expo-status-bar'
@@ -10,10 +10,8 @@ export default function App() {
   return (
 
     <SafeAreaView className='bg-primary'  >
-      
-      <ScrollView className='flex-grow flex-col' contentContainerStyle={{ 'justifyContent': 'center', flexGrow: 1 /* 'height': '100%' */ }}>
-        <View className='flex-1 items-center justify-center'>
-        <View className="w-full items-center px-4">
+      <ScrollView className="h-full" contentContainerStyle={{ flexGrow: 1 /* , 'height': '100%' */ }}>
+        <View className="w-full flex-1 items-center justify-center px-4">
           <Image
             source={images.logo}
             className='w-[130px] h-[84px]'
@@ -37,42 +35,16 @@ export default function App() {
 
           <Text className='font-pregular text-sm  text-gray-100 mt-7 text-center'>Where creativity meets innovation: embark on a journey of limitless exploration with Aora</Text>
 
-          {/* <CustomButton
-            title="Continue with Email"
-            handlePress={() => { router.push('/(auth)/sign-in') }}
-            containerStyle="w-full mt-7"
-            isLoading={false}
-            textStyle={''}
-          />
-
-
           <CustomButton
             title="Continue with Email"
             handlePress={() => { router.push('/(auth)/sign-in') }}
-            containerStyle="w-full mt-7"
+            containerStyle="mt-7"
             isLoading={false}
             textStyle={''}
           />
-
-          <CustomButton
-            title="Continue with Email"
-            handlePress={() => { router.push('/(auth)/sign-in') }}
-            containerStyle="w-full mt-7"
-            isLoading={false}
-            textStyle={''}
-          />
-
-          <CustomButton
-            title="Continue with Email"
-            handlePress={() => { router.push('/(auth)/sign-in') }}
-            containerStyle="w-full mt-7"
-            isLoading={false}
-            textStyle={''}
-          /> */}
-        </View>
         </View>
       </ScrollView>
-      
+
       <StatusBar backgroundColor='#161622' style='light' />
     </SafeAreaView>
   )
