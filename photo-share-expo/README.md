@@ -74,3 +74,29 @@ const TabsLayout = () => {
 
 export default TabsLayout
 ```
+
+
+### SafeAreaView | StatusBar | ScrollView:
+```jsx
+import { View, Text, ScrollView, Image } from 'react-native'
+import React from 'react'
+import { Link } from 'expo-router'
+import { StatusBar } from 'expo-status-bar'
+import { SafeAreaView } from 'react-native-safe-area-context'
+import { images } from '../constants'
+import CustomButton from '../components/CustomButton'
+
+export default function App() {
+  return (
+    <SafeAreaView className='bg-primary h-full'  >
+      <ScrollView contentContainerStyle={{/* 'height': '100%' */}}>
+        <View className="...">
+        </View>
+      </ScrollView>
+
+      // will show statusbar icon as light color in the dark mode
+      <StatusBar backgroundColor='#161622' style='light'/>
+    </SafeAreaView>
+  )
+}
+```
