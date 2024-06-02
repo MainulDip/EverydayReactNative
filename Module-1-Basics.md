@@ -44,7 +44,7 @@ const Layout = () => {
 export default Layout;
 ```
 
-Then start the project by `npm start`. Then View the initial app in ExpoGo app or in the browser or by android/ios device through `expo-dev-client`.
+Then start the project by `npx expo start`. Then View the initial app in ExpoGo app or in the browser or by android/ios device through `expo-dev-client`.
 
 Troubleshooting -> if wifi is blocking access, then install expo-cli globally (legacy and deprecated ) by `npm install -g expo-cli` and run the app using `expo-cli start --tunnel`
 
