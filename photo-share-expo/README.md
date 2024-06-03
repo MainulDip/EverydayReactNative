@@ -110,3 +110,5 @@ const FormField = ({title, value}: {title: string; value: {email: string; passwo
   )
 }
 ```
+
+### Integrating With Local Appwrite Server with docker-compose:

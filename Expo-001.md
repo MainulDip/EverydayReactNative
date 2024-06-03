@@ -99,7 +99,7 @@ Finally import the style-sheet into the `_layout.tsx` file
 ### React Native Core Components:
 * View => Like div in web, used for structuring the layout. used like `<View> <Text>Hello, React Native!</Text> </View>`
 
-* Image & ImageBackground => Self explanatory, used like `<Image source={require('./image.png')} style={styles.image} />`
+* Image & ImageBackground => Self explanatory, used like `<Image source={require('./image.png')} style={styles.image} />`.
 
  + StatusBar, Switch, Text, KeyboardAvoidingView, etc Components
 
