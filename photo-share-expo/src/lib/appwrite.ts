@@ -29,7 +29,7 @@ export type User = {
     password: string;
 }
 
-// Init your React Native SDK
+
 const client = new Client();
 
 client
@@ -47,31 +47,24 @@ export const createUser = async ({ username, email, password }: User) => {
     try {
         // Register User
         const newAccount = await account.create(ID.unique(), email, password, username)
-        // .then(function (response) {
-        //     console.log(response);
-        // }, function (error) {
-        //     console.log(error);
+
+        // if (!newAccount) throw Error
+
+        // const avatarUrl = avatars.getInitials(username);
+
+        // const session = await signIn(email, password); // Creation of a session is prohibited when a session is active
+
+        // const newUser = await databases.createDocument(config.databaseId, config.userCollectionId, ID.unique(), {
+        //     accountid: newAccount.$id,
+        //     email,
+        //     username,
+        //     avatar: avatarUrl
+
         // });
 
-        if (!newAccount) throw Error
-
-        const avatarUrl = avatars.getInitials(username);
-
-        const session = await signIn(email, password); // Creation of a session is prohibited when a session is active
-
-        const newUser = await databases.createDocument(config.databaseId, config.userCollectionId, ID.unique(), {
-            accountId: newAccount.$id,
-            email,
-            username,
-            avatar: avatarUrl
-
-        });
-
-        return newUser;
+        // return newUser;
     } catch (error) {
-        console.log(error);
-        throw new Error(`Error from appwrite.ts : ${error}`);
-
+        console.log(`Error from appwrite.ts : ${(error as Error).message}`);
     }
 
 }
@@ -88,6 +81,24 @@ export async function signIn(email: string, password: string) {
     }
 }
 
+export async function logOut() {
+    const session_list = await account.listSessions();
+    console.log("Sessions: ", `${session_list.sessions[0].$id}`)
+
+    // deleting all sessions
+    try {
+        if (session_list.total) {
+            await account.deleteSessions();
+            console.log("Deleting Session: ", `${session_list.sessions[0].$id}`);
+        } else {
+            console.log("Not logged in yet");
+        }
+    } catch (error) {
+        throw new Error(`Session deletion error: ${(error as Error).message}`);
+
+    }
+
+}
 
 
 

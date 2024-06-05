@@ -6,7 +6,7 @@ import FormField from '@/src/components/FormField'
 import CustomButton from '@/src/components/CustomButton'
 import { Link, router } from 'expo-router'
 
-import { createUser } from '@/src/lib/appwrite'
+import { createUser, logOut } from '@/src/lib/appwrite'
 
 const SignUp = () => {
 
@@ -21,6 +21,7 @@ const SignUp = () => {
   const submit = async () => {
     if (!form.username || !form.email || !form.password) {
       Alert.alert("Error", "Please fill all those fields")
+      return;
     }
 
     setIsSubmitting(true);
@@ -36,10 +37,11 @@ const SignUp = () => {
     } finally {
       setIsSubmitting(false);
     }
+  }
 
-    const userCreate = await createUser(form);
 
-
+  const logoutnow = async () => {
+    logOut();
   }
 
   return (
@@ -80,6 +82,15 @@ const SignUp = () => {
             <Text className="text-lg text-gray-100 font-pregular">Have an account already?</Text>
             <Link className="text-lg font-psemibold text-secondary" href={`/sign-in`}> Sign In </Link>
           </View>
+
+          <View className="justify-center pt-5 flex-row gap-2">
+            <Text className="text-lg text-gray-100 font-pregular">Already LoggedIn? </Text>
+          </View>
+          <CustomButton title={'Log Out'}
+            handlePress={logoutnow}
+            containerStyle={'mt-12'}
+            isLoading={isSubmitting}
+            textStyle={''} />
         </View>
 
       </ScrollView>
