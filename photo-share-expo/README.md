@@ -6,6 +6,9 @@ npx expo start
 then press the letter as instructed in the terminal console.
 
 
+### Device (Emulated) Selection:
+For android use `npx expo run:android -d` to get the available device selection option. All the devices in Android Device Manager are available.
+
 ### Navigation:
 
 ### Tabs (Layout):

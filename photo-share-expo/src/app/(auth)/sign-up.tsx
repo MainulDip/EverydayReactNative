@@ -30,7 +30,7 @@ const SignUp = () => {
 
       // set it to global context
 
-      router.replace("/home");
+      // router.replace("/home");
     } catch (error) {
       Alert.alert("Error :", (error as Error).message)
     } finally {
