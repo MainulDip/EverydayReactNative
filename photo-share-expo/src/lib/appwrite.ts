@@ -48,21 +48,25 @@ export const createUser = async ({ username, email, password }: User) => {
         // Register User
         const newAccount = await account.create(ID.unique(), email, password, username)
 
-        // if (!newAccount) throw Error
+        if (!newAccount) throw Error
 
-        // const avatarUrl = avatars.getInitials(username);
+        const avatarUrl = avatars.getInitials(username);
 
-        // const session = await signIn(email, password); // Creation of a session is prohibited when a session is active
+        const session = await signIn(email, password); // Creation of a session is prohibited when a session is active
 
-        // const newUser = await databases.createDocument(config.databaseId, config.userCollectionId, ID.unique(), {
-        //     accountid: newAccount.$id,
-        //     email,
-        //     username,
-        //     avatar: avatarUrl
+        const newUser = await databases.createDocument(config.databaseId, config.userCollectionId, ID.unique(), {
+            accountid: newAccount.$id,
+            email,
+            username,
+            avatar: avatarUrl
 
-        // });
+        });
 
-        // return newUser;
+
+        console.log("User Created Successfully: ", newUser);
+        console.log("And User Is Logged In as Session ID: ", session.$id);
+
+        return newUser;
     } catch (error) {
         console.log(`Error from appwrite.ts : ${(error as Error).message}`);
     }
