@@ -1,4 +1,4 @@
-import { Client, Account, ID, Avatars, Databases } from 'react-native-appwrite';
+import { Client, Account, ID, Avatars, Databases, Query } from 'react-native-appwrite';
 
 export const config = {
     endpoint: "http://192.168.0.9/v1",
@@ -69,6 +69,7 @@ export const createUser = async ({ username, email, password }: User) => {
         return newUser;
     } catch (error) {
         console.log(`Error from appwrite.ts : ${(error as Error).message}`);
+        throw new Error((error as Error).message); // sending ui alert message
     }
 
 }
@@ -82,6 +83,26 @@ export async function signIn(email: string, password: string) {
         console.log(error);
         throw new Error(`${error}`);
 
+    }
+}
+
+
+export async function getCurrentUser() {
+    try {
+        const currentAccount = await account.get();
+        if (!currentAccount) throw Error(`!currentAccount Error`);
+        // console.log("currentAccount.name: ", currentAccount.name)
+
+        const currentUser = await databases.listDocuments(config.databaseId, config.userCollectionId, [
+            Query.equal(`accountid`, currentAccount.$id)
+        ])
+        if (!currentUser) throw Error(`!currentUser Error`);
+
+        console.log(`appwrite.ts getCurrentUser returns: `, currentUser);
+        return currentUser.documents[0];
+
+    } catch (error) {
+        console.log("appwrite.ts getCurrentUser Error: ", (error as Error).message)
     }
 }
 
