@@ -7,8 +7,16 @@ import { Models } from 'react-native-appwrite';
 
 
 type Props = { children: React.ReactNode };
+type GlobalContextValue = {
+  isLoggedIn?: boolean;
+  setIsLoggedIn?: React.Dispatch<React.SetStateAction<boolean>>;
+  user?: Models.Document | undefined;
+  setUser?: React.Dispatch<React.SetStateAction<Models.Document | undefined>>;
+  isLoading?: boolean;
+  setIsLoading?: React.Dispatch<React.SetStateAction<boolean>>;
+}
 
-const GlobalContext = createContext({});
+const GlobalContext = createContext<GlobalContextValue>({});
 export const useGlobalContext = () => useContext(GlobalContext);
 
 const GlobalProvider = ({ children }: Props) => {
@@ -25,6 +33,7 @@ const GlobalProvider = ({ children }: Props) => {
         if (res) {
           console.log(res)
           setUser({ ...res });
+          setIsLoggedIn(true);
         } else {
           setIsLoading(false);
           // setUser(undefined)
