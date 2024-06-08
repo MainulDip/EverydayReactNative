@@ -19,7 +19,7 @@ const SearchInput = () => {
     const [searchText, setSearchText] = useState("")
 
     return (
-        <View className={`space-y-2`}>
+        <View className={`space-y-2 mt-4`}>
             {/* <Text className='text-white font-psemibold'>{title}</Text> */}
             <View className='w-full h-16 px-4 mb-2 bg-black-200 focus:border-secondary flex-row items-center border border-red-500'>
 
@@ -27,13 +27,14 @@ const SearchInput = () => {
                     value={searchText}
                     onChangeText={setSearchText}
                     placeholderTextColor="#7b7b8b"
+                    placeholder="Search for video topics"
                 />
 
                 <TouchableOpacity
                     // onPress={() => setShowPassword(!showPassword)}
                 >
                     <Image
-                        className="w-6 h-6"
+                        className="w-5 h-5"
                         resizeMode="contain"
                         source={icons.search}
                     />

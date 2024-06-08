@@ -3,6 +3,7 @@ import React from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { images } from '@/src/constants'
 import SearchInput from '@/src/components/SearchInput'
+import Trending from '@/src/components/Trending'
 
 const Home = () => {
   return (
@@ -26,14 +27,22 @@ const Home = () => {
 
               <View className="mt-1.5">
                 <Image source={images.logoSmall}
-                className="w-9 h-10"
-                resizeMode="contain"
+                  className="w-9 h-10"
+                  resizeMode="contain"
                 />
               </View>
             </View>
 
-            {/* Search Input */}
             <SearchInput />
+
+            {/* Latest Videos */}
+            <View className="w-full flex-1 pt-4 pb-8">
+              <Text className="text-gray-100 text-lg font-pregular mb3">
+                Bismillah
+              </Text>
+              
+              <Trending posts0={[{id:1}, {id:2}, {id: 3}]} />
+            </View>
 
           </View>
         )}
