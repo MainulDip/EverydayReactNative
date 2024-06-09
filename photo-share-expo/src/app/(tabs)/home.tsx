@@ -1,15 +1,26 @@
 import { View, Text, FlatList, Image } from 'react-native'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { images } from '@/src/constants'
 import SearchInput from '@/src/components/SearchInput'
-import Trending from '@/src/components/Trending'
+import Trending, { VideoDataType } from '@/src/components/Trending'
+import EmptyState from '@/src/components/EmptyState'
 
 const Home = () => {
+
+  const [videoList, setVideoList] = useState<VideoDataType[]>([])
+  // call useEffect, check db for data, if empty return the [], and assign videoList to the FlatList's data prop
+
+  useEffect(()=>{
+    // call appwrite to get the video list and update
+    // setVideoList([{ id: 1 }, { id: 2 }, { id: 3 }]);
+  },[])
+
   return (
     <SafeAreaView className="bg-primary">
       <FlatList
-        data={[{ id: 1 }, { id: 2 }, { id: 3 }]}
+        // data={[{ id: 1 }, { id: 2 }, { id: 3 }]}
+        data={videoList}
         keyExtractor={(item) => item.id.toString()}
         renderItem={({ item }) => (
           <>
@@ -35,16 +46,20 @@ const Home = () => {
 
             <SearchInput />
 
-            {/* Latest Videos */}
-            <View className="w-full flex-1 pt-4 pb-8">
+            {/* Latest Videos | Horizontal Sliding */}
+            <View className="w-full flex-1 justify-start items-start pt-4 pb-8">
               <Text className="text-gray-100 text-lg font-pregular mb3">
-                Bismillah
+                Latest Videos Horizontal Sliders
               </Text>
-              
-              <Trending posts0={[{id:1}, {id:2}, {id: 3}]} />
+              <Trending posts={[{ id: 1 }, { id: 2 }, { id: 3 }, { id: 4 }] ?? []} />
             </View>
-
           </View>
+        )}
+
+        ListEmptyComponent={() => (
+            <EmptyState 
+            title={'No Videos Found'} 
+            subtitle={'Add Your Videos'} />
         )}
 
       />

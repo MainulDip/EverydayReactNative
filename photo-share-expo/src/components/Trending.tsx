@@ -1,20 +1,26 @@
-import { View, Text } from 'react-native'
+import { View, Text, FlatList } from 'react-native'
 import React from 'react'
 
-type TrendingProps = {
-    posts0 ?: {
-        id: number;
-    }[];
-    posts?: Array<{
-        id: number;
-    }>;
+export type VideoDataType = {
+    id: number;
 }
 
-const Trending = ({posts}: TrendingProps) => {
+type TrendingVideoProps = {
+    posts?: VideoDataType[];
+    // posts?: Array<VideoDataType>;
+}
+
+const Trending = ({ posts }: TrendingVideoProps) => {
     return (
-        <View>
-            <Text>Trending</Text>
-        </View>
+        <FlatList
+            keyExtractor={(item) => item.id.toString()}
+            data={posts}
+            renderItem={({ item }) => (
+                <>
+                    <Text className="text-3xl text-white">{item.id}</Text>
+                </>
+            )}
+            horizontal={true} />
     )
 }
 
