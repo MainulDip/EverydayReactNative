@@ -17,7 +17,7 @@ const Home = () => {
   },[])
 
   return (
-    <SafeAreaView className="bg-primary">
+    <SafeAreaView className="bg-primary h-full">
       <FlatList
         // data={[{ id: 1 }, { id: 2 }, { id: 3 }]}
         data={videoList}
@@ -29,7 +29,7 @@ const Home = () => {
         )}
 
         ListHeaderComponent={() => (
-          <View className="my-6 px-4 space-y-6">
+          <View className="my-6 px-4 space-y-6 flex-col">
             <View className="justify-between items-start flex-row md-6">
               <View>
                 <Text className="font-pmedium text-sm text-gray-100">Bismillah</Text>
@@ -47,7 +47,7 @@ const Home = () => {
             <SearchInput />
 
             {/* Latest Videos | Horizontal Sliding */}
-            <View className="w-full flex-1 justify-start items-start pt-4 pb-8">
+            <View className="w-full flex-col justify-start items-start pt-4 pb-8">
               <Text className="text-gray-100 text-lg font-pregular mb3">
                 Latest Videos Horizontal Sliders
               </Text>

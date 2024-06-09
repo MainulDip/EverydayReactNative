@@ -115,3 +115,15 @@ const FormField = ({title, value}: {title: string; value: {email: string; passwo
 ```
 
 ### Integrating With Local Appwrite Server with docker-compose:
+
+### NativeWind's FlexBox Layout in Expo/RN | flex vs flex-1 :
+The `flex` parameter only supporting a single number/property in RN. So multiple flex property in single declaration (short-hand) will not work.
+
+Using NativeWind, always use single declaration. Don't use `flex-1` type of classes, as it will declare multiple short-hand properties. Use  `flex-grow-$`, `flex-shrink-$` and `flex-basis-$` instead of `flex-$n` all at once to resolve potential layout bugs
+
+Also in RN, some flex defaults are different than Web.
+- `flex-direction` is `row` (not `column)
+- `alignContent` defaulting to `flex-start` instead of `stretch`, `flexShrink` defaulting to `0` instead of `1`
+
+
+* Note: `display: flex` is default to all Component (stated by rn docs). It only support `flex` or `none`. No other properties are supported (inline, block, ect are not supported). So specifying `display: flex` is redundant.
