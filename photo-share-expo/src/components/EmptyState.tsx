@@ -5,8 +5,8 @@ import CustomButton from './CustomButton';
 import { router } from 'expo-router';
 
 type Props = {
-    title: string;
-    subtitle: string;
+    title?: string;
+    subtitle?: string;
 }
 
 const EmptyState = ({ title, subtitle }: Props) => {
@@ -15,7 +15,7 @@ const EmptyState = ({ title, subtitle }: Props) => {
             <Image className="w-[215px] h-[215px]" source={images.empty} resizeMode="contain" />
             <Text className="text-white text-2xl">{title}</Text>
             <Text className="text-white">{subtitle}</Text>
-            {/* <CustomButton title={"Add Videos +"} handlePress={()=>{router.replace("/create")}} containerStyle={'my-4'} isLoading={false} textStyle={''}  /> */}
+            <CustomButton title={"Add Videos +"} handlePress={()=>{router.replace("/create")}} containerStyle={'my-4'} isLoading={false} textStyle={''}  />
         </View>
     )
 }
