@@ -16,6 +16,7 @@ const Home = () => {
   const onRefresh = async () => {
     setRefreshing(true);
     // recall videos -> if any new videos appeared
+    setRefreshing(false);
   }
 
   // call useEffect, check db for data, if empty return the [], and assign videoList to the FlatList's data prop
