@@ -14,3 +14,4 @@ let data: TrendingProps = {
     posts1 : [{id:4}, {id:5}, {id: 6}]
 };
 ```
+### Generics:

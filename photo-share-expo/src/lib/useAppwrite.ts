@@ -24,8 +24,8 @@ export const useAppwrite = <T>(fn: Function) => {
         fetchData();
     }, [])
 
-    const reFetchData = () => {
-        fetchData();
+    const reFetchData = async () => {
+        await fetchData();
         console.log("Fetching Data Again", "From useAppwrite.ts \n\n")
     };
 

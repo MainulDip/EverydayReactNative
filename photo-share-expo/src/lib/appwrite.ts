@@ -1,5 +1,5 @@
 import { Client, Account, ID, Avatars, Databases, Query } from 'react-native-appwrite';
-import { Posts } from './entities.dtype';
+import { PostVideo } from './entities.dtype';
 
 export const config = {
     endpoint: "http://192.168.0.9/v1",
@@ -117,7 +117,7 @@ export async function getCurrentUser() {
     }
 }
 
-export async function getAllPosts(): Promise<Posts[]> {
+export async function getAllPosts(): Promise<PostVideo[]> {
     try {
         const post = await databases.listDocuments(
             databaseId,

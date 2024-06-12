@@ -1,6 +1,6 @@
 import { Models } from "react-native-appwrite";
 
-export type Posts = {
+export type PostVideo = {
     $collectionId?: string;
     $createdAt?:    Date | string;
     $databaseId?:   string;

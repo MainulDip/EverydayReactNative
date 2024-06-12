@@ -127,3 +127,11 @@ Also in RN, some flex defaults are different than Web.
 
 
 * Note: `display: flex` is default to all Component (stated by rn docs). It only support `flex` or `none`. No other properties are supported (inline, block, ect are not supported). So specifying `display: flex` is redundant.
+
+### ListView:
+
+### Touchable Opacity:
+
+
+
+### Custom Hook With TypeScript Generics:
