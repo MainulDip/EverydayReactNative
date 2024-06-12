@@ -130,6 +130,20 @@ export async function getAllPosts(): Promise<PostVideo[]> {
     }
 }
 
+export async function getLatestPosts(): Promise<PostVideo[]> {
+    try {
+        const post = await databases.listDocuments(
+            databaseId,
+            videoCollectionId,
+            [Query.orderDesc("$createdAt"), Query.limit(7)]
+        );
+        // console.log(post.documents[0]);
+        return post.documents;
+    } catch (error: any) {
+        throw new Error(`getLatestPosts Error From Appwrite.ts: ${error}`);
+    }
+}
+
 export async function logOut() {
     const session_list = await account.listSessions();
     console.log("Sessions: ", `${session_list.sessions[0].$id}`)

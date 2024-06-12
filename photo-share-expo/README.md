@@ -135,3 +135,7 @@ Also in RN, some flex defaults are different than Web.
 
 
 ### Custom Hook With TypeScript Generics:
+
+### Animation with `react-native-animatable`:
+Install using `npm install react-native-animatable --save`
+Docs https://github.com/oblador/react-native-animatable

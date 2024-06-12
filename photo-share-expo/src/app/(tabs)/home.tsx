@@ -5,17 +5,18 @@ import { images } from '@/src/constants'
 import SearchInput from '@/src/components/SearchInput'
 import Trending, { VideoDataType } from '@/src/components/Trending'
 import EmptyState from '@/src/components/EmptyState'
-import { getAllPosts } from '@/src/lib/appwrite'
+import { getAllPosts, getLatestPosts } from '@/src/lib/appwrite'
 import { PostVideo } from '@/src/lib/entities.dtype'
 import { useAppwrite } from '@/src/lib/useAppwrite'
 import VideoCard from '@/src/components/VideoCard'
+import { isLoading } from 'expo-font';
 
 const Home = () => {
 
   // fetch data using the custom hook
   const {isLoading, data, reFetchData} = useAppwrite<PostVideo[]>(getAllPosts)
 
-  const [latestVideos, setLatestVideos] = useState<PostVideo[]>([]);
+  const {isLoading: latestPostIsLoading, data: latestVideos, reFetchData: reFetchLatestPost} = useAppwrite<PostVideo[]>(getLatestPosts);
   const [refreshing, setRefreshing] = useState(false);
 
 
