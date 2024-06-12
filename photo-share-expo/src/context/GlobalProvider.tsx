@@ -31,7 +31,7 @@ const GlobalProvider = ({ children }: Props) => {
     getCurrentUser()
       .then(res => {
         if (res) {
-          console.log(res)
+          // console.log(res, "from GlobalProvider.tsx")
           setUser({ ...res });
           setIsLoggedIn(true);
         } else {

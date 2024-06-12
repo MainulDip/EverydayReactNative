@@ -1,41 +1,38 @@
-import { View, Text, FlatList, Image, RefreshControl } from 'react-native'
+import { View, Text, FlatList, Image, RefreshControl, Alert } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { images } from '@/src/constants'
 import SearchInput from '@/src/components/SearchInput'
 import Trending, { VideoDataType } from '@/src/components/Trending'
 import EmptyState from '@/src/components/EmptyState'
+import { getAllPosts } from '@/src/lib/appwrite'
+import { Posts } from '@/src/lib/entities.dtype'
+import { useAppwrite } from '@/src/lib/useAppwrite'
 
 const Home = () => {
 
-  const [videoList, setVideoList] = useState<VideoDataType[]>([]);
-  const [latestVideos, setLatestVideos] = useState<VideoDataType[]>([]);
+  // fetch data using the custom hook
+  const {isLoading, data, reFetchData} = useAppwrite<Posts[]>(getAllPosts)
+
+  const [latestVideos, setLatestVideos] = useState<Posts[]>([]);
   const [refreshing, setRefreshing] = useState(false);
 
 
   const onRefresh = async () => {
     setRefreshing(true);
-    // recall videos -> if any new videos appeared
+    reFetchData();
     setRefreshing(false);
   }
-
-  // call useEffect, check db for data, if empty return the [], and assign videoList to the FlatList's data prop
-  useEffect(() => {
-    let videos = [{ id: 1 }, { id: 2 }, { id: 3 }];
-    // call appwrite to get the video list and update
-    // setVideoList(videos);
-    setLatestVideos(videos);
-  }, [])
 
   return (
     <SafeAreaView className="bg-primary h-full">
       <FlatList
         // data={[{ id: 1 }, { id: 2 }, { id: 3 }]}
-        data={videoList}
-        keyExtractor={(item) => item.id.toString()}
+        data={data}
+        keyExtractor={(item, i) => item.$id || i.toString()}
         renderItem={({ item }) => (
           <>
-            <Text className="text-3xl text-white">{item.id}</Text>
+            <Text className="text-3xl text-white">{item.title}</Text>
           </>
         )}
 

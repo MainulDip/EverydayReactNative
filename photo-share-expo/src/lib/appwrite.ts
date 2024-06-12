@@ -1,4 +1,5 @@
 import { Client, Account, ID, Avatars, Databases, Query } from 'react-native-appwrite';
+import { Posts } from './entities.dtype';
 
 export const config = {
     endpoint: "http://192.168.0.9/v1",
@@ -10,6 +11,16 @@ export const config = {
     storageId: "665fef0e003669283d7d",
 
 }
+
+const {
+    endpoint,
+    platform,
+    projectId,
+    databaseId,
+    userCollectionId,
+    videoCollectionId,
+    storageId
+} = config
 
 // export const config = {
 //     endpoint: "https://cloud.appwrite.io/v1",
@@ -98,11 +109,24 @@ export async function getCurrentUser() {
         ])
         if (!currentUser) throw Error(`!currentUser Error`);
 
-        console.log(`appwrite.ts getCurrentUser returns: `, currentUser);
+        // console.log(`appwrite.ts getCurrentUser returns: `, currentUser);
         return currentUser.documents[0];
 
     } catch (error) {
         console.log("appwrite.ts getCurrentUser Error: ", (error as Error).message)
+    }
+}
+
+export async function getAllPosts(): Promise<Posts[]> {
+    try {
+        const post = await databases.listDocuments(
+            databaseId,
+            videoCollectionId
+        );
+        // console.log(post.documents[0]);
+        return post.documents;
+    } catch (error: any) {
+        throw new Error(`getAllPosts Error From Appwrite.ts: ${error}`);
     }
 }
 
