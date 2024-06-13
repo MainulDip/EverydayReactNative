@@ -15,3 +15,5 @@ let data: TrendingProps = {
 };
 ```
 ### Generics:
+
+### optional `?` (undefined) and non-undefined assurance (!):

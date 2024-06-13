@@ -1,6 +1,6 @@
-import { View, Text, FlatList, TextStyle, ViewStyle, ImageStyle, TouchableOpacity, ImageBackground, Image, ViewToken, ViewabilityConfigCallbackPair } from 'react-native';
+import { View, Text, FlatList, TextStyle, ViewStyle, ImageStyle, TouchableOpacity, ImageBackground, Image, ViewToken, Dimensions } from 'react-native';
 import * as Animatable from 'react-native-animatable';
-import React, { useRef, useState } from 'react'
+import React, { useState } from 'react'
 import EmptyState from './EmptyState';
 import { PostVideo } from '../lib/entities.dtype';
 import { CustomAnimation } from 'react-native-animatable';
@@ -13,43 +13,45 @@ type TrendingItemProps = {
 
 const zoomIn = {
     0: {
-        scaleX: 0.9,
-        scaleY: 0.9
+        scaleX: 0.77,
+        scaleY: 0.77
     },
     1: {
-        scaleX: 1,
-        scaleY: 1
+        scaleX: 1.1,
+        scaleY: 1.1
     }
 }
 
 const zoomOut: CustomAnimation<TextStyle & ViewStyle & ImageStyle> = {
     0: {
-        scaleX: 1,
-        scaleY: 1
+        scaleX: 1.1,
+        scaleY: 1.1
     },
     1: {
-        scaleX: 0.9,
-        scaleY: 0.9
+        scaleX: 0.77,
+        scaleY: 0.77
     }
 }
 
 const TrendingItem = ({ activeItem, item }: TrendingItemProps) => {
 
     const [play, setPlay] = useState(false);
+    const cardWidth = Dimensions.get("window").width / 2;
+    const cardHeight = Dimensions.get("window").height / 4;
 
     return (
-        <Animatable.View className="mr-5"
+        <Animatable.View className=""
             animation={activeItem == item.$id ? zoomIn : zoomOut}
             duration={300}
         >
             {play ? (
-                <TouchableOpacity className="" onPress={() => setPlay(!play)}>
-                    <ImageBackground className="w-52 h-72 rounded-[35px] my-5 overflow-hidden shadow-lg shadow-black/40" source={{ uri: item.thumbnail }} />
+                <TouchableOpacity style={{ width: cardWidth, height: cardHeight }} className="relative justify-center items-center" onPress={() => setPlay(!play)}>
+                    <ImageBackground className={`w-full h-full rounded-[35px] my-5 overflow-hidden shadow-lg shadow-black/40`} source={{ uri: item.thumbnail }} resizeMode="cover" />
                 </TouchableOpacity>
 
             ) : (
-                <TouchableOpacity className="relative justify-center items-center" activeOpacity={0.7} onPress={() => setPlay(!play)}>
-                    <ImageBackground className="w-52 h-72 rounded-[35px] my-5 overflow-hidden shadow-lg shadow-black/40" source={{ uri: item.thumbnail }} resizeMode="cover" />
+                <TouchableOpacity style={{ width: cardWidth, height: cardHeight }} className="relative justify-center items-center" activeOpacity={0.7} onPress={() => setPlay(!play)}>
+                    <ImageBackground className={`w-full h-full rounded-[35px] my-5 overflow-hidden shadow-lg shadow-black/40`} source={{ uri: item.thumbnail }} resizeMode="cover" />
                     <Image source={icons.play} className="absolute w-12 h-12" resizeMode="contain" />
                 </TouchableOpacity>
             )}
@@ -62,31 +64,24 @@ const TrendingItem = ({ activeItem, item }: TrendingItemProps) => {
 const Trending = ({ posts }: { posts: PostVideo[] }) => {
 
     const [activeItem, setActiveItem] = useState(posts[1]?.$id);
-    console.log("posts[1]?.$id", activeItem, posts[1]?.$id);
 
-    // info: ViewabilityConfigCallbackPair
     const viewableItemChanged = ({ viewableItems, changed }: {
         viewableItems: ViewToken<PostVideo>[];
         changed: ViewToken<PostVideo>[];
     }) => {
-        setActiveItem(viewableItems[0].key)
-        console.log(viewableItems[0].key, changed.length)
+        // console.log(viewableItems[0]?.key, changed.length)
+        setActiveItem(viewableItems[0]?.key)
+        // console.log("viewableItems.length", viewableItems.length)
     }
-
-    // const viewabilityConfigCallbackPairs = useRef([
-    //     { viewableItemChanged },
-    // ]);
-
-    const fnref = useRef(viewableItemChanged);
 
     return (
         <FlatList
             keyExtractor={(item, i) => item.$id || i.toString()}
             data={posts}
             renderItem={({ item }) => (
-                <>
+                <View className="my-7">
                     <TrendingItem activeItem={activeItem!} item={item} />
-                </>
+                </View>
             )}
             horizontal={true}
             ListEmptyComponent={() => (
@@ -95,15 +90,16 @@ const Trending = ({ posts }: { posts: PostVideo[] }) => {
                     subtitle={'Add Your Videos'}
                 />
             )}
-            // onViewableItemsChanged={viewableItemChanged}
-            onViewableItemsChanged={fnref.current}
+            onViewableItemsChanged={viewableItemChanged}
             viewabilityConfig={{
                 waitForInteraction: false,
-                // viewAreaCoveragePercentThreshold: 70,
-                itemVisiblePercentThreshold: 70
+                viewAreaCoveragePercentThreshold: 100,
+                // itemVisiblePercentThreshold: 100 // buggy
             }}
-            // viewabilityConfigCallbackPairs={viewabilityConfigCallbackPairs.current}
-        contentOffset={{x:70, y:0}}
+            contentOffset={{ x: Dimensions.get('window').width / 3, y: 0 }}
+            snapToAlignment="center"
+            decelerationRate="fast"
+            snapToInterval={Dimensions.get("window").width / 2}
         />
     )
 }
