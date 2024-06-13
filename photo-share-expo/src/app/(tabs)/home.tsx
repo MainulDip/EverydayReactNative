@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { images } from '@/src/constants'
 import SearchInput from '@/src/components/SearchInput'
-import Trending, { VideoDataType } from '@/src/components/Trending'
+import Trending from '@/src/components/Trending'
 import EmptyState from '@/src/components/EmptyState'
 import { getAllPosts, getLatestPosts } from '@/src/lib/appwrite'
 import { PostVideo } from '@/src/lib/entities.dtype'
@@ -14,9 +14,9 @@ import { isLoading } from 'expo-font';
 const Home = () => {
 
   // fetch data using the custom hook
-  const {isLoading, data, reFetchData} = useAppwrite<PostVideo[]>(getAllPosts)
+  const {isLoading, data, reFetchData} = useAppwrite<PostVideo>(getAllPosts);
 
-  const {isLoading: latestPostIsLoading, data: latestVideos, reFetchData: reFetchLatestPost} = useAppwrite<PostVideo[]>(getLatestPosts);
+  const {isLoading: latestPostIsLoading, data: latestVideos, reFetchData: reFetchLatestPost} = useAppwrite<PostVideo>(getLatestPosts);
   const [refreshing, setRefreshing] = useState(false);
 
 
@@ -61,7 +61,7 @@ const Home = () => {
               <Text className="text-gray-100 text-lg font-pregular mb3">
                 Latest Videos Horizontal Sliders
               </Text>
-              <Trending posts={latestVideos} />
+              <Trending posts={latestVideos}  />
             </View>
           </View>
         )}

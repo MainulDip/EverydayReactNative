@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Alert } from "react-native";
 
 export const useAppwrite = <T>(fn: Function) => {
-    const [data, setData] = useState<T>();
+    const [data, setData] = useState<T[]>([]);
     const [isLoading, setIsLoading] = useState(true);
 
     const fetchData = async () => {
@@ -10,7 +10,7 @@ export const useAppwrite = <T>(fn: Function) => {
 
         try {
             const response = await fn();
-            setData(response as T);
+            setData(response as T[]);
         } catch (error) {
             Alert.alert("Error", (error as Error).message);
         } finally {

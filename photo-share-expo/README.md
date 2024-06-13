@@ -137,5 +137,13 @@ Also in RN, some flex defaults are different than Web.
 ### Custom Hook With TypeScript Generics:
 
 ### Animation with `react-native-animatable`:
-Install using `npm install react-native-animatable --save`
+Install using `npx expo install react-native-animatable` or `npm install react-native-animatable --save`
 Docs https://github.com/oblador/react-native-animatable
+
+### Video Player `expo-av`:
+install by `npx expo install expo-av` and docs https://docs.expo.dev/versions/latest/sdk/av/
+
+### useRef and useCallBack (also useMemo):
+values stored in `useRef` will remain same upon rerender. useRef has an initial value and later can be set by its `current` property. ie, `const intervalRef = useRef(0);`, read the value by `intervalRef.current` and set by `intervalRef.current = something`
+
+useCallBack is a performance improvement hook, which will cache the result of the callback function, and recalculate again if any specified dependency is changed. But if code fails without `useCallback`, then the problem is in another places 
