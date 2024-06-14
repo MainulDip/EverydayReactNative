@@ -14,7 +14,6 @@ const Home = () => {
 
   // fetch data using the custom hook
   const { isLoading, data, reFetchData } = useAppwrite<PostVideo>(getAllPosts);
-
   const { isLoading: latestPostIsLoading, data: latestVideos, reFetchData: reFetchLatestPost } = useAppwrite<PostVideo>(getLatestPosts);
   const [refreshing, setRefreshing] = useState(false);
 

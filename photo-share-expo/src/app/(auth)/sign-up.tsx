@@ -29,8 +29,6 @@ const SignUp = () => {
     try {
       const result = await createUser(form);
 
-      // set it to global context
-
       router.replace("/home");
 
     } catch (error) {

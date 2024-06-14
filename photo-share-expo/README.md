@@ -150,3 +150,14 @@ install by `npx expo install expo-av` and docs https://docs.expo.dev/versions/la
 values stored in `useRef` will remain same upon rerender. useRef has an initial value and later can be set by its `current` property. ie, `const intervalRef = useRef(0);`, read the value by `intervalRef.current` and set by `intervalRef.current = something`.
 
 useCallBack is a performance improvement hook, which will cache the result of the callback function, and recalculate again if any specified dependency is changed. But if code fails without `useCallback`, then the problem is in another places 
+
+
+
+
+
+
+
+
+
+### Screen Orientation:
+https://docs.expo.dev/versions/latest/sdk/screen-orientation/
