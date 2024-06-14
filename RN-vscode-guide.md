@@ -1,7 +1,7 @@
 ### React Native Snippet:
 Search starting with `rn`, vs-code will suggest
 
-`rnfe` => import React Native, Elements, Dummy `View` placeholder functional component and export. `rnfes` will put `StyleSheet.create({})` as well
+`rnfe` => import React Native, Elements, Dummy `View` placeholder functional component and export. `rnfes` will put `StyleSheet.create({})`
 
 Search starting with `im` for importing. 
 `imrn` for react native and `imrc` for react specif modules

@@ -5,6 +5,7 @@ import EmptyState from './EmptyState';
 import { PostVideo } from '../lib/entities.dtype';
 import { CustomAnimation } from 'react-native-animatable';
 import { icons } from '../constants';
+import { Video, ResizeMode } from 'expo-av';
 
 type TrendingItemProps = {
     activeItem: string;
@@ -39,18 +40,23 @@ const TrendingItem = ({ activeItem, item }: TrendingItemProps) => {
     const cardWidth = Dimensions.get("window").width / 2;
     const cardHeight = Dimensions.get("window").height / 4;
 
+    const handleOnPressPlay = () => {
+        // console.log(item.video)
+        setPlay(!play)
+    }
+
     return (
         <Animatable.View className=""
             animation={activeItem == item.$id ? zoomIn : zoomOut}
             duration={300}
         >
             {play ? (
-                <TouchableOpacity style={{ width: cardWidth, height: cardHeight }} className="relative justify-center items-center" onPress={() => setPlay(!play)}>
-                    <ImageBackground className={`w-full h-full rounded-[35px] my-5 overflow-hidden shadow-lg shadow-black/40`} source={{ uri: item.thumbnail }} resizeMode="cover" />
+                <TouchableOpacity style={{ width: cardWidth, height: cardHeight }} className="relative justify-center items-center" onPress={handleOnPressPlay}>
+                    <Video shouldPlay resizeMode={ResizeMode.CONTAIN} useNativeControls style={{ width: cardWidth, height: cardHeight }} source={{ uri: 'https://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4' }} />
                 </TouchableOpacity>
 
             ) : (
-                <TouchableOpacity style={{ width: cardWidth, height: cardHeight }} className="relative justify-center items-center" activeOpacity={0.7} onPress={() => setPlay(!play)}>
+                <TouchableOpacity style={{ width: cardWidth, height: cardHeight }} className="relative justify-center items-center" activeOpacity={0.7} onPress={handleOnPressPlay}>
                     <ImageBackground className={`w-full h-full rounded-[35px] my-5 overflow-hidden shadow-lg shadow-black/40`} source={{ uri: item.thumbnail }} resizeMode="cover" />
                     <Image source={icons.play} className="absolute w-12 h-12" resizeMode="contain" />
                 </TouchableOpacity>
@@ -100,6 +106,8 @@ const Trending = ({ posts }: { posts: PostVideo[] }) => {
             snapToAlignment="center"
             decelerationRate="fast"
             snapToInterval={Dimensions.get("window").width / 2}
+
+            // ListHeaderComponent={() => ()}
         />
     )
 }

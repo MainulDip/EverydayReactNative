@@ -9,14 +9,13 @@ import { getAllPosts, getLatestPosts } from '@/src/lib/appwrite'
 import { PostVideo } from '@/src/lib/entities.dtype'
 import { useAppwrite } from '@/src/lib/useAppwrite'
 import VideoCard from '@/src/components/VideoCard'
-import { isLoading } from 'expo-font';
 
 const Home = () => {
 
   // fetch data using the custom hook
-  const {isLoading, data, reFetchData} = useAppwrite<PostVideo>(getAllPosts);
+  const { isLoading, data, reFetchData } = useAppwrite<PostVideo>(getAllPosts);
 
-  const {isLoading: latestPostIsLoading, data: latestVideos, reFetchData: reFetchLatestPost} = useAppwrite<PostVideo>(getLatestPosts);
+  const { isLoading: latestPostIsLoading, data: latestVideos, reFetchData: reFetchLatestPost } = useAppwrite<PostVideo>(getLatestPosts);
   const [refreshing, setRefreshing] = useState(false);
 
 
@@ -29,12 +28,11 @@ const Home = () => {
   return (
     <SafeAreaView className="bg-primary h-full">
       <FlatList
-        // data={[{ id: 1 }, { id: 2 }, { id: 3 }]}
         data={data}
         keyExtractor={(item, i) => item.$id || i.toString()}
         renderItem={({ item }) => (
           <>
-            <VideoCard video={item}  />
+            <VideoCard video={item} />
           </>
         )}
 
@@ -61,7 +59,7 @@ const Home = () => {
               <Text className="text-gray-100 text-lg font-pregular mb3">
                 Latest Videos Horizontal Sliders
               </Text>
-              <Trending posts={latestVideos}  />
+              <Trending posts={latestVideos} />
             </View>
           </View>
         )}
