@@ -9,6 +9,7 @@ import { getAllPosts, getLatestPosts } from '@/src/lib/appwrite'
 import { PostVideo } from '@/src/lib/entities.dtype'
 import { useAppwrite } from '@/src/lib/useAppwrite'
 import VideoCard from '@/src/components/VideoCard'
+import { useLocalSearchParams } from 'expo-router'
 
 const Home = () => {
 
@@ -16,6 +17,10 @@ const Home = () => {
   const { isLoading, data, reFetchData } = useAppwrite<PostVideo>(getAllPosts);
   const { isLoading: latestPostIsLoading, data: latestVideos, reFetchData: reFetchLatestPost } = useAppwrite<PostVideo>(getLatestPosts);
   const [refreshing, setRefreshing] = useState(false);
+
+
+  const params = useLocalSearchParams();
+  console.log(params, "Bismillah");
 
 
   const onRefresh = async () => {

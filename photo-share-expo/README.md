@@ -143,6 +143,93 @@ Docs https://github.com/oblador/react-native-animatable
 ### Video Player `expo-av`:
 install by `npx expo install expo-av` and docs https://docs.expo.dev/versions/latest/sdk/av/
 
+Note: Configure `expo-av` 's supplied config plugin to configure various properties that cannot be set at runtime 
+
+
+```tsx
+import * as React from 'react';
+import { View, StyleSheet, Button } from 'react-native';
+import { Video, ResizeMode } from 'expo-av';
+
+export default function App() {
+  const video = React.useRef(null);
+  const [status, setStatus] = React.useState({});
+  return (
+    <View style={styles.container}>
+      <Video
+        ref={video}
+        style={styles.video}
+        source={{
+          uri: 'https://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
+        }}
+        useNativeControls
+        resizeMode={ResizeMode.CONTAIN}
+        isLooping
+        onPlaybackStatusUpdate={status => setStatus(() => status)}
+      />
+      <View style={styles.buttons}>
+        <Button
+          title={status.isPlaying ? 'Pause' : 'Play'}
+          onPress={() =>
+            status.isPlaying ? video.current.pauseAsync() : video.current.playAsync()
+          }
+        />
+      </View>
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    backgroundColor: '#ecf0f1',
+  },
+  video: {
+    alignSelf: 'center',
+    width: 320,
+    height: 200,
+  },
+  buttons: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+});
+```
+
+
+### Config Plugins:
+Config Plugins are used to add/configure native modules (through `AndroidManifet.xml` and `Info.plist`) that aren't included, by default, or to add any native code that needs to be configured further. It extends the `app.config` or `app.json` and customize the prebuilt process. Docs https://docs.expo.dev/config-plugins/introduction/
+
+* Note: The changes don't take effect until you rebuild the native project (`npx expo run:android/ios`)
+
+Usually packages ship their own Expo config plugin  (to ensure versioning is aligned), like `expo-camera`, etc. For 3rd party plugins see https://github.com/expo/config-plugins?tab=readme-ov-file
+
+* Example Plugin Configuration With `expo-camera` and `expo-av` package 
+```json
+{
+  "expo": {
+    "plugins": [
+      [
+        "expo-camera",
+        {
+          "cameraPermission": "Allow $(PRODUCT_NAME) to access your camera."
+        }
+      ],
+
+      [
+        "expo-av",
+        {
+          "microphonePermission": "Allow $(PRODUCT_NAME) to access your microphone."
+        }
+      ]
+    ]
+  }
+}
+```
+Create Custom Config Plugin https://docs.expo.dev/config-plugins/plugins-and-mods/
+
 ### FlatList Component:
 ### FlatList Horizontal and Snapping:
 
@@ -161,3 +248,41 @@ useCallBack is a performance improvement hook, which will cache the result of th
 
 ### Screen Orientation:
 https://docs.expo.dev/versions/latest/sdk/screen-orientation/
+
+### Expo BackgroundFetch | `npx expo install expo-background-fetch`:
+A universal library that provides API for performing background fetch tasks (uses TaskManager Native API under the hood).
+
+https://docs.expo.dev/versions/latest/sdk/background-fetch/
+
+### Deprecated Expo BarCodeScanner | `npx expo install expo-barcode-scanner` | Use `expo-camera` form SDK 51:
+It is available both as a standalone library and as an extension for Expo Camera.
+
+https://docs.expo.dev/versions/latest/sdk/bar-code-scanner/
+* Use `expo-camera` to achieve this form SDK 51 
+
+
+### Listing and freeing Already used port:
+```sh
+# lsof comes preinstalled
+lsof -i -P -n | grep LISTEN # -n for `do not use dns name`
+sudo lsof -i -P -n | grep LISTEN # will spit out root level port as well
+
+# ss comes preinstalled | best for details and readability
+sudo ss -lptn
+# or
+sudo ss -l -p -t -n # -l listening, -p process , -t tcp , -n numeric 
+
+# `netstat` need to be installed first in linux, windows comes preinstalled
+sudo netstat -tulpn | grep LISTEN # to list port
+```
+
+Freeing Port
+```sh
+lsof -i :8081
+kill -15 [PID]
+kill -9 [PID] # same for linux, mac, win
+```
+
+Or using `fuser` in ubuntu
+
+

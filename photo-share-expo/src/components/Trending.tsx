@@ -1,6 +1,6 @@
 import { View, Text, FlatList, TextStyle, ViewStyle, ImageStyle, TouchableOpacity, ImageBackground, Image, ViewToken, Dimensions } from 'react-native';
 import * as Animatable from 'react-native-animatable';
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
 import EmptyState from './EmptyState';
 import { PostVideo } from '../lib/entities.dtype';
 import { CustomAnimation } from 'react-native-animatable';
@@ -70,6 +70,7 @@ const TrendingItem = ({ activeItem, item }: TrendingItemProps) => {
 const Trending = ({ posts }: { posts: PostVideo[] }) => {
 
     const [activeItem, setActiveItem] = useState(posts[1]?.$id);
+    const flatListRef = useRef<FlatList>(null);
 
     const viewableItemChanged = ({ viewableItems, changed }: {
         viewableItems: ViewToken<PostVideo>[];
@@ -82,6 +83,7 @@ const Trending = ({ posts }: { posts: PostVideo[] }) => {
 
     return (
         <FlatList
+            ref={flatListRef}
             keyExtractor={(item, i) => item.$id || i.toString()}
             data={posts}
             renderItem={({ item }) => (
@@ -102,12 +104,12 @@ const Trending = ({ posts }: { posts: PostVideo[] }) => {
                 viewAreaCoveragePercentThreshold: 100,
                 // itemVisiblePercentThreshold: 100 // buggy
             }}
-            contentOffset={{ x: Dimensions.get('window').width / 3, y: 0 }}
+            contentOffset={{ x: Dimensions.get('window').width / 3.4, y: 0 }}
             snapToAlignment="center"
             decelerationRate="fast"
             snapToInterval={Dimensions.get("window").width / 2}
 
-            // ListHeaderComponent={() => ()}
+        // ListHeaderComponent={() => ()}
         />
     )
 }
