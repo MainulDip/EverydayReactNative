@@ -14,7 +14,11 @@ export const useAppwrite = <T>(fn: Function) => {
         } catch (error) {
             Alert.alert("Error", (error as Error).message);
         } finally {
-            setIsLoading(false);
+            console.log("waiting")
+            setTimeout(() => {
+                setIsLoading(false)
+                console.log("waiting Finished")
+            }, 4000);
         }
     }
 

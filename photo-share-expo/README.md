@@ -286,3 +286,7 @@ kill -9 [PID] # same for linux, mac, win
 Or using `fuser` in ubuntu
 
 
+### dynamic route/path | [something].tsx :
+Dynamic route means, any sting can be attached any value there and can be retrieved by `useLocalSearchParams()` hook, which will return an object containing the filename as key and the value attached with it. In this case `{something: "value"}`will be returned from useLocalSearchParams() if we commit `router.push("/search/value")`.
+
+`usePathname` => Inside expo (router), each page can retrieve its path name by `usePathname<string>()` hook coming from expo router.
