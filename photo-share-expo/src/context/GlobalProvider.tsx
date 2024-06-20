@@ -4,19 +4,21 @@ import React from 'react';
 import { getCurrentUser, User } from '../lib/appwrite';
 import { isLoading } from 'expo-font';
 import { Models } from 'react-native-appwrite';
+import { Users } from '../lib/entities.dtype';
 
 
 type Props = { children: React.ReactNode };
 type GlobalContextValue = {
   isLoggedIn?: boolean;
   setIsLoggedIn?: React.Dispatch<React.SetStateAction<boolean>>;
-  user?: Models.Document | undefined;
+  user?: Users;
   setUser?: React.Dispatch<React.SetStateAction<Models.Document | undefined>>;
   isLoading?: boolean;
   setIsLoading?: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const GlobalContext = createContext<GlobalContextValue>({});
+
 export const useGlobalContext = () => useContext(GlobalContext);
 
 const GlobalProvider = ({ children }: Props) => {

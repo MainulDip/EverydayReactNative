@@ -1,5 +1,5 @@
 import { Client, Account, ID, Avatars, Databases, Query } from 'react-native-appwrite';
-import { PostVideo, PostVideoKeys } from './entities.dtype';
+import { PostVideo, PostVideoKeys, UserKeys } from './entities.dtype';
 
 export const config = {
     endpoint: "http://192.168.0.9/v1",
@@ -154,7 +154,21 @@ export async function searchPost(query: string): Promise<PostVideo[]> {
         // console.log(post.documents[0]);
         return post.documents;
     } catch (error: any) {
-        throw new Error(`getLatestPosts Error From Appwrite.ts: ${error}`);
+        throw new Error(`getLatestPosts Error From Appwrite.ts:searchPost : ${error}`);
+    }
+}
+
+export async function getUserPosts(userId: string): Promise<PostVideo[]> {
+    try {
+        const post = await databases.listDocuments(
+            databaseId,
+            videoCollectionId,
+            [Query.equal(PostVideoKeys.users, userId), Query.orderDesc(PostVideoKeys.$createdAt), Query.limit(7)]
+        );
+        // console.log(post.documents[0]);
+        return post.documents;
+    } catch (error: any) {
+        throw new Error(`getLatestPosts Error From Appwrite.ts:getUserPosts : ${error}`);
     }
 }
 
