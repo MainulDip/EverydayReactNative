@@ -12,7 +12,7 @@ type GlobalContextValue = {
   isLoggedIn?: boolean;
   setIsLoggedIn?: React.Dispatch<React.SetStateAction<boolean>>;
   user?: Users;
-  setUser?: React.Dispatch<React.SetStateAction<Models.Document | undefined>>;
+  setUser?: React.Dispatch<React.SetStateAction<Users>>;
   isLoading?: boolean;
   setIsLoading?: React.Dispatch<React.SetStateAction<boolean>>;
 }
@@ -24,7 +24,7 @@ export const useGlobalContext = () => useContext(GlobalContext);
 const GlobalProvider = ({ children }: Props) => {
 
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [user, setUser] = useState<Models.Document | undefined>();
+  const [user, setUser] = useState<Users>({});
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
