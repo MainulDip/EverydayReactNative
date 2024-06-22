@@ -11,14 +11,16 @@ import { PostVideo } from '@/src/lib/entities.dtype';
 import { useGlobalContext } from '@/src/context/GlobalProvider';
 import { icons } from '@/src/constants';
 import InfoBox from '@/src/components/InfoBox';
+import Dummy from '@/src/components/Dummy';
 
 const Profile = () => {
 
-  const {user:currentUser} = useGlobalContext();
+  const { user: currentUser } = useGlobalContext();
   const { isLoading: isloading, data: userPostedVideos, reFetchData: reFetchUserCreatedVideos } = useAppwrite<PostVideo>(() => getUserPosts(currentUser?.$id!));
 
   useEffect(() => {
-    reFetchUserCreatedVideos();
+    // reFetchUserCreatedVideos();
+    // console.log(currentUser)
   }, []);
 
   const logOut = () => {
@@ -39,7 +41,7 @@ const Profile = () => {
         ListHeaderComponent={() => (
           <View className="w-full justify-center items-center mt-6 mb-12 px-4">
             <TouchableOpacity className="w-full items-end mb-10"
-            onPress={logOut}
+              onPress={logOut}
             >
               <Image source={icons.logout} resizeMode="contain" className="w-6 h-6" />
             </TouchableOpacity>
@@ -47,10 +49,22 @@ const Profile = () => {
             <Text className="text-white">You're logged in as : {currentUser?.username}', & there are {userPostedVideos.length} {userPostedVideos.length > 1 ? "results" : "result"} found on this account</Text>
             <View className="w-16 h-16 border border-secondary rounded-lg justify-center items-center">
               <Image className="w-[90%] h-[90%] rounded-lg"
-              source={{uri: currentUser?.avatar}} 
-              resizeMode="cover" />
-              <InfoBox user={currentUser!} containerStyle="mt-5" titleStyles="text-white text-lg" />
+                source={{ uri: currentUser?.avatar }}
+                resizeMode="cover" />
             </View>
+
+            <InfoBox title={currentUser?.username!} titleStyles="text-white text-lg" containerStyle="" subtitle="" />
+
+            <View className="flex-row gap-x-4">
+
+              <Dummy />
+              <Dummy />
+
+              {/* <InfoBox title="1.2k" containerStyle="flex-row gap-x-4" subtitle="Posts" />
+              <View className="w-7" />
+              <InfoBox containerStyle="flex-row gap-x-4" title="1.2k" subtitle="Followers" /> */}
+            </View>
+
           </View>
         )}
 
