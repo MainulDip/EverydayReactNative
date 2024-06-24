@@ -11,6 +11,10 @@ For android use `npx expo run:android -d` to get the available device selection 
 
 ### Navigation:
 
+### TypeScript Styles:
+- Component's props should be named `ComponentProps`
+- Use JS' `Object.freeze({})` as Enum workaround for not having native Enum support in JavaScript.
+
 ### Tabs (Layout):
 Just by Wrapping the layout with `Tabs` will automatically pick all the pages inside of the directory or group-directory `(tabs)`.
 
@@ -116,7 +120,7 @@ const FormField = ({title, value}: {title: string; value: {email: string; passwo
 
 ### Integrating With Local Appwrite Server with docker-compose:
 
-### NativeWind's FlexBox Layout in Expo/RN | flex vs flex-1 :
+### NativeWind's FlexBox Layout in Expo/RN | flex vs flex-1 | gap :
 The `flex` parameter only supporting a single number/property in RN. So multiple flex property in single declaration (short-hand) will not work.
 
 Using NativeWind, always use single declaration. Don't use `flex-1` type of classes, as it will declare multiple short-hand properties. Use  `flex-grow-$`, `flex-shrink-$` and `flex-basis-$` instead of `flex-$n` all at once to resolve potential layout bugs
@@ -127,6 +131,8 @@ Also in RN, some flex defaults are different than Web.
 
 
 * Note: `display: flex` is default to all Component (stated by rn docs). It only support `flex` or `none`. No other properties are supported (inline, block, ect are not supported). So specifying `display: flex` is redundant.
+
+* `gap: number` property is supported by rn .71+. No `rowGap` or `columnGap` in View Component. Also Native Wind's `gap`, `gap-x-` and `gap-y-` is buggy as of Expo SDK 51 and Native Wind Version 2.0.11.
 
 ### ListView:
 

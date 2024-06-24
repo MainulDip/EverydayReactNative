@@ -55,14 +55,10 @@ const Profile = () => {
 
             <InfoBox title={currentUser?.username!} titleStyles="text-white text-lg" containerStyle="" subtitle="" />
 
-            <View className="flex-row gap-x-4">
-
-              <Dummy />
-              <Dummy />
-
-              {/* <InfoBox title="1.2k" containerStyle="flex-row gap-x-4" subtitle="Posts" />
-              <View className="w-7" />
-              <InfoBox containerStyle="flex-row gap-x-4" title="1.2k" subtitle="Followers" /> */}
+            <View className="flex-row"  style={{gap: 40}}>
+              <InfoBox title={userPostedVideos.length.toString()} containerStyle="" subtitle="Posts" />
+              <InfoBox containerStyle="" title="1.2k" subtitle="Followers" />
+              <InfoBox containerStyle="" title="7.1k" subtitle="Likes" />
             </View>
 
           </View>
