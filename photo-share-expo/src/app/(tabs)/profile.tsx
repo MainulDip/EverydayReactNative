@@ -1,17 +1,15 @@
 import { View, Text, FlatList, Image, TouchableOpacity } from 'react-native'
 import React, { useEffect, useState } from 'react'
-import { useLocalSearchParams, usePathname } from 'expo-router'
+import { router, useLocalSearchParams, usePathname } from 'expo-router'
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { getUserPosts, searchPost } from '@/src/lib/appwrite';
+import { getUserPosts, logOut } from '@/src/lib/appwrite';
 import { useAppwrite } from '@/src/lib/useAppwrite';
 import EmptyState from '@/src/components/EmptyState';
 import VideoCard from '@/src/components/VideoCard';
-import SearchInput from '@/src/components/SearchInput';
 import { PostVideo } from '@/src/lib/entities.dtype';
 import { useGlobalContext } from '@/src/context/GlobalProvider';
 import { icons } from '@/src/constants';
 import InfoBox from '@/src/components/InfoBox';
-import Dummy from '@/src/components/Dummy';
 
 const Profile = () => {
 
@@ -23,8 +21,9 @@ const Profile = () => {
     // console.log(currentUser)
   }, []);
 
-  const logOut = () => {
-
+  const handleLogOut = async () => {
+    await logOut();
+    router.replace("/sign-in");
   }
 
   return (
@@ -41,12 +40,11 @@ const Profile = () => {
         ListHeaderComponent={() => (
           <View className="w-full justify-center items-center mt-6 mb-12 px-4">
             <TouchableOpacity className="w-full items-end mb-10"
-              onPress={logOut}
+              onPress={handleLogOut}
             >
               <Image source={icons.logout} resizeMode="contain" className="w-6 h-6" />
             </TouchableOpacity>
             {isloading && <Text className="text-white">Loading</Text>}
-            <Text className="text-white">You're logged in as : {currentUser?.username}', & there are {userPostedVideos.length} {userPostedVideos.length > 1 ? "results" : "result"} found on this account</Text>
             <View className="w-16 h-16 border border-secondary rounded-lg justify-center items-center">
               <Image className="w-[90%] h-[90%] rounded-lg"
                 source={{ uri: currentUser?.avatar }}

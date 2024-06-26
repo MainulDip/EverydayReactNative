@@ -1,11 +1,16 @@
-import { View, Text } from 'react-native'
+import { View, Text, ScrollView } from 'react-native'
 import React from 'react'
+import { SafeAreaView } from 'react-native-safe-area-context'
 
 const Create = () => {
   return (
-    <View>
-      <Text>Create</Text>
-    </View>
+    <SafeAreaView className="bg-primary w-full h-full">
+      <ScrollView className="">
+        <View>
+          <Text className="text-white">Create Videos Form</Text>
+        </View>
+      </ScrollView>
+    </SafeAreaView>
   )
 }
 

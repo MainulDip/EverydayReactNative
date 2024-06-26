@@ -109,7 +109,6 @@ export default function App() {
 
 ### TypeScript Deeply nested types inline:
 ```ts
-
 const FormField = ({title, value}: {title: string; value: {email: string; password: string;} }) => {
   return (
     <>

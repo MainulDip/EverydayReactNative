@@ -181,6 +181,7 @@ export async function logOut() {
         if (session_list.total) {
             await account.deleteSessions();
             console.log("Deleting Session: ", `${session_list.sessions[0].$id}`);
+            console.log("Logging out called form @appwrite.ts:logOut")
         } else {
             console.log("Not logged in yet");
         }
