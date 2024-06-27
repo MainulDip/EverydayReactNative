@@ -16,6 +16,6 @@ Docs => https://marketplace.visualstudio.com/items?itemName=jundat95.react-nativ
 `imd` => for `import {  } from 'module'` as Import Destructuring
 
 ### Expo Tools:
-Expo Tools adds suggestions and docs for all Expo config. It also shows live previews for native files from prebuild, right in your editor!
+Expo Tools adds suggestions and docs for all Expo config. It also shows live previews for native files from prebuild, right in the editor!
 
 Docs => https://marketplace.visualstudio.com/items?itemName=expo.vscode-expo-tools

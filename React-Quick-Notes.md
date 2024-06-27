@@ -94,7 +94,7 @@ Reducer function `(tasks,actions) => tasks` holds all the state update logics. E
 
 https://react.dev/learn/managing-state#extracting-state-logic-into-a-reducer
 
-```tsx
+```jsx
 import { useReducer } from 'react';
 import AddTask from './AddTask.js';
 import TaskList from './TaskList.js';
@@ -175,6 +175,87 @@ const initialTasks = [
   { id: 1, text: 'Watch a puppet show', done: false },
   { id: 2, text: 'Lennon Wall pic', done: false }
 ];
+```
+
+Example using typescript
+
+```tsx
+import React, { useReducer } from 'react';
+import './style.css';
+
+/**
+ * useReducer example
+ */
+
+// Application State
+interface AppState {
+  counter: number;
+  random: number;
+}
+
+// Actions
+type Increment = { type: 'increment'; payload: number };
+type Random = { type: 'random' };
+type AppActions = Increment | Random;
+
+// Reducer
+function appReducer(state: AppState, action: AppActions) {
+  switch (action.type) {
+    case 'increment':
+      return { ...state, counter: state.counter + action.payload };
+    case 'random':
+      return { ...state, random: Math.random() };
+    default:
+      return state;
+  }
+}
+
+// Default State
+const initialState: AppState = { counter: 0, random: 0 }
+
+// App Component
+export default function App() {
+  const [state, dispatch] = useReducer(appReducer, initialState);
+
+  return (
+    <div className="comp">
+      <h1>Demo: React useReducer</h1>
+      <button onClick={() => dispatch({ type: 'increment', payload: 10 })}>
+        "Increment" Action
+      </button>
+      <button onClick={() => dispatch({ type: 'random' })}>
+        "Random" Action
+      </button>
+      <Parent>
+        <Child1 value={state.counter} />
+        <Child2 value={state.random} />
+      </Parent>
+    </div>
+  );
+}
+// Parent Component
+const Parent = ({ children }: { children: any }) => {
+  console.log(' Dashboard: render');
+  return (
+    <div className="comp">
+      Dashboard
+      {children}
+    </div>
+  );
+};
+
+// Child Component
+const Child1 = React.memo((props: { value: number }) => {
+  console.log('  Panel1: render');
+  return <div className="comp">Count: {props.value}</div>;
+});
+
+// Child Component
+const Child2 = React.memo((props: { value: number }) => {
+  console.log('  Panel 2: render');
+  return <div className="comp">Random Value: {props.value}</div>;
+});
+
 ```
 
 
