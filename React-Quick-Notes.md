@@ -85,7 +85,94 @@ memoizedCallback(); // 'bar'
 memoizedResult(); // 🔴 TypeError
 ```
 
-### `useContext`:
+### Context API (`createContext`, `useContext` & `Context.Provider` Wrapper Component):
+Creating, Using and Providing/Modifying Context Value is exactly 3 steep process.
+
+- named export`createContext<T>(supply_default_Or_Empty_value)`
+- get reference of the Context by `useContext(theCreatedContext)`
+- Wrap all the child Component with <TheReferencedContext.Provider value={supply_New_Or_Modify_Value_For_The_Referenced-Context}>{children} </TheReferencedContext.Provider>
+
+```jsx
+// App.js
+import Heading from './Heading.js';
+import Section from './Section.js';
+
+export default function Page() {
+  return (
+    <Section>
+      <Heading>Title</Heading>
+      <Section>
+        <Heading>Heading</Heading>
+        <Heading>Heading</Heading>
+        <Heading>Heading</Heading>
+        <Section>
+          <Heading>Sub-heading</Heading>
+          <Heading>Sub-heading</Heading>
+          <Heading>Sub-heading</Heading>
+          <Section>
+            <Heading>Sub-sub-heading</Heading>
+            <Heading>Sub-sub-heading</Heading>
+            <Heading>Sub-sub-heading</Heading>
+          </Section>
+        </Section>
+      </Section>
+    </Section>
+  );
+}
+```
+* Create the Context
+```jsx
+// LevelContext.jsx
+import { createContext } from 'react';
+export const LevelContext = createContext(0);
+```
+* Get reference of the context and Provide the context value 
+```jsx
+// Section.js
+import { useContext } from 'react';
+import { LevelContext } from './LevelContext.js';
+
+export default function Section({ children }) {
+  const level = useContext(LevelContext);
+  return (
+    <section className="section">
+      <LevelContext.Provider value={level + 1}>
+        {children}
+      </LevelContext.Provider>
+    </section>
+  );
+}
+```
+* Get reference of the context and based on the context value, return different things
+```jsx
+// Heading.js
+import { useContext } from 'react';
+import { LevelContext } from './LevelContext.js';
+
+export default function Heading({ children }) {
+  const level = useContext(LevelContext);
+  switch (level) {
+    case 0:
+      throw Error('Heading must be inside a Section!');
+    case 1:
+      return <h1>{children}</h1>;
+    case 2:
+      return <h2>{children}</h2>;
+    case 3:
+      return <h3>{children}</h3>;
+    case 4:
+      return <h4>{children}</h4>;
+    case 5:
+      return <h5>{children}</h5>;
+    case 6:
+      return <h6>{children}</h6>;
+    default:
+      throw Error('Unknown level: ' + level);
+  }
+}
+```
+* Note : the example above, we create the context inside LevelContext.js file. Then in App.js, each time we wrap a Heading with a Section Component, We define a value by Context.Provider (in Section.js) component which is contextual to its children. The further we nest, the further we provide new context value by incrementing from parent context value. Finally form Heading.js, we read the current context value and return different things using switch statement also define error boundary if Heading is not wrapped by a Section Component (aka, the default context value needs to be modified) & the deep nesting cannot be more than 6 level.
+
 https://react.dev/learn/managing-state#passing-data-deeply-with-context
 
 
@@ -180,12 +267,11 @@ const initialTasks = [
 Example using typescript
 
 ```tsx
-import React, { useReducer } from 'react';
-import './style.css';
-
 /**
  * useReducer example
  */
+
+import React, { ReactNode, useReducer } from "react";
 
 // Application State
 interface AppState {
@@ -194,36 +280,48 @@ interface AppState {
 }
 
 // Actions
-type Increment = { type: 'increment'; payload: number };
-type Random = { type: 'random' };
+type Increment = { type: "increment"; payload: number };
+type Random = { type: "random" };
 type AppActions = Increment | Random;
 
+// Default State
+const initialState: AppState = { counter: 0, random: 0 };
+
 // Reducer
-function appReducer(state: AppState, action: AppActions) {
+function appReducer(state: AppState, action: AppActions): AppState {
   switch (action.type) {
-    case 'increment':
+    case "increment":
       return { ...state, counter: state.counter + action.payload };
-    case 'random':
+    case "random":
       return { ...state, random: Math.random() };
     default:
       return state;
   }
 }
 
-// Default State
-const initialState: AppState = { counter: 0, random: 0 }
-
-// App Component
+// Root Component
 export default function App() {
   const [state, dispatch] = useReducer(appReducer, initialState);
 
   return (
-    <div className="comp">
-      <h1>Demo: React useReducer</h1>
-      <button onClick={() => dispatch({ type: 'increment', payload: 10 })}>
+    <div style={{ margin: "7px" }}>
+      <button
+        style={{
+          border: "1px solid black",
+          padding: "7px 4px",
+          marginRight: "20px",
+        }}
+        onClick={() => dispatch({ type: "increment", payload: 10 })}
+      >
         "Increment" Action
       </button>
-      <button onClick={() => dispatch({ type: 'random' })}>
+      <button
+        style={{
+          border: "1px solid black",
+          padding: "7px 4px",
+        }}
+        onClick={() => dispatch({ type: "random" })}
+      >
         "Random" Action
       </button>
       <Parent>
@@ -233,26 +331,22 @@ export default function App() {
     </div>
   );
 }
+
 // Parent Component
-const Parent = ({ children }: { children: any }) => {
-  console.log(' Dashboard: render');
-  return (
-    <div className="comp">
-      Dashboard
-      {children}
-    </div>
-  );
+const Parent = ({ children }: { children: ReactNode }) => {
+  console.log(" Dashboard: render");
+  return <div className="comp">{children}</div>;
 };
 
 // Child Component
 const Child1 = React.memo((props: { value: number }) => {
-  console.log('  Panel1: render');
+  console.log("  Panel1: render");
   return <div className="comp">Count: {props.value}</div>;
 });
 
 // Child Component
 const Child2 = React.memo((props: { value: number }) => {
-  console.log('  Panel 2: render');
+  console.log("  Panel 2: render");
   return <div className="comp">Random Value: {props.value}</div>;
 });
 
@@ -270,3 +364,6 @@ https://react.dev/learn/managing-state#scaling-up-with-reducer-and-context
 
 ### State Management In Depth:
 https://react.dev/learn/managing-state
+
+
+### Immer:
