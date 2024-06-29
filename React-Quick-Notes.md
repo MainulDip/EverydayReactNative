@@ -354,12 +354,13 @@ const Child2 = React.memo((props: { value: number }) => {
 
 
 ### useReducer + useContext:
-Reducers let you consolidate a component’s state update logic. Context lets you pass information deep down to other components. You can combine reducers and context together to manage state of a complex screen.
+Reducers contain component’s state-update-logic. Context lets us pass state deep down to other components. Those can be combined together for complex state management.
 
-With this approach, a parent component with complex state manages it with a reducer. Other components anywhere deep in the tree can read its state via context. They can also dispatch actions to update that state.
+In the code below, 2 context are created (`TasksContext.tsx`), coming from `useReducer`, we provide the state to one context-provider and dispatch function to another context-provider. All children components are wrapped by the imported `TaskProvider` component in `App.js`. And from child components, the context is grabbed by `useContext`, which will hold the value (state/`tasks` and dispatch function) we passed earlier.
 
-https://react.dev/learn/managing-state#scaling-up-with-reducer-and-context
+https://react.dev/learn/managing-state#scaling-up-with-reducer-and-context...
 
+* App.tsx
 ```tsx
 // App.tsx
 import AddTask from "./AddTask.js";
@@ -376,8 +377,87 @@ export default function TaskApp() {
   );
 }
 ```
+* TasksContext.tsx
+```tsx
+// TasksContext.tsx
+import { ReactNode, createContext, useContext, useReducer } from "react";
 
-* 
+type TaskProviderProps = {
+  children: ReactNode;
+};
+
+export type TaskType = {
+  id: number;
+  text: string;
+  done: boolean;
+};
+
+export type Action = {
+  type: string;
+  task: TaskType;
+};
+
+
+const initialTasks = [
+  { id: 0, text: "Philosopher’s Path", done: true },
+  { id: 1, text: "Visit the temple", done: false },
+  { id: 2, text: "Drink matcha", done: false } ];
+
+const TasksContext = createContext<TaskType[]>([]);
+const TasksDispatchContext = createContext<React.Dispatch<Action>>(() => {}); // dig further about the type
+
+export function TasksProvider({ children }: TaskProviderProps) {
+  const [tasks, dispatch] = useReducer(tasksReducer, initialTasks);
+
+  return (
+    <TasksContext.Provider value={tasks}>
+      <TasksDispatchContext.Provider value={dispatch}>
+        {children}
+      </TasksDispatchContext.Provider>
+    </TasksContext.Provider>
+  );
+}
+
+export function useTasks() {
+  return useContext(TasksContext);
+}
+
+export function useTasksDispatch() {
+  return useContext(TasksDispatchContext);
+}
+
+function tasksReducer(tasks: TaskType[], action: Action): TaskType[] {
+  switch (action.type) {
+    case "added": {
+      return [
+        ...tasks,
+        {
+          id: action.task.id,
+          text: action.task.text,
+          done: false,
+        },
+      ];
+    }
+    case "changed": {
+      return tasks.map((t) => {
+        if (t.id === action.task.id) {
+          return action.task;
+        } else {
+          return t;
+        }
+      });
+    }
+    case "deleted": {
+      return tasks.filter((t) => t.id !== action.task.id);
+    }
+    default: {
+      throw Error("Unknown action: " + action.type);
+    }
+  }
+}
+```
+
+* TaskList.tsx
 ```tsx
 // TaskList.tsx
 import { useState } from "react";
@@ -458,7 +538,7 @@ function Task({ task }: { task: TaskType }) {
 
 ```
 
-* 
+* AddTask.tsx
 ```tsx
 // AddTask.tsx
 import { useState } from "react";
@@ -492,89 +572,6 @@ export default function AddTask() {
 let nextId = 3;
 
 ```
-
-* 
-```tsx
-// TasksContext.tsx
-import { ReactNode, createContext, useContext, useReducer } from "react";
-
-type TaskProviderProps = {
-  children: ReactNode;
-};
-
-export type TaskType = {
-  id: number;
-  text: string;
-  done: boolean;
-};
-
-export type Action = {
-  type: string;
-  task: TaskType;
-};
-
-const TasksContext = createContext<TaskType[]>([]);
-const TasksDispatchContext = createContext<React.Dispatch<Action>>(() => {});
-
-export function TasksProvider({ children }: TaskProviderProps) {
-  const [tasks, dispatch] = useReducer(tasksReducer, initialTasks);
-
-  return (
-    <TasksContext.Provider value={tasks}>
-      <TasksDispatchContext.Provider value={dispatch}>
-        {children}
-      </TasksDispatchContext.Provider>
-    </TasksContext.Provider>
-  );
-}
-
-export function useTasks() {
-  return useContext(TasksContext);
-}
-
-export function useTasksDispatch() {
-  return useContext(TasksDispatchContext);
-}
-
-function tasksReducer(tasks: TaskType[], action: Action): TaskType[] {
-  switch (action.type) {
-    case "added": {
-      return [
-        ...tasks,
-        {
-          id: action.task.id,
-          text: action.task.text,
-          done: false,
-        },
-      ];
-    }
-    case "changed": {
-      return tasks.map((t) => {
-        if (t.id === action.task.id) {
-          return action.task;
-        } else {
-          return t;
-        }
-      });
-    }
-    case "deleted": {
-      return tasks.filter((t) => t.id !== action.task.id);
-    }
-    default: {
-      throw Error("Unknown action: " + action.type);
-    }
-  }
-}
-
-const initialTasks = [
-  { id: 0, text: "Philosopher’s Path", done: true },
-  { id: 1, text: "Visit the temple", done: false },
-  { id: 2, text: "Drink matcha", done: false },
-];
-
-```
-
-
 
 ### State Management In Depth:
 https://react.dev/learn/managing-state
