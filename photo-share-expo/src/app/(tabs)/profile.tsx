@@ -1,6 +1,6 @@
 import { View, Text, FlatList, Image, TouchableOpacity } from 'react-native'
 import React, { useEffect, useState } from 'react'
-import { router, useLocalSearchParams, usePathname } from 'expo-router'
+import { router } from 'expo-router'
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { getUserPosts, logOut } from '@/src/lib/appwrite';
 import { useAppwrite } from '@/src/lib/useAppwrite';
