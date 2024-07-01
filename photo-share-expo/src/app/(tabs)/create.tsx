@@ -5,6 +5,7 @@ import FormField from '@/src/components/FormField'
 import { PostVideo } from '@/src/lib/entities.dtype'
 import { ResizeMode, Video } from 'expo-av'
 import { icons } from '@/src/constants'
+import CustomButton from '@/src/components/CustomButton'
 
 const Create = () => {
 
@@ -17,6 +18,14 @@ const Create = () => {
 
   const [uploading, setUploading] = useState(false);
 
+  const openPicker = async (selectType: string) => {
+
+  }
+
+  const submitForm = () => {
+
+  }
+
   return (
     <SafeAreaView className="bg-primary w-full h-full">
       <ScrollView className="px-4 mx-6">
@@ -27,7 +36,10 @@ const Create = () => {
 
         <View className="mt-7 space-y2">
           <Text className="text-base text-gray-100 font-psemibold">Upload Video</Text>
-          <TouchableOpacity>
+
+          <TouchableOpacity onPress={() => {
+            openPicker("video")
+          }}>
             {
               form.video ? (
                 <Video source={{ uri: form.video }} className="w-full h-64 rounded-2xl"
@@ -40,7 +52,35 @@ const Create = () => {
               </View>)
             }
           </TouchableOpacity>
+
         </View>
+
+        <View className="">
+          <Text className="text-base text-gray-100 font-psemibold">Thumbnail Image</Text>
+          <TouchableOpacity onPress={() => {
+            openPicker("image")
+          }}>
+            {
+              form.thumbnail ? (
+                <Image source={{ uri: form.thumbnail }} resizeMode="cover"
+                  className="w-full h-64 rounded-2xl" />
+              ) : (
+
+                <View className="w-full h-16 px-4 border-2 bg-black-200 justify-center items-center rounded-2xl flex-row space-x-2">
+                  <Image source={icons.upload} resizeMode="contain" className="w-5 h-5" />
+                  <Text className="text-gray-100 font-psemibold text-sm">Choose a file</Text>
+                </View>
+              )
+            }
+          </TouchableOpacity>
+        </View>
+
+        <FormField title="Video Prompt" value={form.prompt || ""} placeholder="Provide the video generation prompt"
+          handleChangeText={(e) => setForm({ ...form, prompt: e })}
+          otherStyles="mt-10" />
+
+        <CustomButton title="Submit" handlePress={submitForm} containerStyle="my-7" isLoading={uploading} textStyle={''} />
+
       </ScrollView>
     </SafeAreaView>
   )

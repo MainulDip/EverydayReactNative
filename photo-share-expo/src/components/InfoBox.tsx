@@ -1,3 +1,8 @@
+/**
+ * InfoBox Component | Used in Profile.tsx
+ * Shows User Information, Like count of Posts, Followers, Likes, ect
+ */
+
 import { View, Text, TextProps, StyleProp, TextStyle, ViewProps } from 'react-native'
 import React from 'react'
 

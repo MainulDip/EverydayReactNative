@@ -133,6 +133,8 @@ Also in RN, some flex defaults are different than Web.
 
 * `gap: number` property is supported by rn .71+. No `rowGap` or `columnGap` in View Component. Also Native Wind's `gap`, `gap-x-` and `gap-y-` is buggy as of Expo SDK 51 and Native Wind Version 2.0.11.
 
+* use nativewind's `space-x-` or `space-y` for workaround for `gap-x/y`
+
 ### ListView:
 
 ### Touchable Opacity:
@@ -295,3 +297,6 @@ Or using `fuser` in ubuntu
 Dynamic route means, any sting can be attached any value there and can be retrieved by `useLocalSearchParams()` hook, which will return an object containing the filename as key and the value attached with it. In this case `{something: "value"}`will be returned from useLocalSearchParams() if we commit `router.push("/search/value")`.
 
 `usePathname` => Inside expo (router), each page can retrieve its path name by `usePathname<string>()` hook coming from expo router.
+
+### Media Upload | `expo-document-picker`:
+Install it by `npx expo install expo-document-picker`
