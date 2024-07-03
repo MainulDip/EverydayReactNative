@@ -6,6 +6,8 @@ import { PostVideo } from '@/src/lib/entities.dtype'
 import { ResizeMode, Video } from 'expo-av'
 import { icons } from '@/src/constants'
 import CustomButton from '@/src/components/CustomButton'
+import * as DocumentPicker from 'expo-document-picker';
+
 
 const Create = () => {
 
@@ -19,7 +21,11 @@ const Create = () => {
   const [uploading, setUploading] = useState(false);
 
   const openPicker = async (selectType: string) => {
-
+    const result = await DocumentPicker.getDocumentAsync({
+      type: selectType === "image"
+      ? ["image/png", "image/jpg"]
+      : ["video/mp4", "video/gif"]
+    })
   }
 
   const submitForm = () => {

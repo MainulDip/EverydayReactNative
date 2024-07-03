@@ -358,7 +358,7 @@ Reducers contain component’s state-update-logic. Context lets us pass state de
 
 In the code below, 2 context are created (`TasksContext.tsx`), coming from `useReducer`, we provide the state to one context-provider and dispatch function to another context-provider. All children components are wrapped by the imported `TaskProvider` component in `App.js`. And from child components, the context is grabbed by `useContext`, which will hold the value (state/`tasks` and dispatch function) we passed earlier.
 
-https://react.dev/learn/managing-state#scaling-up-with-reducer-and-context...
+https://react.dev/learn/managing-state#scaling-up-with-reducer-and-context....
 
 * App.tsx
 ```tsx
