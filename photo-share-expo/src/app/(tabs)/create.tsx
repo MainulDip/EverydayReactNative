@@ -23,13 +23,31 @@ const Create = () => {
   const openPicker = async (selectType: string) => {
     const result = await DocumentPicker.getDocumentAsync({
       type: selectType === "image"
-      ? ["image/png", "image/jpg"]
-      : ["video/mp4", "video/gif"]
+        ? ["image/png", "image/jpeg"]
+        : ["video/mp4", "video/gif"]
     })
+
+    if (result.assets) {
+      switch (selectType) {
+        case "video":
+          setForm({ ...form, video: result.assets[0].uri })
+          break;
+        case "image":
+          setForm({ ...form, thumbnail: result.assets[0].uri })
+          break;
+      }
+    }
+
   }
 
   const submitForm = () => {
+    if (form.title && form.video && form.thumbnail && form.prompt) {
+      // call appwrite to save image and video on its storage async and get the result 
+      // show loading state while submitting
+      // redirect to profile page and show updated video on there
 
+      console.log("Post Created")
+    }
   }
 
   return (

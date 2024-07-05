@@ -19,7 +19,7 @@
 - install font sdk `npx expo install expo-font`.
 - install some other dependency `npm install axios react-native-dotenv` where axios for fetching apis and dotenv for environment variable
 
-Then Create an `app` directory and add `index.js` and `_layout.js`
+Then Create an `app` directory and add `index.js` and `_layout.js`.
 ```js
 // index.js
 import {View, Text} from 'react-native'
