@@ -19,7 +19,7 @@ type GlobalContextValue = {
 
 const GlobalContext = createContext<GlobalContextValue>({});
 
-export const useGlobalContext = () => useContext(GlobalContext);
+export const useGlobalContext = () => useContext<GlobalContextValue>(GlobalContext);
 
 const GlobalProvider = ({ children }: Props) => {
 

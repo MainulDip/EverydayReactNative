@@ -1,5 +1,7 @@
-import { Client, Account, ID, Avatars, Databases, Query } from 'react-native-appwrite';
+import { Client, Account, ID, Avatars, Databases, Query, Storage, Models } from 'react-native-appwrite';
 import { PostVideo, PostVideoKeys, UserKeys } from './entities.dtype';
+import { VideoUploadFormFields } from '../app/(tabs)/create';
+import * as DocumentPicker from 'expo-document-picker';
 
 export const config = {
     endpoint: "http://192.168.0.9/v1",
@@ -8,7 +10,7 @@ export const config = {
     databaseId: "665fead10000a8557165",
     userCollectionId: "665feaf5000a29e98815",
     videoCollectionId: "665fee24002f276bb311",
-    storageId: "665fef0e003669283d7d",
+    bucketId: "665fef0e003669283d7d",
 
 }
 
@@ -19,7 +21,7 @@ const {
     databaseId,
     userCollectionId,
     videoCollectionId,
-    storageId
+    bucketId
 } = config
 
 // export const config = {
@@ -29,7 +31,7 @@ const {
 //     databaseId: "665d4e9b00324416ef43",
 //     userCollectionId: "665d4ed3002ee96f6904",
 //     videoCollectionId: "665d4f13002aff7be551",
-//     storageId: "665d526500281896b1f6",
+//     bucketId: "665d526500281896b1f6",
 
 // }
 
@@ -52,6 +54,7 @@ client
 const account = new Account(client);
 const avatars = new Avatars(client);
 const databases = new Databases(client);
+const storage = new Storage(client);
 
 
 export const createUser = async ({ username, email, password }: User) => {
@@ -192,6 +195,73 @@ export async function logOut() {
 
 }
 
+
+/**
+ * uploading video is 2 steep process
+ * 1. Add the video and thumbnail to the storage
+ * 2. add database entry to `videos` table, it will require userid with video and image thumbnail url
+ * @param videoUploadFormFields 
+ */
+export async function uploadUserVideoPost(videoUploadFormFields: VideoUploadFormFields, videoPickerInfo: DocumentPicker.DocumentPickerAsset, thumbnailImagePickerInfo: DocumentPicker.DocumentPickerAsset, userID: string) {
+    console.log(videoUploadFormFields, userID);
+
+    try {
+        // add video to the storage and get the link uri
+        const storedVideoInfo = await uploadMediaFileToStorage(videoPickerInfo);
+        console.log("uploadUserVideoPost: ", storedVideoInfo);
+
+        // add thumbnail to the storage and get the link uri
+        // const storedThumbnailId = await uploadMediaFileToStorage(thumbnailImagePickerInfo);
+
+        // add database entry to videos table
+    } catch (error) {
+
+        console.log(error);
+    }
+}
+
+async function uploadMediaFileToStorage(fileInfo: DocumentPicker.DocumentPickerAsset): Promise<Models.File> {
+
+    try {
+        const promise = await storage.createFile(
+            bucketId,
+            ID.unique(),
+            {
+                name: fileInfo.name,
+                type: fileInfo.mimeType!,
+                size: fileInfo.size!,
+                uri: fileInfo.uri,
+            }
+        );
+        console.log("promise", promise);
+        return promise;
+    } catch (error) {
+        throw new Error(`Error saving file, error: ${(error as Error).message}`);
+
+    }
+
+    // promise.then((response) => {
+    //     console.log(response);
+    //     return response
+    // }, (error: Error) => {
+    //     console.log("Saving File Error", error)
+    //     throw new Error(`Error saving file, error: ${error.message}`);
+    // })
+
+    // return null;
+}
+
+
+// async function getStoredFileUir(id: string) {
+//     const fileUri = await storage.getFile(bucketId, id)
+//     try {
+//         const fileUri = await storage.getFile(bucketId, id)
+//         console.log()
+//         return fileUri.$id
+//     } catch (error) {
+//         throw new Error((error as Error).message);
+//     }
+// }
 
 
 // const client = new Client();
