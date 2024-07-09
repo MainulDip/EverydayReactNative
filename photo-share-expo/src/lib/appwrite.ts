@@ -208,14 +208,22 @@ export async function uploadUserVideoPost(videoUploadFormFields: VideoUploadForm
     try {
         // add video to the storage and get the link uri
         const storedVideoInfo = await uploadMediaFileToStorage(videoPickerInfo);
-        console.log("uploadUserVideoPost: ", storedVideoInfo);
+        const videoUri = storage.getFilePreview(bucketId, storedVideoInfo.$id)
+        console.log(videoUri);
 
         // add thumbnail to the storage and get the link uri
-        // const storedThumbnailId = await uploadMediaFileToStorage(thumbnailImagePickerInfo);
+        const storedThumbnailInfo = await uploadMediaFileToStorage(thumbnailImagePickerInfo);
+        const thumbnailUri = storage.getFilePreview(bucketId, storedThumbnailInfo.$id);
 
         // add database entry to videos table
+        const newPost = await databases.createDocument(databaseId, videoCollectionId, ID.unique(), {
+            prompt: videoUploadFormFields.prompt,
+            thumbnail: thumbnailUri,
+            title: videoUploadFormFields.title,
+            video: videoUri,
+            users: userID  
+        });
     } catch (error) {
-
         console.log(error);
     }
 }
