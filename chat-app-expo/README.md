@@ -9,7 +9,7 @@ Note: Configure Reanimated as stated in the docs
 
 Then go prebuild (expo-dev-client already installed) => `npx expo run:android`
 
-## Get started
+## Get started:
 
 1. Install dependencies
 
