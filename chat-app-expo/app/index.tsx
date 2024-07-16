@@ -1,11 +1,11 @@
 import { View, Text, StyleSheet, ScrollView, Image, TouchableOpacity } from 'react-native'
 import React from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context';
-import welcomeImg from './../assets/images/welcome.png';
 import Colors from '@/constants/Colors';
 import { Link } from 'expo-router';
+import { Images } from '@/constants';
 
-const welcome_image = Image.resolveAssetSource(welcomeImg).uri
+const welcome_image = Image.resolveAssetSource(Images.welcome_img).uri
 
 const Page = () => {
     function openLink(): void {
