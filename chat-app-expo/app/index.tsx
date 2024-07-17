@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, ScrollView, Image, TouchableOpacity } from 'react-native'
+import { View, Text, StyleSheet, ScrollView, Image, TouchableOpacity, Linking } from 'react-native'
 import React from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Colors from '@/constants/Colors';
@@ -9,7 +9,7 @@ const welcome_image = Image.resolveAssetSource(Images.welcome_img).uri
 
 const Page = () => {
     function openLink(): void {
-        console.log("Privacy Policy")
+        Linking.openURL("https://websolverpro.com");
     }
 
     return (
