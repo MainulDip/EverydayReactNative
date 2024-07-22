@@ -60,3 +60,31 @@ export default KeyboardAvoidingComponent;
 ```
 
 ### Mask Input:
+`npm install react-native-mask-input` to mask (decorate) texts and digits input, ie, phone number, otp or other code
+
+Example:
+
+<img src="./masked-input-example.gif" />
+
+--------------Code-----------------
+```js
+import MaskInput from 'react-native-mask-input';
+
+function MyComponent() {
+  const [phone, setPhone] = React.useState('');
+
+  return (
+    <MaskInput
+      value={phone}
+      onChangeText={(masked, unmasked) => {
+        setPhone(masked); // you can use the unmasked value as well
+
+        // assuming you typed "9" all the way:
+        console.log(masked); // (99) 99999-9999
+        console.log(unmasked); // 99999999999
+      }}
+      mask={['(', /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/]}
+    />
+  );
+}
+```
