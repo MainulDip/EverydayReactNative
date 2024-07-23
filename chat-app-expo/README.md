@@ -88,3 +88,22 @@ function MyComponent() {
   );
 }
 ```
+
+### StyleSheet (.create() | .absoluteFill | .hairlineWidth | .absoluteFillObject):
+`StyleSheet.create({})` is the mostly used utility function to create modular style declaration for React Native Application.
+
+there are some predefined set of style, ie, `.absoluteFill`, `.hairlineWidth`, `.absoluteFillObject` with the StyleSheet Object.
+
+Docs https://reactnative.dev/docs/stylesheet
+
+### ActivityIndicator Component:
+Built-in component to show os specific loading indicator.
+
+```js
+{!loading && (
+  <View style={[StyleSheet.absoluteFill, styles.loading]}>
+    <ActivityIndicator size="large" color={Colors.primary} />
+    <Text style={{ fontSize: 18, padding: 10 }}>Updating...</Text>
+  </View>
+)}
+```
