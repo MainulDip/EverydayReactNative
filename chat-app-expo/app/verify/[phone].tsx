@@ -1,6 +1,6 @@
 import { View, Text, StyleSheet, Platform, TextInput } from 'react-native'
 import React, { useEffect, useState } from 'react'
-import { useLocalSearchParams } from 'expo-router'
+import { Stack, useLocalSearchParams } from 'expo-router'
 import Colors from '@/constants/Colors';
 
 import {
@@ -28,6 +28,11 @@ const Page = () => {
         if (code.length == 6) {
             console.log(code)
             // TODO: Verify otp code
+            if(signin === "true") {
+                verifyCode()
+            } else {
+                verifySignin();
+            }
         }
     }, [code])
 
@@ -39,7 +44,8 @@ const Page = () => {
 
     return (
         <SafeAreaView style={styles.container}>
-            <Text>{phone}</Text>
+            <Stack.Screen options={{headerTitle: phone}} />
+            <Text>An OTP message has been sent to {phone}, Please verify your identity</Text>
             <CodeField
                 InputComponent={TextInput}
                 ref={ref}
@@ -64,6 +70,7 @@ const Page = () => {
                     </Text>
                 )}
             />
+            <Text style={{marginTop: 20}}>Didn't get the OTP?</Text>
         </SafeAreaView>
     )
 }

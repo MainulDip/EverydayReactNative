@@ -4,7 +4,7 @@
 - `useRef` is to keep data between renders (updating does not fire re-rendering)
 - `useState` is to keep data between renders (updating will fire re-rendering)
 - `memo` is not a hook, its a HOC, it memoized a `Component` (not a primitive value)
-- `useContext` and `createContext`
+- `useContext` and `createContext`.
 - `useReducer` and `useContext` combination
 - Custom Hook
 

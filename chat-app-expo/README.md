@@ -185,3 +185,10 @@ const App = () => {
 
 export default App;
 ```
+
+### Clerk Setup
+`npm install @clerk/clerk-expo`
+`npx expo install install expo-secure-store`
+
+### Expo OTA updates:
+Docs https://docs.expo.dev/versions/latest/sdk/updates/
