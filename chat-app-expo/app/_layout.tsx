@@ -10,6 +10,7 @@ import Page from '.';
 
 import * as SecureStore from 'expo-secure-store';
 import { ClerkProvider, ClerkLoaded, useAuth } from "@clerk/clerk-expo"
+import { View, Text } from 'react-native';
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
@@ -61,10 +62,6 @@ function InitialLayout() {
     }
   }, [loaded]);
 
-  if (!loaded) {
-    return null;
-  }
-
   // check is user is authenticated already, if so, route to chat page
   useEffect(() => {
     if(!isLoaded) return;
@@ -73,6 +70,10 @@ function InitialLayout() {
       router.replace("/(tabs)/index");
     }
   }, [isSignedIn])
+
+  if (!loaded) {
+    return <Text>Is Loading</Text>;
+  }
   
 
   return (

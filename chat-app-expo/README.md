@@ -192,3 +192,8 @@ export default App;
 
 ### Expo OTA updates:
 Docs https://docs.expo.dev/versions/latest/sdk/updates/
+
+### `rendered more hooks than previous` Error Debug:
+Don't return early before any hooks. `return` will always be the last declaration of a react Component.
+
+https://stackoverflow.com/questions/55622768/uncaught-invariant-violation-rendered-more-hooks-than-during-the-previous-rende
