@@ -197,3 +197,35 @@ Docs https://docs.expo.dev/versions/latest/sdk/updates/
 Don't return early before any hooks. `return` will always be the last declaration of a react Component.
 
 https://stackoverflow.com/questions/55622768/uncaught-invariant-violation-rendered-more-hooks-than-during-the-previous-rende
+
+### Expo URL hooks:
+`useFocusEffect`
+`useGlobalSearchParams`
+`useLocalSearchParams` https://docs.expo.dev/router/reference/url-parameters/#local-versus-global-url-parameters
+`useNavigation`
+`usePathname`
+`useSegments`
+
+https://docs.expo.dev/router/reference/hooks/
+
+### Installing Reactive Native on Mac (ios + android):
+Docs : https://reactnative.dev/docs/set-up-your-environment
+
+```sh
+# For both ios and android
+brew install node
+brew install watchman
+```
+
+To setup android dev environment
+=> Install java (azul zulu build, zulu@17)
+  - Download by `brew install --cask zulu@17`
+  - find the downloaded file by `brew info --cask zulu@17`, open it by clicking the link on the terminal and then run the installer (double click)
+=> Set default JAVA by adding JAVA_HOME to the ~/.zshrc or ~/.bash-profile (add if it doesn't exists). Find all the Azul Zulu installed java version by `ls -1 /Library/Java/JavaVirtualMachines/` (https://docs.azul.com/core/manage-multiple-zulu-versions/macos)
+
+ie, `export JAVA_HOME=/Library/Java/JavaVirtualMachines/zulu-17.jdk/Contents/Home`
+
+
+=> Check if it's been set by `echo $JAVA_HOME` (sometimes it may need to logout and login again)
+
+=> Install `JetBrains toolbox` first then install Android Studio throw that (it will be easier to update/manage multiple Android Studio IDE versions)
