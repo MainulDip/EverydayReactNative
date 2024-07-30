@@ -199,12 +199,16 @@ Don't return early before any hooks. `return` will always be the last declaratio
 https://stackoverflow.com/questions/55622768/uncaught-invariant-violation-rendered-more-hooks-than-during-the-previous-rende
 
 ### Expo URL hooks:
-`useFocusEffect`
-`useGlobalSearchParams`
-`useLocalSearchParams` https://docs.expo.dev/router/reference/url-parameters/#local-versus-global-url-parameters
-`useNavigation`
-`usePathname`
-`useSegments`
+`useFocusEffect` runs when a component is focused
+`useGlobalSearchParams` Returns the URL parameters for the globally selected route
+`useLocalSearchParams` Returns the URL parameters for the contextually selected route
+https://docs.expo.dev/router/reference/url-parameters/#local-versus-global-url-parameters
+
+`useNavigation` Access the underlying React Navigation navigation prop to imperatively access layout-specific functionality like navigation.dispatch(DrawerActions.openDrawer()) in a Drawer layout
+
+`usePathname` Returns the currently selected route location without search parameters. For example, /acme?foo=bar -> /acme. Segments will be normalized: /[id]?id=normal -> /normal
+
+`useSegments` Returns a list of segments for the currently selected route. Segments are not normalized so that they will be the same as the file path. For example, /[id]?id=normal -> ["[id]"].
 
 https://docs.expo.dev/router/reference/hooks/
 
@@ -229,3 +233,7 @@ ie, `export JAVA_HOME=/Library/Java/JavaVirtualMachines/zulu-17.jdk/Contents/Hom
 => Check if it's been set by `echo $JAVA_HOME` (sometimes it may need to logout and login again)
 
 => Install `JetBrains toolbox` first then install Android Studio throw that (it will be easier to update/manage multiple Android Studio IDE versions)
+
+### Attempted to navigate before mounting the Root Layout component:
+
+https://stackoverflow.com/questions/53179075/with-useeffect-how-can-i-skip-applying-an-effect-upon-the-initial-render

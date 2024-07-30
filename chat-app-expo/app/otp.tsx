@@ -1,9 +1,11 @@
-import { ActivityIndicator, KeyboardAvoidingView, Linking, Platform, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { ActivityIndicator, Alert, KeyboardAvoidingView, Linking, Platform, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import React, { useState } from 'react'
 import { useRouter } from 'expo-router';
 import Colors from '@/constants/Colors';
 import { Ionicons } from '@expo/vector-icons';
 import MaskInput from 'react-native-mask-input';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { isClerkAPIResponseError, useSignIn, useSignUp } from '@clerk/clerk-expo';
 
 const Page = () => {
 
@@ -13,6 +15,10 @@ const Page = () => {
   const router = useRouter();
   const keyboardVerticalOffset = Platform.OS === "ios" ? 90 : 0;
 
+  const { bottom } = useSafeAreaInsets();
+  const { signUp, setActive } = useSignUp();
+  const { signIn } = useSignIn();
+
 
   function openLink(): void {
     Linking.openURL("https://websolverpro.com");
@@ -21,11 +27,30 @@ const Page = () => {
   const sendOTP = async () => {
     setLoading(true);
     console.log(phoneNumber);
-    setTimeout(() => {
-      setLoading(false);
+    // setTimeout(() => {
+    //   setLoading(false);
+    //   router.push(`/verify/${phoneNumber}`);
+    // }, 1400);
+
+    try {
+      // await signUp?.create({ phoneNumber })
+      // await signUp?.preparePhoneNumberVerification();
       router.push(`/verify/${phoneNumber}`);
-    }, 1400);
+    } catch (error) {
+      console.log(error)
+      if (isClerkAPIResponseError(error)) {
+        if (error.errors[0].code === "form_identifier_exits") {
+          console.log("user exists")
+          await trySignIn();
+        } else {
+          setLoading(false);
+          Alert.alert("Error", "User already exists")
+        }
+      }
+    }
   }
+
+  const trySignIn = async () => { }
 
   return (
     <KeyboardAvoidingView

@@ -1,6 +1,6 @@
 import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
 import { useFonts } from 'expo-font';
-import { Stack, useRouter, useSegments } from 'expo-router';
+import { Redirect, Slot, Stack, useRouter, useSegments } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { useEffect } from 'react';
 import 'react-native-reanimated';
@@ -12,8 +12,8 @@ import * as SecureStore from 'expo-secure-store';
 import { ClerkProvider, ClerkLoaded, useAuth } from "@clerk/clerk-expo"
 import { View, Text } from 'react-native';
 
-// Prevent the splash screen from auto-hiding before asset loading is complete.
-SplashScreen.preventAutoHideAsync();
+
+const publishableKey = process.env.EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY!;
 
 const tokenCache = {
   async getToken(key: string) {
@@ -40,17 +40,23 @@ const tokenCache = {
   },
 };
 
-const publishableKey = process.env.EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY!;
+// Prevent the splash screen from auto-hiding before asset loading is complete.
+export {
+  // Catch any errors thrown by the Layout component.
+  ErrorBoundary,
+} from 'expo-router';
 
-if (!publishableKey) {
-  throw new Error('Missing Publishable Key. Please set EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY in your .env')
-}
+SplashScreen.preventAutoHideAsync();
+
+// if (!publishableKey) {
+//   throw new Error('Missing Publishable Key. Please set EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY in your .env')
+// }
 
 
 function InitialLayout() {
   const router = useRouter();
   const segments = useSegments();
-  const {isLoaded, isSignedIn} = useAuth();
+  const { isLoaded, isSignedIn } = useAuth();
   const colorScheme = useColorScheme();
   const [loaded] = useFonts({
     SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
@@ -63,18 +69,35 @@ function InitialLayout() {
   }, [loaded]);
 
   // check is user is authenticated already, if so, route to chat page
+  // useEffect(() => {
+  //   if (!isLoaded) return;
+  //   const inTabsGroup = segments[0] === "(tabs)"
+  //   console.log(segments)
+  //   if (isSignedIn && !inTabsGroup) {
+  //     router.push("/(tabs)/index"); // not perfect, will throw if mounted before root layout
+  //   } else if (!isSignedIn) {
+  //     router.replace('/');
+  //   }
+  // }, [isSignedIn])
+
   useEffect(() => {
-    if(!isLoaded) return;
-    const inTabsGroup = segments[0] === "(tabs)"
-    if(isSignedIn && !inTabsGroup) {
-      router.replace("/(tabs)/index");
+    if (!isLoaded) return;
+
+    const inTabsGroup = segments[0] === '(auth)';
+
+    if (isSignedIn && !inTabsGroup) {
+      router.replace('/(tabs)/chats');
+    } else if (!isSignedIn) {
+      
+      console.log("Directing")
+      //// router.replace('/'); // solving approach : https://stackoverflow.com/questions/53179075/with-useeffect-how-can-i-skip-applying-an-effect-upon-the-initial-render
     }
-  }, [isSignedIn])
+  }, [isSignedIn]);
 
   if (!loaded) {
-    return <Text>Is Loading</Text>;
+    return <View />;
   }
-  
+
 
   return (
     <Stack>

@@ -1,6 +1,6 @@
 import { View, Text, StyleSheet, Platform, TextInput } from 'react-native'
 import React, { useEffect, useState } from 'react'
-import { Stack, useLocalSearchParams } from 'expo-router'
+import { Stack, useLocalSearchParams, useSegments } from 'expo-router'
 import Colors from '@/constants/Colors';
 
 import {
@@ -24,16 +24,18 @@ const Page = () => {
         setValue: setCode,
     });
 
+    console.log("useSeagments", useSegments());
+
     useEffect(() => {
-        if (code.length == 6) {
-            console.log(code)
-            // TODO: Verify otp code
-            if(signin === "true") {
-                verifyCode()
-            } else {
-                verifySignin();
-            }
-        }
+        // if (code.length == 6) {
+        //     console.log(code)
+        //     // TODO: Verify otp code
+        //     if(signin === "true") {
+        //         verifyCode()
+        //     } else {
+        //         verifySignin();
+        //     }
+        // }
     }, [code])
 
     const verifyCode = async () => { }
