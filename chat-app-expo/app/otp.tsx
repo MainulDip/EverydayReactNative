@@ -35,7 +35,7 @@ const Page = () => {
     try {
       // await signUp?.create({ phoneNumber })
       // await signUp?.preparePhoneNumberVerification();
-      router.push(`/verify/${phoneNumber}`);
+      router.push(`/verify/${phoneNumber}?signin=true`);
     } catch (error) {
       console.log(error)
       if (isClerkAPIResponseError(error)) {

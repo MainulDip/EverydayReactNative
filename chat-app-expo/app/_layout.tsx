@@ -90,12 +90,17 @@ function InitialLayout() {
     } else if (!isSignedIn) {
       
       console.log("Directing")
-      //// router.replace('/'); // solving approach : https://stackoverflow.com/questions/53179075/with-useeffect-how-can-i-skip-applying-an-effect-upon-the-initial-render
+      router.replace('/');
     }
   }, [isSignedIn]);
 
   if (!loaded) {
-    return <View />;
+    // setTimeout(() => {
+    //   console.log("Calling First")
+    // return <Text>Loading</Text>;
+    // }, 1000);
+    console.log("calling first");
+    return <Slot />;
   }
 
 

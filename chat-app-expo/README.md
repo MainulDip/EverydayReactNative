@@ -234,6 +234,21 @@ ie, `export JAVA_HOME=/Library/Java/JavaVirtualMachines/zulu-17.jdk/Contents/Hom
 
 => Install `JetBrains toolbox` first then install Android Studio throw that (it will be easier to update/manage multiple Android Studio IDE versions)
 
-### Attempted to navigate before mounting the Root Layout component:
+=> install an android emulator
 
+=> add this to ~/.zshrc after $JAVA_HOME
+```sh
+export ANDROID_HOME=$HOME/Library/Android/sdk
+export PATH=$PATH:$ANDROID_HOME/emulator
+export PATH=$PATH:$ANDROID_HOME/platform-tools
+```
+
+### Attempted to navigate before mounting the Root Layout component:
+This can happen if the root layout file returns non navigational component (not Stack or Slot) at any point. Just returning Slot in case of loading state will solve these issues.
+
+### useEffect and useLayoutEffect timings:
+- skip useEffect on first render => custom hook with useRef conditional
 https://stackoverflow.com/questions/53179075/with-useeffect-how-can-i-skip-applying-an-effect-upon-the-initial-render
+
+- call function before useEffect (useEffects are called after browser finished painting) => useRef conditional or useLayoutEffect for rerenders
+https://stackoverflow.com/questions/51741828/need-to-execute-function-before-render-in-reactjs

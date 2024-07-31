@@ -1,6 +1,6 @@
 import { View, Text, StyleSheet, Platform, TextInput } from 'react-native'
 import React, { useEffect, useState } from 'react'
-import { Stack, useLocalSearchParams, useSegments } from 'expo-router'
+import { router, Stack, useGlobalSearchParams, useLocalSearchParams, useSegments } from 'expo-router'
 import Colors from '@/constants/Colors';
 
 import {
@@ -10,6 +10,7 @@ import {
     useClearByFocusCell,
 } from 'react-native-confirmation-code-field';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { useSignUp } from '@clerk/clerk-expo';
 
 
 const CELL_COUNT = 6;
@@ -17,28 +18,46 @@ const CELL_COUNT = 6;
 
 const Page = () => {
     const { phone, signin } = useLocalSearchParams<{ phone: string, signin: string }>();
+    const localSearchParam = useLocalSearchParams();
+    const globalSearchParam = useGlobalSearchParams();
     const [code, setCode] = useState("");
     const ref = useBlurOnFulfill({ value: code, cellCount: CELL_COUNT });
     const [props, getCellOnLayoutHandler] = useClearByFocusCell({
         value: code,
         setValue: setCode,
     });
+    const { isLoaded, signUp, setActive } = useSignUp();
 
     console.log("useSeagments", useSegments());
 
     useEffect(() => {
-        // if (code.length == 6) {
-        //     console.log(code)
-        //     // TODO: Verify otp code
-        //     if(signin === "true") {
-        //         verifyCode()
-        //     } else {
-        //         verifySignin();
-        //     }
-        // }
+        if (code.length == 6) {
+            console.log(localSearchParam)
+            console.log(globalSearchParam);
+            // TODO: Verify otp code
+            if (signin === "true") {
+                verifyCode(code);
+            } else {
+                verifySignin();
+            }
+        }
     }, [code])
 
-    const verifyCode = async () => { }
+    const verifyCode = async (code: string) => {
+        router.replace("(tabs)");
+        // try {
+        //     const phoneNumberVericationAttempt = await signUp?.attemptPhoneNumberVerification({ code })
+        //     if (phoneNumberVericationAttempt?.status === "complete") {
+        //         await setActive!({ session: phoneNumberVericationAttempt.createdSessionId })
+        //         router.replace("(tabs)");
+        //     } else {
+        //         console.error(JSON.stringify(phoneNumberVericationAttempt, null, 2))
+        //     }
+        // } catch (error) {
+        //     console.error(JSON.stringify(error, null, 2))
+        // }
+
+    }
 
     const verifySignin = async () => { }
 
@@ -46,7 +65,7 @@ const Page = () => {
 
     return (
         <SafeAreaView style={styles.container}>
-            <Stack.Screen options={{headerTitle: phone}} />
+            <Stack.Screen options={{ headerTitle: phone }} />
             <Text>An OTP message has been sent to {phone}, Please verify your identity</Text>
             <CodeField
                 InputComponent={TextInput}
@@ -60,7 +79,7 @@ const Page = () => {
                 rootStyle={styles.codeFieldRoot}
                 keyboardType="number-pad"
                 textContentType="oneTimeCode"
-                autoComplete={ Platform.OS === "android" ? "sms-otp" : "one-time-code" }
+                autoComplete={Platform.OS === "android" ? "sms-otp" : "one-time-code"}
                 // autoComplete={Platform.select({ android: 'sms-otp', default: 'one-time-code' })}
                 testID="my-code-input"
                 renderCell={({ index, symbol, isFocused }) => (
@@ -72,7 +91,7 @@ const Page = () => {
                     </Text>
                 )}
             />
-            <Text style={{marginTop: 20}}>Didn't get the OTP?</Text>
+            <Text style={{ marginTop: 20 }}>Didn't get the OTP?</Text>
         </SafeAreaView>
     )
 }
