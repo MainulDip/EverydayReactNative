@@ -173,7 +173,7 @@ export default function Heading({ children }) {
 ```
 * Note : the example above, we create the context inside LevelContext.js file. Then in App.js, each time we wrap a Heading with a Section Component, We define a value by Context.Provider (in Section.js) component which is contextual to its children. The further we nest, the further we provide new context value by incrementing from parent context value. Finally form Heading.js, we read the current context value and return different things using switch statement also define error boundary if Heading is not wrapped by a Section Component (aka, the default context value needs to be modified) & the deep nesting cannot be more than 6 level.
 
-https://react.dev/learn/managing-state#passing-data-deeply-with-context...
+https://react.dev/learn/managing-state#passing-data-deeply-with-context....
 
 
 ### `useReducer`:

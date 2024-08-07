@@ -69,16 +69,16 @@ function InitialLayout() {
   }, [loaded]);
 
   // check is user is authenticated already, if so, route to chat page
-  // useEffect(() => {
-  //   if (!isLoaded) return;
-  //   const inTabsGroup = segments[0] === "(tabs)"
-  //   console.log(segments)
-  //   if (isSignedIn && !inTabsGroup) {
-  //     router.push("/(tabs)/index"); // not perfect, will throw if mounted before root layout
-  //   } else if (!isSignedIn) {
-  //     router.replace('/');
-  //   }
-  // }, [isSignedIn])
+  useEffect(() => {
+    if (!isLoaded) return;
+    const inTabsGroup = segments[0] === "(tabs)"
+    console.log(segments)
+    if (isSignedIn && !inTabsGroup) {
+      router.push("/(tabs)/index"); // not perfect, will throw if mounted before root layout
+    } else if (!isSignedIn) {
+      router.replace('/');
+    }
+  }, [isSignedIn])
 
   useEffect(() => {
     if (!isLoaded) return;
@@ -86,7 +86,7 @@ function InitialLayout() {
     const inTabsGroup = segments[0] === '(auth)';
 
     if (isSignedIn && !inTabsGroup) {
-      router.replace('/(tabs)/chats');
+      router.replace('(tabs)');
     } else if (!isSignedIn) {
       
       console.log("Directing")
@@ -95,11 +95,6 @@ function InitialLayout() {
   }, [isSignedIn]);
 
   if (!loaded) {
-    // setTimeout(() => {
-    //   console.log("Calling First")
-    // return <Text>Loading</Text>;
-    // }, 1000);
-    console.log("calling first");
     return <Slot />;
   }
 

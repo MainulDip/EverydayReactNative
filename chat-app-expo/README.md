@@ -190,6 +190,11 @@ export default App;
 `npm install @clerk/clerk-expo`
 `npx expo install install expo-secure-store`
 
+Clerk Test Mode => Dashboard -> Settings -> Enable Test Mode and See Testing Email, Phone Number and OTP verification code
+Test phone number:+15555550100 to 199
+Test verification code:424242
+Test email:your_email+clerk_test@example.com
+
 ### Expo OTA updates:
 Docs https://docs.expo.dev/versions/latest/sdk/updates/
 

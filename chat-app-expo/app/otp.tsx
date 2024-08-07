@@ -33,8 +33,8 @@ const Page = () => {
     // }, 1400);
 
     try {
-      // await signUp?.create({ phoneNumber })
-      // await signUp?.preparePhoneNumberVerification();
+      await signUp?.create({ phoneNumber })
+      await signUp?.preparePhoneNumberVerification();
       router.push(`/verify/${phoneNumber}?signin=true`);
     } catch (error) {
       console.log(error)

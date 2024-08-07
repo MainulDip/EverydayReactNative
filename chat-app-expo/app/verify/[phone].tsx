@@ -44,7 +44,8 @@ const Page = () => {
     }, [code])
 
     const verifyCode = async (code: string) => {
-        router.replace("(tabs)");
+        console.log(code);
+        // router.replace("(tabs)");
         // try {
         //     const phoneNumberVericationAttempt = await signUp?.attemptPhoneNumberVerification({ code })
         //     if (phoneNumberVericationAttempt?.status === "complete") {
