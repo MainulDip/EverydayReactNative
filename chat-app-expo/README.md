@@ -257,3 +257,5 @@ https://stackoverflow.com/questions/53179075/with-useeffect-how-can-i-skip-apply
 
 - call function before useEffect (useEffects are called after browser finished painting) => useRef conditional or useLayoutEffect for rerenders
 https://stackoverflow.com/questions/51741828/need-to-execute-function-before-render-in-reactjs
+
+### Context/Popup Menu for Settings (Logout, etc):

@@ -81,7 +81,7 @@ const Page = () => {
 
         <MaskInput
           value={phoneNumber}
-          keyboardType="number-pad"
+          keyboardType="phone-pad"
           autoFocus
           placeholder="+12 your phone number"
           onChangeText={(masked, unmasked) => {

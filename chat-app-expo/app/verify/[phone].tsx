@@ -46,17 +46,19 @@ const Page = () => {
     const verifyCode = async (code: string) => {
         console.log(code);
         // router.replace("(tabs)");
-        // try {
-        //     const phoneNumberVericationAttempt = await signUp?.attemptPhoneNumberVerification({ code })
-        //     if (phoneNumberVericationAttempt?.status === "complete") {
-        //         await setActive!({ session: phoneNumberVericationAttempt.createdSessionId })
-        //         router.replace("(tabs)");
-        //     } else {
-        //         console.error(JSON.stringify(phoneNumberVericationAttempt, null, 2))
-        //     }
-        // } catch (error) {
-        //     console.error(JSON.stringify(error, null, 2))
-        // }
+        try {
+            const phoneNumberVericationAttempt = await signUp?.attemptPhoneNumberVerification({ code })
+            console.log(`Verification is successful as phoneNumberVericationAttempt?.status = ${phoneNumberVericationAttempt?.status}`)
+            if (phoneNumberVericationAttempt?.status === "complete") {
+                await setActive!({ session: phoneNumberVericationAttempt.createdSessionId })
+
+                router.replace("(tabs)");
+            } else {
+                console.error(JSON.stringify(phoneNumberVericationAttempt, null, 2))
+            }
+        } catch (error) {
+            console.error(JSON.stringify(error, null, 2))
+        }
 
     }
 
