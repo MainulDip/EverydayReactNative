@@ -259,3 +259,4 @@ https://stackoverflow.com/questions/53179075/with-useeffect-how-can-i-skip-apply
 https://stackoverflow.com/questions/51741828/need-to-execute-function-before-render-in-reactjs
 
 ### Context/Popup (UIMenu in iOS) Menu for Settings (Logout, etc):
+https://github.com/instea/react-native-popup-menu

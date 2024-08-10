@@ -11,6 +11,7 @@ import Page from '.';
 import * as SecureStore from 'expo-secure-store';
 import { ClerkProvider, ClerkLoaded, useAuth } from "@clerk/clerk-expo"
 import { View, Text } from 'react-native';
+import { MenuProvider } from 'react-native-popup-menu';
 
 
 const publishableKey = process.env.EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY!;
@@ -88,7 +89,7 @@ function InitialLayout() {
     if (isSignedIn && !inTabsGroup) {
       router.replace('(tabs)');
     } else if (!isSignedIn) {
-      
+
       console.log("Directing")
       router.replace('/');
     }
@@ -114,7 +115,9 @@ export default function RootLayout() {
   return (
     <ClerkProvider tokenCache={tokenCache} publishableKey={publishableKey}>
       <ClerkLoaded>
-        <InitialLayout />
+        <MenuProvider>
+          <InitialLayout />
+        </MenuProvider>
       </ClerkLoaded>
     </ClerkProvider>
 
