@@ -3,6 +3,7 @@ import React from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { Stack } from 'expo-router'
 import { Entypo } from '@expo/vector-icons'
+import ContextMenu from 'react-native-context-menu-view'
 
 const Page = () => {
   return (
@@ -10,17 +11,38 @@ const Page = () => {
       <Stack.Screen options={{
         headerTitle: "Chats",
         headerRight: () => (
-          <View style={styles.settingContainer}>
-            <TouchableOpacity>
-              <Entypo name="dots-three-vertical" size={24} color="black" />
-              {/* Context Menu or React Native Popup Menu */}
-            </TouchableOpacity>
-            <View style={styles.settingsView}>
-              <TouchableOpacity>
-                <Text>LogOut</Text>
-              </TouchableOpacity>
+          <ContextMenu style={{ marginBottom: 0 }}
+            actions={[{ title: "Title 1" }, { title: "Title 2" }]}
+            onPress={(e) => {
+              console.log("Hi")
+              console.warn(
+                `Pressed ${e.nativeEvent.name} at index ${e.nativeEvent.index}`
+              );
+            }}
+            title={'Dropdown Menu'}
+            dropdownMenuMode={true}
+          >
+            {/* <Text>Bismillah</Text> */}
+            <View style={styles.settingContainer}>
+              <View style={{ height: 20 }} />
+              <Text>Bismillah</Text>
+              <View style={{ height: 20 }} />
             </View>
-          </View>
+
+          </ContextMenu>
+
+
+          // <View style={styles.settingContainer}>
+          //   <TouchableOpacity>
+          //     <Entypo name="dots-three-vertical" size={24} color="black" />
+          //     {/* Context Menu or React Native Popup Menu */}
+          //   </TouchableOpacity>
+          //   <View style={styles.settingsView}>
+          //     <TouchableOpacity>
+          //       <Text>LogOut</Text>
+          //     </TouchableOpacity>
+          //   </View>
+          // </View>
 
         )
       }} />
@@ -30,7 +52,7 @@ const Page = () => {
 }
 
 const styles = StyleSheet.create({
-  settingContainer : {
+  settingContainer: {
     position: "relative"
   },
   settingsView: {
