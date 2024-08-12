@@ -6,6 +6,7 @@ import { Ionicons } from '@expo/vector-icons';
 import MaskInput from 'react-native-mask-input';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { isClerkAPIResponseError, useSignIn, useSignUp } from '@clerk/clerk-expo';
+import { PhoneCodeFactor, SignInFirstFactor } from "@clerk/types"
 
 const Page = () => {
 
@@ -33,9 +34,8 @@ const Page = () => {
     // }, 1400);
 
     try {
-      await signUp?.create({ phoneNumber })
-      await signUp?.preparePhoneNumberVerification();
-      router.push(`/verify/${phoneNumber}?signin=true`);
+      const { supportedFirstFactors } = await signIn?.create({ identifier: phoneNumber, strategy: "phone_code" })
+      router.push(`/verify/${phoneNumber}?signup=true`);
     } catch (error) {
       console.log(error)
       if (isClerkAPIResponseError(error)) {
@@ -44,7 +44,8 @@ const Page = () => {
           await trySignIn();
         } else {
           setLoading(false);
-          Alert.alert("Error", "User already exists")
+          console.log(JSON.stringify(error, null, 2))
+          Alert.alert("Error", "SignIn Error")
         }
       }
     }
@@ -110,6 +111,7 @@ const Page = () => {
           style={[styles.button, phoneNumber !== '' ? styles.enabled : null, { marginBottom: 20 }]}
           onPress={sendOTP}>
           <Text style={[styles.buttonText, phoneNumber !== '' ? styles.enabled : null]}>Next</Text>
+
         </TouchableOpacity>
       </View>
     </KeyboardAvoidingView>

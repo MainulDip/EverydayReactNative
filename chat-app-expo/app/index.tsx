@@ -27,6 +27,11 @@ const Page = () => {
                             <Text style={styles.buttonText}>Agree and Continue</Text>
                         </TouchableOpacity>
                     </Link>
+                    <Link href="/signin" asChild replace>
+                        <TouchableOpacity>
+                            <Text style={styles.buttonText}>Has Account? Sign In</Text>
+                        </TouchableOpacity>
+                    </Link>
 
                 </View>
 

@@ -10,14 +10,14 @@ import {
     useClearByFocusCell,
 } from 'react-native-confirmation-code-field';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { useSignUp } from '@clerk/clerk-expo';
+import { useSignUp, useSignIn } from '@clerk/clerk-expo';
 
 
 const CELL_COUNT = 6;
 
 
 const Page = () => {
-    const { phone, signin } = useLocalSearchParams<{ phone: string, signin: string }>();
+    const { phone, signin, signup } = useLocalSearchParams<{ phone: string, signin: string, signup: string }>();
     const localSearchParam = useLocalSearchParams();
     const globalSearchParam = useGlobalSearchParams();
     const [code, setCode] = useState("");
@@ -27,6 +27,7 @@ const Page = () => {
         setValue: setCode,
     });
     const { isLoaded, signUp, setActive } = useSignUp();
+    const { signIn: logIn, setActive: setActiveLogIn } = useSignIn();
 
     console.log("useSeagments", useSegments());
 
@@ -36,14 +37,17 @@ const Page = () => {
             console.log(globalSearchParam);
             // TODO: Verify otp code
             if (signin === "true") {
-                verifyCode(code);
+                verifyCodeSignUp(code);
+            } else if (signup === "true") {
+                console.log("signup true")
+                verifyCodeSignIn();
             } else {
                 verifySignin();
             }
         }
     }, [code])
 
-    const verifyCode = async (code: string) => {
+    const verifyCodeSignUp = async (code: string) => {
         console.log(code);
         // router.replace("(tabs)");
         try {
@@ -60,6 +64,22 @@ const Page = () => {
             console.error(JSON.stringify(error, null, 2))
         }
 
+    }
+
+    const verifyCodeSignIn = async () => {
+        try {
+            const phoneNumberVericationAttempt = await logIn?.attemptFirstFactor({strategy: "phone_code", code});
+            console.log(`Verification is successful as phoneNumberVericationAttempt?.status = ${phoneNumberVericationAttempt?.status}`)
+            if (phoneNumberVericationAttempt?.status === "complete") {
+                await setActive!({ session: phoneNumberVericationAttempt.createdSessionId })
+
+                router.replace("(tabs)");
+            } else {
+                console.error(JSON.stringify(phoneNumberVericationAttempt, null, 2))
+            }
+        } catch (error) {
+            console.error(JSON.stringify(error, null, 2))
+        }
     }
 
     const verifySignin = async () => { }

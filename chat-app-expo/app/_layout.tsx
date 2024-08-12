@@ -103,7 +103,8 @@ function InitialLayout() {
   return (
     <Stack>
       <Stack.Screen name="index" options={{ headerShown: false }} />
-      <Stack.Screen name="otp" options={{ title: "Login", headerTitleAlign: 'center' }} />
+      <Stack.Screen name="otp" options={{ title: "signUp", headerTitleAlign: 'center' }} />
+      <Stack.Screen name="signin" options={{ title: "Login", headerTitleAlign: 'center' }} />
       <Stack.Screen name="verify/[phone]" options={{ title: "Verify", headerTitleAlign: "center", headerBackTitle: "Edit" }} />
     </Stack>
   )
