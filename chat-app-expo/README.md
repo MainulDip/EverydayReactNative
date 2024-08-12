@@ -259,4 +259,70 @@ https://stackoverflow.com/questions/53179075/with-useeffect-how-can-i-skip-apply
 https://stackoverflow.com/questions/51741828/need-to-execute-function-before-render-in-reactjs
 
 ### Context/Popup (UIMenu in iOS) Menu for Settings (Logout, etc):
-https://github.com/instea/react-native-popup-menu
+Can be achieved through several way
+- Using Modal from RN (with Overlay) or
+- https://github.com/nandorojo/zeego or
+- https://github.com/instea/react-native-popup-menu or
+- https://github.com/mpiannucci/react-native-context-menu-view , etc
+
+* Modal usages for Options Menu
+
+```js
+<Stack.Screen options={{
+        headerTitle: "Chats",
+        headerRight: () => (
+
+          <View style={{}}>
+            <Modal
+              animationType="none"
+              transparent={true}
+              visible={modalVisible}
+              onRequestClose={() => { // will be called upon pressing  hardware back button
+                Alert.alert('Modal has been closed.');
+                setModalVisible(!modalVisible);
+              }}>
+              <TouchableWithoutFeedback style={{}} onPress={() => setModalVisible(false)}>
+                <View style={{ /* add overlay to capture outside tapping in order to close the modal */
+                      position: 'absolute',
+                      top: 0,
+                      bottom: 0,
+                      left: 0,
+                      right: 0,
+                      backgroundColor: 'rgba(201, 33, 33, 0)'
+                }} />
+              </TouchableWithoutFeedback>
+              <View>
+                <View style={{
+                  width: "40%",
+                  backgroundColor: "#000",
+                  marginLeft: "auto",
+                  padding: 10,
+                  marginTop: 60
+                }}>
+                  <TouchableOpacity onPress={() => {
+                    logOut();
+                    setModalVisible(false);
+                  }}><Text style={{ color: "white" }}>Logout</Text>
+                  </TouchableOpacity>
+                </View>
+              </View>
+            </Modal>
+            <TouchableOpacity onPress={() => setModalVisible(true)}>
+              <Entypo name="dots-three-vertical" size={24} color="black" />
+            </TouchableOpacity>
+          </View> )
+      }} />
+
+```
+
+### Next Task
+-> Implement Chat Screen (clean up unused imports and libraries)
+
+### Improvements Todo
+-> Bulletproof SingIn-SignUp-LogOut WorkFlow. Stop Unauthorize Chat View Access
+
+-> Move SignIn/Login Page Link to SignUp Page
+
+-> Add Animations
+
+-> Change Architectural Structure, Create Repository Pattern For Authorization Workflow and Database Fetching (To make the UI code Framework agnostic as much as possible).
