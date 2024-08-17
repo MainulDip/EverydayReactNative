@@ -73,7 +73,7 @@ const Page = () => {
             if (phoneNumberVericationAttempt?.status === "complete") {
                 await setActive!({ session: phoneNumberVericationAttempt.createdSessionId })
 
-                router.replace("(tabs)");
+                router.replace("(tabs)/chats");
             } else {
                 console.error(JSON.stringify(phoneNumberVericationAttempt, null, 2))
             }

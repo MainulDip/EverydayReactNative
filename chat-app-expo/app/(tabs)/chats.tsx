@@ -3,8 +3,6 @@ import React, { useState } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { Stack } from 'expo-router'
 import { Entypo } from '@expo/vector-icons'
-import ContextMenu from 'react-native-context-menu-view'
-import { Menu, MenuOption, MenuOptions, MenuTrigger } from 'react-native-popup-menu'
 import { useClerk } from '@clerk/clerk-expo'
 
 const Page = () => {

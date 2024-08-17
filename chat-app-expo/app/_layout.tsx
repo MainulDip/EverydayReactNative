@@ -1,17 +1,13 @@
 import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
 import { useFonts } from 'expo-font';
-import { Redirect, Slot, Stack, useRouter, useSegments } from 'expo-router';
+import { Slot, Stack, useRouter, useSegments } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { useEffect } from 'react';
 import 'react-native-reanimated';
-
 import { useColorScheme } from '@/hooks/useColorScheme';
-import Page from '.';
 
 import * as SecureStore from 'expo-secure-store';
 import { ClerkProvider, ClerkLoaded, useAuth } from "@clerk/clerk-expo"
-import { View, Text } from 'react-native';
-import { MenuProvider } from 'react-native-popup-menu';
 
 
 const publishableKey = process.env.EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY!;
@@ -75,7 +71,7 @@ function InitialLayout() {
     const inTabsGroup = segments[0] === "(tabs)"
     console.log(segments)
     if (isSignedIn && !inTabsGroup) {
-      router.push("/(tabs)/index"); // not perfect, will throw if mounted before root layout
+      router.push("/(tabs)/chats"); // not perfect, will throw if mounted before root layout
     } else if (!isSignedIn) {
       router.replace('/');
     }
@@ -87,7 +83,7 @@ function InitialLayout() {
     const inTabsGroup = segments[0] === '(auth)';
 
     if (isSignedIn && !inTabsGroup) {
-      router.replace('(tabs)');
+      router.replace('(tabs)/chats');
     } else if (!isSignedIn) {
 
       console.log("Directing")
@@ -116,9 +112,7 @@ export default function RootLayout() {
   return (
     <ClerkProvider tokenCache={tokenCache} publishableKey={publishableKey}>
       <ClerkLoaded>
-        <MenuProvider>
-          <InitialLayout />
-        </MenuProvider>
+        <InitialLayout />
       </ClerkLoaded>
     </ClerkProvider>
 
