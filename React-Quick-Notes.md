@@ -143,7 +143,7 @@ export default function Section({ children }) {
   );
 }
 ```
-* Get reference of the context and based on the context value, return different things.
+* Get reference of the context and based on the context value, return different things
 ```jsx
 // Heading.js
 import { useContext } from 'react';
