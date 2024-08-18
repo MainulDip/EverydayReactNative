@@ -315,6 +315,11 @@ Can be achieved through several way
 
 ```
 
+
+### React Native Gesture Handle:
+Provides native touch handling system for recognizing pinch, rotation and pan (besides a few other gestures) instead of React Native's built in touch system called `Gesture Responder System`.
+`npx expo install react-native-gesture-handler` and docs https://docs.swmansion.com/react-native-gesture-handler/docs/fundamentals/installation
+
 ### Next Task
 -> Implement Chat Screen (clean up unused imports and libraries)
 

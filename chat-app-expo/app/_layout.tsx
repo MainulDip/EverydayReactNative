@@ -71,7 +71,7 @@ function InitialLayout() {
     const inTabsGroup = segments[0] === "(tabs)"
     console.log(segments)
     if (isSignedIn && !inTabsGroup) {
-      router.push("/(tabs)/chats"); // not perfect, will throw if mounted before root layout
+      router.replace("/(tabs)/chats"); // not perfect, will throw if mounted before root layout
     } else if (!isSignedIn) {
       router.replace('/');
     }
@@ -102,6 +102,7 @@ function InitialLayout() {
       <Stack.Screen name="otp" options={{ title: "signUp", headerTitleAlign: 'center' }} />
       <Stack.Screen name="signin" options={{ title: "Login", headerTitleAlign: 'center' }} />
       <Stack.Screen name="verify/[phone]" options={{ title: "Verify", headerTitleAlign: "center", headerBackTitle: "Edit" }} />
+      <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
     </Stack>
   )
 }
