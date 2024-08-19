@@ -1,10 +1,89 @@
-import { View, Text } from 'react-native'
+import { View, Text, ScrollView, FlatList } from 'react-native'
 import React from 'react'
+import Colors from '@/constants/Colors';
+import { useAuth } from '@clerk/clerk-expo';
+import { defaultStyles } from '../../constants/Styles';
 
 const Page = () => {
+
+  const devices = [
+    {
+      name: 'Broadcast Lists',
+      icon: 'megaphone',
+      backgroundColor: Colors.green,
+    },
+    {
+      name: 'Starred Messages',
+      icon: 'star',
+      backgroundColor: Colors.yellow,
+    },
+    {
+      name: 'Linked Devices',
+      icon: 'laptop-outline',
+      backgroundColor: Colors.green,
+    },
+  ];
+
+  const items = [
+    {
+      name: 'Account',
+      icon: 'key',
+      backgroundColor: Colors.primary,
+    },
+    {
+      name: 'Privacy',
+      icon: 'lock-closed',
+      backgroundColor: '#33A5D1',
+    },
+    {
+      name: 'Chats',
+      icon: 'logo-whatsapp',
+      backgroundColor: Colors.green,
+    },
+    {
+      name: 'Notifications',
+      icon: 'notifications',
+      backgroundColor: Colors.red,
+    },
+    {
+      name: 'Storage and Data',
+      icon: 'repeat',
+      backgroundColor: Colors.green,
+    },
+  ];
+
+  const support = [
+    {
+      name: 'Help',
+      icon: 'information',
+      backgroundColor: Colors.primary,
+    },
+    {
+      name: 'Tell a Friend',
+      icon: 'heart',
+      backgroundColor: Colors.red,
+    },
+  ];
+
+  const { signOut } = useAuth();
+
+  const onSignOut = () => {
+    signOut();
+  };
   return (
-    <View>
-      <Text>Page</Text>
+    <View style={{ flex: 1, backgroundColor: Colors.background }}>
+      {/* <ScrollView> */}
+        <View style={defaultStyles.block}>
+          <FlatList
+            data={devices}
+            renderItem={({ item }) => (
+              <View style={defaultStyles.item}>
+                <Text style={{}}>{item.name}</Text>
+              </View>
+            )}
+          />
+        </View>
+      {/* </ScrollView> */}
     </View>
   )
 }
