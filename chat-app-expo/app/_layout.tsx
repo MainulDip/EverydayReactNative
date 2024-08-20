@@ -71,7 +71,7 @@ function InitialLayout() {
     const inTabsGroup = segments[0] === "(tabs)"
     console.log(segments)
     if (isSignedIn && !inTabsGroup) {
-      router.replace("/(tabs)/chats"); // not perfect, will throw if mounted before root layout
+      router.replace("/(tabs)/calls"); // not perfect, will throw if mounted before root layout
     } else if (!isSignedIn) {
       router.replace('/');
     }
@@ -83,7 +83,7 @@ function InitialLayout() {
     const inTabsGroup = segments[0] === '(auth)';
 
     if (isSignedIn && !inTabsGroup) {
-      router.replace('(tabs)/chats');
+      router.replace('(tabs)/calls');
     } else if (!isSignedIn) {
 
       console.log("Directing")
