@@ -7,26 +7,38 @@ import { defaultStyles } from '@/constants/Styles';
 import { Ionicons } from '@expo/vector-icons';
 import { format } from 'date-fns';
 import { SegmentedControl } from '@/components/SegmentedControl';
-import Animated, { CurvedTransition, FadeInUp, FadeOutUp } from 'react-native-reanimated';
+import Animated, { CurvedTransition, FadeInUp, FadeOutUp, useAnimatedStyle, useSharedValue, withSpring } from 'react-native-reanimated';
 import SwipeableRow from '@/components/SwipeableRow';
 import * as Haptics from "expo-haptics";
 import callLog from '@/assets/data/calls.json';
 
 const transition = CurvedTransition.delay(100);
+const AnimatedTouchableOpacity = Animated.createAnimatedComponent(TouchableOpacity);
 
 const Page = () => {
   const [callLog, setCallLog] = useState(originalCallLog);
   const [isEditing, setIsEditing] = useState(false);
   const [callsData, setCallsData] = useState(callLog)
-  const [selectedOption, setSelectedOption] = useState("All")
+  const [selectedOption, setSelectedOption] = useState("All");
+  const editing = useSharedValue(-30);
   const onEdit = () => {
-    setIsEditing(!isEditing);
+    let editingNew = !isEditing
+    editing.value = editingNew ? 0 : -30;
+    setIsEditing(!editingNew);
   }
 
   const deleteRow = (itemId: string) => {
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
     setCallLog(callLog.filter((item) => item.id !== itemId));
   }
+
+  const animatedRowStyle = useAnimatedStyle(() => {
+    return {
+      transform: [{ translateX: withSpring(editing.value) }]
+    };
+  })
+
+
 
   useEffect(() => {
     if (selectedOption === "All") {
