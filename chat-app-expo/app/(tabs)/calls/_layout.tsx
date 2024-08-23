@@ -11,7 +11,9 @@ const Layout = () => {
             <Stack.Screen name="index" options={{
                 title: "Calls",
                 headerTitleAlign: "center",
+                // headerTransparent: true,
                 headerLargeTitle: true,
+                // headerBlurEffect: "dark",
                 headerSearchBarOptions: {
                     placeholder: "Search",
                 },

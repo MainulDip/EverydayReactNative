@@ -46,7 +46,7 @@ const Page = () => {
             // itemLayoutAnimation={transition}
             ItemSeparatorComponent={() => <View style={defaultStyles.separator} />}
             renderItem={({ item, index }) => (
-              <Animated.View entering={FadeInUp.delay(index * 20)} exiting={FadeOutUp}>
+              <Animated.View entering={FadeInUp.delay(index * 10)} exiting={FadeOutUp}>
                 <View style={defaultStyles.item}>
                   <Image source={{ uri: item.img }} style={styles.avatar} />
                   <View style={{ flex: 1, gap: 2 }}>
