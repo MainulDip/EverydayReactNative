@@ -7,10 +7,11 @@ import { defaultStyles } from '@/constants/Styles';
 import { Ionicons } from '@expo/vector-icons';
 import { format } from 'date-fns';
 import { SegmentedControl } from '@/components/SegmentedControl';
-import Animated, { CurvedTransition, FadeInUp, FadeOutUp, useAnimatedStyle, useSharedValue, withSpring } from 'react-native-reanimated';
+import Animated, { CurvedTransition, FadeInUp, FadeOutUp, useAnimatedStyle, useSharedValue, withSpring, withTiming } from 'react-native-reanimated';
 import SwipeableRow from '@/components/SwipeableRow';
 import * as Haptics from "expo-haptics";
 import callLog from '@/assets/data/calls.json';
+import { getItemAsync } from 'expo-secure-store';
 
 const transition = CurvedTransition.delay(100);
 const AnimatedTouchableOpacity = Animated.createAnimatedComponent(TouchableOpacity);
@@ -24,7 +25,7 @@ const Page = () => {
   const onEdit = () => {
     let editingNew = !isEditing
     editing.value = editingNew ? 0 : -30;
-    setIsEditing(!editingNew);
+    setIsEditing(editingNew);
   }
 
   const deleteRow = (itemId: string) => {
@@ -34,7 +35,7 @@ const Page = () => {
 
   const animatedRowStyle = useAnimatedStyle(() => {
     return {
-      transform: [{ translateX: withSpring(editing.value) }]
+      transform: [{ translateX: withTiming(editing.value) }]
     };
   })
 
@@ -68,8 +69,16 @@ const Page = () => {
             ItemSeparatorComponent={() => <View style={defaultStyles.separator} />}
             renderItem={({ item, index }) => (
               <SwipeableRow onDelete={() => deleteRow(item.id)}>
-                <Animated.View entering={FadeInUp.delay(index * 10)} exiting={FadeOutUp}>
-                  <View style={defaultStyles.item}>
+                <Animated.View
+                  entering={FadeInUp.delay(index * 10)}
+                  exiting={FadeOutUp}
+                  style={{ flexDirection: "row", alignItems: "center" }}>
+
+                  <AnimatedTouchableOpacity onPress={() => deleteRow(item.id)} style={[animatedRowStyle, {paddingLeft: 7}]}>
+                    <Ionicons name="remove-circle" size={24} color={Colors.red} />
+                  </AnimatedTouchableOpacity>
+
+                  <Animated.View style={[defaultStyles.item, animatedRowStyle]}>
                     <Image source={{ uri: item.img }} style={styles.avatar} />
                     <View style={{ flex: 1, gap: 2 }}>
                       <Text style={{ fontSize: 18, color: item.missed ? Colors.red : "#000" }}>{item.name}</Text>
@@ -85,7 +94,7 @@ const Page = () => {
                       <Text style={{ color: Colors.gray }}>{format(item.date, "MM.dd.yy")}</Text>
                       <Ionicons name="information-circle-outline" size={24} color={Colors.primary} />
                     </View>
-                  </View>
+                  </Animated.View>
                 </Animated.View>
               </SwipeableRow>
             )}
