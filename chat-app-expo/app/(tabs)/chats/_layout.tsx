@@ -27,7 +27,7 @@ const Page = () => {
                         <TouchableOpacity>
                             <Ionicons name="camera-sharp" size={24} color={Colors.primary} />
                         </TouchableOpacity>
-                        <Link href="/" asChild>
+                        <Link href="/(modals)/new-chat" asChild>
                             <Ionicons name="add-circle" size={24} color={Colors.primary} />
                         </Link>
                     </View>

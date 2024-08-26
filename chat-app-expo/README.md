@@ -326,6 +326,13 @@ Provides native touch handling system for recognizing pinch, rotation and pan (b
 `npm install date-fns`
 https://www.npmjs.com/package/date-fns
 
+### React Native Section Alphabet List:
+`npm install react-native-section-alphabet-list`
+https://github.com/Kieran-McIntyre/react-native-section-alphabet-list
+
+### React Native Gifted Chat:
+`npx expo install react-native-gifted-chat`
+
 ### Next Task
 -> Implement Chat Screen (clean up unused imports and libraries)
 

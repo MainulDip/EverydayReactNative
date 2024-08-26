@@ -1,6 +1,6 @@
 import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
 import { useFonts } from 'expo-font';
-import { Slot, Stack, useRouter, useSegments } from 'expo-router';
+import { Link, Slot, Stack, useRouter, useSegments } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { useEffect } from 'react';
 import 'react-native-reanimated';
@@ -8,6 +8,9 @@ import { useColorScheme } from '@/hooks/useColorScheme';
 
 import * as SecureStore from 'expo-secure-store';
 import { ClerkProvider, ClerkLoaded, useAuth } from "@clerk/clerk-expo"
+import Colors from '@/constants/Colors';
+import { TouchableOpacity } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
 
 
 const publishableKey = process.env.EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY!;
@@ -103,6 +106,28 @@ function InitialLayout() {
       <Stack.Screen name="signin" options={{ title: "Login", headerTitleAlign: 'center' }} />
       <Stack.Screen name="verify/[phone]" options={{ title: "Verify", headerTitleAlign: "center", headerBackTitle: "Edit" }} />
       <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+      <Stack.Screen name="(modals)/new-chat"
+        options={{
+          presentation: "modal",
+          title: 'New Chat',
+          headerTransparent: true,
+          headerBlurEffect: 'regular',
+          headerStyle: {
+            backgroundColor: Colors.background,
+          },
+          headerRight: () => (
+            <Link href={'/(tabs)/chats'} asChild>
+              <TouchableOpacity
+                style={{ backgroundColor: Colors.lightGray, borderRadius: 20, padding: 4 }}>
+                <Ionicons name="close" color={Colors.gray} size={30} />
+              </TouchableOpacity>
+            </Link>
+          ),
+          headerSearchBarOptions: {
+            placeholder: 'Search name or number',
+            hideWhenScrolling: false,
+          }
+        }} />
     </Stack>
   )
 }
