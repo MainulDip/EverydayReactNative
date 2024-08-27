@@ -1,11 +1,13 @@
 import { ScrollView, Text, View } from 'react-native'
-import React from 'react'
+import React, { useEffect } from 'react'
 import Animated from 'react-native-reanimated';
 import chatData from "@/assets/data/chats.json";
 import { defaultStyles } from '@/constants/Styles';
 import ChatRow from '@/components/ChatRow';
+import { useNavigation, useSegments } from 'expo-router';
 
 const Page = () => {
+
 
   return (
     <ScrollView contentInsetAdjustmentBehavior="automatic" contentContainerStyle={{ paddingBottom: 40 }}>

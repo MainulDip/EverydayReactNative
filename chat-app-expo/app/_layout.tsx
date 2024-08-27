@@ -128,6 +128,7 @@ function InitialLayout() {
             hideWhenScrolling: false,
           }
         }} />
+        {/* <Stack.Screen name="(tabs)/chats/[id]" /> */}
     </Stack>
   )
 }

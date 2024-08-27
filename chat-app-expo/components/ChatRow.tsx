@@ -1,6 +1,6 @@
 import { View, Text, TouchableHighlight, Image } from 'react-native'
 import React, { FC } from 'react'
-import { Link } from 'expo-router';
+import { Link, Stack } from 'expo-router';
 import AppleStyleSwipeableRow from './AppleStyleSwipeableRow';
 import Colors from '@/constants/Colors';
 import { format } from 'date-fns';

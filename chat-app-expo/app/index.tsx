@@ -2,12 +2,13 @@ import { View, Text, StyleSheet, ScrollView, Image, TouchableOpacity, Linking } 
 import React from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Colors from '@/constants/Colors';
-import { Link } from 'expo-router';
+import { Link, useSegments } from 'expo-router';
 import { Images } from '@/constants';
 
 const welcome_image = Image.resolveAssetSource(Images.welcome_img).uri
 
 const Page = () => {
+
     function openLink(): void {
         Linking.openURL("https://websolverpro.com");
     }

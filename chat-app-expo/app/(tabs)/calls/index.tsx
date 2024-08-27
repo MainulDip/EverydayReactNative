@@ -1,6 +1,6 @@
 import { View, Text, TouchableOpacity, ScrollView, FlatList, StyleSheet, Image } from 'react-native'
 import React, { useEffect, useState } from 'react'
-import { Stack } from 'expo-router'
+import { Stack, useNavigation } from 'expo-router'
 import Colors from '@/constants/Colors'
 import originalCallLog from "@/assets/data/calls.json";
 import { defaultStyles } from '@/constants/Styles';
@@ -74,7 +74,7 @@ const Page = () => {
                   exiting={FadeOutUp}
                   style={{ flexDirection: "row", alignItems: "center" }}>
 
-                  <AnimatedTouchableOpacity onPress={() => deleteRow(item.id)} style={[animatedRowStyle, {paddingLeft: 7}]}>
+                  <AnimatedTouchableOpacity onPress={() => deleteRow(item.id)} style={[animatedRowStyle, { paddingLeft: 7 }]}>
                     <Ionicons name="remove-circle" size={24} color={Colors.red} />
                   </AnimatedTouchableOpacity>
 
