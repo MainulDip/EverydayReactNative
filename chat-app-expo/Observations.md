@@ -1,7 +1,7 @@
 ### Call UseEffect on Every Route:
 Add useSegments() as dependency.
 
-### What re-calls:
+### What re-calls on React Components/Functions:
 If any route is visited and is not replaced (removed from the stack), everything that is not withing useEffect will will be recalled.
 
 ### Preventing Back Pressed inside Tab Navigation:
@@ -32,3 +32,14 @@ const Page = () => {
     )
 }
 ```
+
+### Hiding Tabs For Nested Screen:
+Work on Tab's `_layout` file (Where Tabs.Screen 's are defined). Grab the current url Segment using `useSegment()`. Check if the segment matches with a specific nested screen and set `tabBarStyle: {display: routeSegments[2] === "[id]" ? "none" : "flex" }}`.
+
+```jsx
+const routeSegments = useSegments();
+// ... Other Code
+<Tabs.Screen name="chats" options={{
+        tabBarStyle: { backgroundColor: Colors.background, display: routeSegments[2] === "[id]" ? "none" : "flex" }
+      }} />
+````
