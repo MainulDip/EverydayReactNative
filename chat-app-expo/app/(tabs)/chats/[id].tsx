@@ -1,6 +1,8 @@
-import { View, Text } from 'react-native'
+import { View, Text, ImageBackground } from 'react-native'
 import React, { useCallback, useEffect, useState } from 'react'
-import { GiftedChat } from 'react-native-gifted-chat';
+import { GiftedChat, IMessage } from 'react-native-gifted-chat';
+import messageData from "@/assets/data/messages.json";
+import backgroundChatPatternImg from "@/assets/images/pattern.png";
 
 export type MessageProps = {
   _id: number;
@@ -15,20 +17,33 @@ export type MessageProps = {
 
 const Page = () => {
 
-  const [messages, setMessages] = useState<MessageProps[]>([])
+  const [messages, setMessages] = useState<IMessage[]>([])
 
   useEffect(() => {
     setMessages([
+      ...messageData.map((message) => {
+        return {
+          _id: message.id,
+          text: message.msg,
+          createdAt: new Date(message.date),
+
+          user: {
+            _id: message.from,
+            name: message.from ? "You" : "Bob",
+            avatar: message.img,
+          },
+        }
+      }),
       {
-        _id: 1,
-        text: 'Hello developer',
+        _id: 0,
+        system: true,
+        text: "Hi",
         createdAt: new Date(),
         user: {
-          _id: 2,
-          name: 'React Native',
-          avatar: 'https://placeimg.com/140/140/any',
-        },
-      },
+          _id: 0,
+          name: "Bot"
+        }
+      }
     ])
   }, [])
 
@@ -39,13 +54,15 @@ const Page = () => {
   }, [])
 
   return (
-    <GiftedChat
-      messages={messages}
-      onSend={messages => onSend(messages)}
-      user={{
-        _id: 1,
-      }}
-    />
+    <ImageBackground source={backgroundChatPatternImg} style={{ flex: 1 }}>
+      <GiftedChat
+        messages={messages}
+        onSend={messages => onSend(messages)}
+        user={{
+          _id: 1,
+        }}
+      />
+    </ImageBackground>
   )
 }
 
