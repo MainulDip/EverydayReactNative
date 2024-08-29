@@ -39,9 +39,13 @@ const Page = () => {
   }, [])
 
   return (
-    <View>
-      <GiftedChat messages={messages} onSend={messages => onSend(messages)} />
-    </View>
+    <GiftedChat
+      messages={messages}
+      onSend={messages => onSend(messages)}
+      user={{
+        _id: 1,
+      }}
+    />
   )
 }
 

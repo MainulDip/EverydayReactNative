@@ -38,8 +38,28 @@ Work on Tab's `_layout` file (Where Tabs.Screen 's are defined). Grab the curren
 
 ```jsx
 const routeSegments = useSegments();
-// ... Other Code
 <Tabs.Screen name="chats" options={{
         tabBarStyle: { backgroundColor: Colors.background, display: routeSegments[2] === "[id]" ? "none" : "flex" }
-      }} />
-````
+}} />
+```
+
+### Solving Version Conflict:
+React Native Uses Native Binding (JS calls kotlin/swift UI functions), that's why if multiple version of safe node.js library are installed (a package can have it's own version of dependencies), the underlying native code throws error as there can be same native module with same name. To resolve this add all the conflicting package all at once using `npx expo install <package1> <package2> ...`.
+
+To check which library is using which version of a package, run `npm ls <package_name>`. Ex `npm ls react-native-reanimated` to check which package is using what version of reanimated package.
+
+Another way is specifying `overrides` in package.json. Add the latest previously used version. (Though may not work always)
+
+```json
+"overrides": {
+  "react-native-reanimated": "~3.15.0"
+},
+```
+
+`npm dedupe` will remove duplicated packages (if any). deduped is short for "deduplicated. 
+  
+Installing all the packages with npx to resolve native version conflict of the `reanimated` package.
+`npx expo install react-native-gifted-chat react-native-reanimated react-native-safe-area-context`
+
+### Error: xcrun simctl (ios error for opening RN app to simulator):
+ios simulator needs to be run using xcode first. xcode -> open developer tools -> simulator will fix those issues.
