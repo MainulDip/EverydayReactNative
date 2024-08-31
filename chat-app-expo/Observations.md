@@ -63,3 +63,29 @@ Installing all the packages with npx to resolve native version conflict of the `
 
 ### Error: xcrun simctl (ios error for opening RN app to simulator):
 ios simulator needs to be run using xcode first. xcode -> open developer tools -> simulator will fix those issues.
+
+### VScode's `code .` command issues and other bugs in Mac:
+After installing VScode, Drag the downloaded binary form `Downloads` folder to the `Application` folder.
+Otherwise on every restart vscode don't keep some settings and `code` cmd
+
+### Install Node LTS version:
+If install with brew, uninstalling and installing instructions => https://stackoverflow.com/questions/11177954/how-do-i-completely-uninstall-node-js-and-reinstall-from-beginning-mac-os-x
+
+### TypeScript Declare ThirdParty Module (If no declaration found):
+https://stackoverflow.com/questions/44058101/typescript-declare-third-party-modules
+```js
+// Create a file with <filename>.d.ts and place declarations inside of it
+declare module "*.png";
+declare module "*.jpg";
+declare module "*.jpeg";
+declare module "*.gif";
+
+declare module "react-native/Libraries/Components/View/ReactNativeStyleAttributes" {
+    const ViewReactNativeStyleAttributes =  {
+        scaleY : boolean
+    }
+    export default ViewReactNativeStyleAttributes;
+    // export = ViewReactNativeStyleAttributes;
+    // export { ViewReactNativeStyleAttributes }; // import it like `import { ViewReactNativeStyleAttributes } from 'react-native/Libraries/Components/View/ReactNativeStyleAttributes'`
+}
+```

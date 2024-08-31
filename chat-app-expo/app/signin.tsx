@@ -34,7 +34,8 @@ const Page = () => {
     // }, 1400);
 
     try {
-      const { supportedFirstFactors } = await signIn?.create({ identifier: phoneNumber, strategy: "phone_code" })
+      // const { supportedFirstFactors } = await signIn?.create({ identifier: phoneNumber, strategy: "phone_code" })
+      await signIn?.create({ identifier: phoneNumber, strategy: "phone_code" })
       router.push(`/verify/${phoneNumber}?signup=true`);
     } catch (error) {
       console.log(error)

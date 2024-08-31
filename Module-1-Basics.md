@@ -1,7 +1,7 @@
 ### Common Views and Layout Components of RN:
 `<Text style={{fontSize: 24, color: 'blue'}}>Hello World!</Text>` For Text
 
-`<View>` It's a layout container (structure) for other components/elements, Uses FlexBox layout by Default....
+`<View>` It's a layout container (structure) for other components/elements, Uses FlexBox layout by Default...
 
 `FlatList` for showing List Item (Recycler View), for long scrollable list items. Map fn can also be used for showing small list of items.
 

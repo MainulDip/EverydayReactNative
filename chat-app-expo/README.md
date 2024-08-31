@@ -334,13 +334,14 @@ https://github.com/Kieran-McIntyre/react-native-section-alphabet-list
 `npx expo install react-native-gifted-chat`
 
 ### Next Task
--> Implement Chat Screen (clean up unused imports and libraries)
+-> Gifted Chat Implementation
+-> Reply Gesture & Reply text on top of input text field 
+  - https://medium.com/@ravil.nell/react-native-chat-reply-on-swipe-like-in-telegram-9083f83f180c
+  - https://github.com/nellu-art/react-native-chat-swipe
 
 ### Improvements Todo
+-> -> Gifted Chat Implementation 
+  - send message pending->sent->delivered->read state ui changes implementation
 -> Bulletproof SingIn-SignUp-LogOut WorkFlow. Stop Unauthorize Chat View Access
-
--> Move SignIn/Login Page Link to SignUp Page
-
--> Add Animations
 
 -> Change Architectural Structure, Create Repository Pattern For Authorization Workflow and Database Fetching (To make the UI code Framework agnostic as much as possible).

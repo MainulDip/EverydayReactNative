@@ -1,6 +1,6 @@
 import { View, Text, ImageBackground, StyleSheet } from 'react-native'
 import React, { useCallback, useEffect, useState } from 'react'
-import { Bubble, GiftedChat, IMessage, InputToolbar, Send, SystemMessage } from 'react-native-gifted-chat';
+import { Avatar, Bubble, GiftedChat, IMessage, InputToolbar, Send, SystemMessage } from 'react-native-gifted-chat';
 import messageData from "@/assets/data/messages.json";
 import backgroundChatPatternImg from "@/assets/images/pattern.png";
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -23,6 +23,7 @@ const Page = () => {
   const [messages, setMessages] = useState<IMessage[]>([])
   const insets = useSafeAreaInsets();
   const [text, setText] = useState("");
+  const color = "#ffffff";
 
   const renderInputToolbar = (props: any) => {
     return (
@@ -73,6 +74,20 @@ const Page = () => {
   }, [])
 
   return (
+
+    // <GiftedChat
+    //     messages={messages}
+    //     onSend={messages => onSend(messages)}
+    //     onInputTextChanged={setText}
+    //     user={{
+    //       _id: 1,
+    //     }} renderAvatar={(props) => <Avatar {...props} />} />
+    
+    // <View>
+    //   <Text>Bismillah</Text>
+    // </View>
+
+    
     <ImageBackground source={backgroundChatPatternImg} style={{ flex: 1, marginBottom: insets.bottom, backgroundColor: Colors.background }}>
       <GiftedChat
         messages={messages}
@@ -90,7 +105,7 @@ const Page = () => {
           }}
           wrapperStyle={{
             left: {
-              backgroundColor: "#fff",
+              backgroundColor: Colors.white,
             },
             right: {
               backgroundColor: Colors.lightGreen
@@ -137,7 +152,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     borderRadius: 18,
     borderWidth: 1,
-    borderColor: Colors.lightGray,
+    borderColor: Colors.red,
     paddingHorizontal: 10,
     paddingTop: 8,
     fontSize: 16,

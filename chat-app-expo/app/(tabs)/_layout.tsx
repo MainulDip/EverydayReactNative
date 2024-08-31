@@ -10,16 +10,16 @@ const Page = () => {
   const routeSegments = useSegments();
   // console.log(routeSegments);
 
-  const router = useRouter();
+  // const router = useRouter();
 
-  useEffect(() => {
-    BackHandler.addEventListener("hardwareBackPress", () => {
-      if (routeSegments[2] === "[id]") {
-        router.back();
-      }
-      return true;
-    } );
-}, [routeSegments])
+  // useEffect(() => {
+  //   BackHandler.addEventListener("hardwareBackPress", () => {
+  //     if (routeSegments[2] === "[id]") {
+  //       router.back();
+  //     }
+  //     return true;
+  //   });
+  // }, [routeSegments]);
 
 return (
   <GestureHandlerRootView style={{ flex: 1 }}>

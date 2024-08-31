@@ -5,7 +5,7 @@ import { TouchableOpacity } from 'react-native-gesture-handler'
 import { Ionicons } from '@expo/vector-icons'
 import Colors from '@/constants/Colors'
 
-const Page = () => {
+const Layout = () => {
     return (
         <>
             <Stack>
@@ -74,4 +74,4 @@ const Page = () => {
     )
 }
 
-export default Page
+export default Layout

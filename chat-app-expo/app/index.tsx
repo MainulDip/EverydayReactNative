@@ -4,6 +4,8 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import Colors from '@/constants/Colors';
 import { Link, useSegments } from 'expo-router';
 import { Images } from '@/constants';
+import ViewReactNativeStyleAttributes from 'react-native/Libraries/Components/View/ReactNativeStyleAttributes'
+ViewReactNativeStyleAttributes.scaleY = true
 
 const welcome_image = Image.resolveAssetSource(Images.welcome_img).uri
 
