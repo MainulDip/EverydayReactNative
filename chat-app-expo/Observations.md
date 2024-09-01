@@ -68,7 +68,12 @@ ios simulator needs to be run using xcode first. xcode -> open developer tools -
 After installing VScode, Drag the downloaded binary form `Downloads` folder to the `Application` folder.
 Otherwise on every restart vscode don't keep some settings and `code` cmd
 
-### Install Node LTS version:
+### Install Node LTS version (Keep & Switch From Multiple Node Versions ):
+Using `link` and `unlink` feature of Homebrew, a specific version can be set current.
+Install LTS version `brew install node@20`, then unlink the non LTS version by `brew unlink node` and make the newly installed LTS version as current by `brew link node@20` => follow brew instruction to overwrite new link and add PATH variable as instructed. `brew search node` will list all the available version of node.js and those are already installed will get a tick.
+https://dev.to/andreasbergstrom/easily-switch-between-multiple-node-versions-without-using-nvm-52k9
+
+=> Brew Uninstalling non LTS version and install LTS version
 If install with brew, uninstalling and installing instructions => https://stackoverflow.com/questions/11177954/how-do-i-completely-uninstall-node-js-and-reinstall-from-beginning-mac-os-x
 
 ### TypeScript Declare ThirdParty Module (If no declaration found):
