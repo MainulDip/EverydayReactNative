@@ -1,6 +1,6 @@
-import { View, Text, ImageBackground, StyleSheet } from 'react-native'
+import { View, Text, ImageBackground, StyleSheet, SafeAreaView } from 'react-native'
 import React, { useCallback, useEffect, useState } from 'react'
-import { Avatar, Bubble, GiftedChat, IMessage, InputToolbar, Send, SystemMessage } from 'react-native-gifted-chat';
+import { Avatar, Bubble, GiftedChat, IMessage, InputToolbar, InputToolbarProps, Send, SystemMessage } from 'react-native-gifted-chat';
 import messageData from "@/assets/data/messages.json";
 import backgroundChatPatternImg from "@/assets/images/pattern.png";
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -25,11 +25,11 @@ const Page = () => {
   const [text, setText] = useState("");
   const color = "#ffffff";
 
-  const renderInputToolbar = (props: any) => {
+  const renderInputToolbar = (props: InputToolbarProps<IMessage>) => {
     return (
       <InputToolbar
         {...props}
-        containerStyle={{ backgroundColor: Colors.background }}
+        containerStyle={{ backgroundColor: Colors.background, flexDirection: "column-reverse" }}
         renderActions={() => (
           <View style={{ height: 44, justifyContent: 'center', alignItems: 'center', left: 5 }}>
             <Ionicons name="add" color={Colors.primary} size={28} />
@@ -74,62 +74,65 @@ const Page = () => {
   }, [])
 
   return (
-    <ImageBackground source={backgroundChatPatternImg} style={{ flex: 1, marginBottom: insets.bottom, backgroundColor: Colors.background }}>
-      <GiftedChat
-        messages={messages}
-        onSend={messages => onSend(messages)}
-        onInputTextChanged={setText}
-        user={{
-          _id: 1,
-        }}
-        renderSystemMessage={(props) => <SystemMessage {...props} textStyle={{ color: Colors.red }} />}
-        renderBubble={(props) => <Bubble {...props}
-          textStyle={{
-            right: {
-              color: "#000"
-            }
-          }}
-          wrapperStyle={{
-            left: {
-              backgroundColor: Colors.white,
-            },
-            right: {
-              backgroundColor: Colors.lightGreen
-            }
-          }}
-        />}
+    <SafeAreaView style={{ flex: 1 }}>
+      <ImageBackground source={backgroundChatPatternImg} style={{ flex: 1, marginBottom: insets.bottom, backgroundColor: Colors.background }}>
+        <GiftedChat
+          messages={messages}
+          onSend={messages => onSend(messages)}
+          onInputTextChanged={setText}
 
-        renderSend={(props) => (
-          <View
-            style={{
-              height: 44,
-              flexDirection: 'row',
-              alignItems: 'center',
-              justifyContent: 'center',
-              gap: 14,
-              paddingHorizontal: 14,
-            }}>
-            {text === '' && (
-              <>
-                <Ionicons name="camera-outline" color={Colors.primary} size={28} />
-                <Ionicons name="mic-outline" color={Colors.primary} size={28} />
-              </>
-            )}
-            {text !== '' && (
-              <Send
-                {...props}
-                containerStyle={{
-                  justifyContent: 'center',
-                }}>
-                <Ionicons name="send" color={Colors.primary} size={28} />
-              </Send>
-            )}
-          </View>
-        )}
+          user={{
+            _id: 1,
+          }}
+          renderSystemMessage={(props) => <SystemMessage {...props} textStyle={{ color: Colors.red }} />}
+          renderBubble={(props) => <Bubble {...props}
+            textStyle={{
+              right: {
+                color: "#000"
+              }
+            }}
+            wrapperStyle={{
+              left: {
+                backgroundColor: Colors.white,
+              },
+              right: {
+                backgroundColor: Colors.lightGreen
+              }
+            }}
+          />}
 
-        renderInputToolbar={renderInputToolbar}
-      />
-    </ImageBackground>
+          renderSend={(props) => (
+            <View
+              style={{
+                height: 44,
+                flexDirection: 'row',
+                alignItems: 'center',
+                justifyContent: 'center',
+                gap: 14,
+                paddingHorizontal: 14,
+              }}>
+              {text === '' && (
+                <>
+                  <Ionicons name="camera-outline" color={Colors.primary} size={28} />
+                  <Ionicons name="mic-outline" color={Colors.primary} size={28} />
+                </>
+              )}
+              {text !== '' && (
+                <Send
+                  {...props}
+                  containerStyle={{
+                    justifyContent: 'center',
+                  }}>
+                  <Ionicons name="send" color={Colors.primary} size={28} />
+                </Send>
+              )}
+            </View>
+          )}
+
+          renderInputToolbar={renderInputToolbar}
+        />
+      </ImageBackground>
+    </SafeAreaView>
   )
 }
 
