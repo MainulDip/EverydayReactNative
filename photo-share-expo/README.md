@@ -283,6 +283,8 @@ sudo ss -l -p -t -n # -l listening, -p process , -t tcp , -n numeric
 sudo netstat -tulpn | grep LISTEN # to list port
 ```
 
+Check Processes with `ps` command on mac.
+
 Freeing Port
 ```sh
 lsof -i :8081

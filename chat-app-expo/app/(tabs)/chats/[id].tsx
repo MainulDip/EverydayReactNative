@@ -74,20 +74,6 @@ const Page = () => {
   }, [])
 
   return (
-
-    // <GiftedChat
-    //     messages={messages}
-    //     onSend={messages => onSend(messages)}
-    //     onInputTextChanged={setText}
-    //     user={{
-    //       _id: 1,
-    //     }} renderAvatar={(props) => <Avatar {...props} />} />
-    
-    // <View>
-    //   <Text>Bismillah</Text>
-    // </View>
-
-    
     <ImageBackground source={backgroundChatPatternImg} style={{ flex: 1, marginBottom: insets.bottom, backgroundColor: Colors.background }}>
       <GiftedChat
         messages={messages}
