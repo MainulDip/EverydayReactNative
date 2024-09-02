@@ -1,7 +1,8 @@
-import { View, Text, StyleSheet, Image } from 'react-native'
+import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native'
 import React from 'react'
 import Colors from '@/constants/Colors';
 import { Ionicons } from '@expo/vector-icons';
+import { replyMessageBarHeight } from '@/constants/Chat.constants';
 
 type ReplyMessageBarProps = {
     clearReply: () => void;
@@ -14,6 +15,14 @@ const ReplyMessageBar = ({ clearReply, message }: ReplyMessageBarProps) => {
             <View style={styles.replyImageContainer}>
                 <Ionicons name="share-outline" style={styles.replyImage} />
             </View>
+
+            <View style={styles.messageContainer}>
+                <Text>{message.text}</Text>
+            </View>
+
+            <TouchableOpacity style={styles.crossButton} onPress={clearReply}>
+                <Ionicons name="close-circle-outline" style={styles.crossButtonIcon} />
+            </TouchableOpacity>
         </View>
     )
 }
@@ -25,7 +34,7 @@ const styles = StyleSheet.create({
         paddingVertical: 8,
         borderBottomWidth: 1,
         borderBottomColor: Colors.lightGray,
-        height: 77
+        height: replyMessageBarHeight
     },
     replyImage: {
         width: 20,
@@ -43,6 +52,12 @@ const styles = StyleSheet.create({
     crossButtonIcon: {
         width: 24,
         height: 24,
+    },
+    crossButton: {
+        padding: 4,
+    },
+    messageContainer: {
+        flex: 1
     }
 });
 

@@ -6,6 +6,7 @@ import backgroundChatPatternImg from "@/assets/images/pattern.png";
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import Colors from '@/constants/Colors';
 import { Ionicons } from '@expo/vector-icons';
+import ReplyMessageBar from '@/components/ReplyMessageBar';
 
 export type MessageProps = {
   _id: number;
@@ -38,6 +39,10 @@ const Page = () => {
       />
     );
   };
+
+  const rederAccessory = () => {
+    <ReplyMessageBar message={{ text: "Test reply message" }} clearReply={() => null} />
+  }
 
   useEffect(() => {
     setMessages([
