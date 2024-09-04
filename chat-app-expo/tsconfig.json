@@ -7,15 +7,14 @@
     "moduleResolution": "node", // Use Node.js style module resolution
     "esModuleInterop": true, // Enables default imports from modules with no default export
     "paths": {
-      "@/*": [
-        "./*"
-      ]
+      "@/*": ["./*"]
     }
   },
   "include": [
     "**/*.ts",
     "**/*.tsx",
     ".expo/types/**/*.ts",
-    "expo-env.d.ts"
-, "app/(tabs)"  ]
+    "expo-env.d.ts",
+    "app/(tabs)"
+  ]
 }

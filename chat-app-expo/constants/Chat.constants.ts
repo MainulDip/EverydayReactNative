@@ -1,1 +1,1 @@
-export const replyMessageBarHeight = 50;
+export const replyMessageBarHeight = 60;

@@ -7,6 +7,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import Colors from '@/constants/Colors';
 import { Ionicons } from '@expo/vector-icons';
 import ReplyMessageBar from '@/components/ReplyMessageBar';
+import { replyMessageBarHeight } from '@/constants/Chat.constants';
 
 export type MessageProps = {
   _id: number;
@@ -29,22 +30,23 @@ const Page = () => {
 
   const clearReplyMessage = () => setReplyMessage(null);
 
-  const renderInputToolbar = (props: InputToolbarProps<IMessage>) => {
+  const customRenderInputToolbar = (props: InputToolbarProps<IMessage>) => {
     return (
       <InputToolbar
         {...props}
-        containerStyle={{ backgroundColor: Colors.background, flexDirection: "column-reverse" }}
+        containerStyle={{ backgroundColor: Colors.background, flexDirection: "column-reverse", position: "relative" }}
         renderActions={() => (
           <View style={{ height: 44, justifyContent: 'center', alignItems: 'center', left: 5 }}>
             <Ionicons name="add" color={Colors.primary} size={28} />
           </View>
         )}
+        accessoryStyle={replyMessage == null ? { height: "auto" } : { height: replyMessageBarHeight }}
       />
     );
   };
 
-  const rederAccessory = () => {
-    return replyMessage && ( <ReplyMessageBar message={{ text: replyMessage.text }} clearReply={clearReplyMessage} />)
+  const renderAccessory = () => {
+    return replyMessage && (<ReplyMessageBar message={{ text: replyMessage.text }} clearReply={clearReplyMessage} />)
   }
 
   useEffect(() => {
@@ -88,7 +90,6 @@ const Page = () => {
           messages={messages}
           onSend={messages => onSend(messages)}
           onInputTextChanged={setText}
-
           user={{
             _id: 1,
           }}
@@ -137,14 +138,14 @@ const Page = () => {
             </View>
           )}
 
-          renderInputToolbar={renderInputToolbar}
-          renderAccessory={replyMessage == null ? undefined : rederAccessory}
-          onLongPress={(_, message) => {
-            console.log(message)
+          renderInputToolbar={customRenderInputToolbar}
+          // renderAccessory={replyMessage == null ? undefined : rederAccessory}
+          renderAccessory={renderAccessory}
+          onLongPress={(context, message) => {
             setReplyMessage(message)
-          }
-          
-          }
+          }}
+          messagesContainerStyle={styles.messagesContainer}
+          // minInputToolbarHeight={100}
         />
       </ImageBackground>
     </SafeAreaView>
@@ -162,6 +163,16 @@ const styles = StyleSheet.create({
     fontSize: 16,
     marginVertical: 4,
   },
+  inputContainer: {
+    position: "relative",
+    flexDirection: "column-reverse"
+  },
+  replyBarContainer: {
+    height: "auto",
+  },
+  messagesContainer: {
+    flex: 1
+  }
 });
 
 export default Page

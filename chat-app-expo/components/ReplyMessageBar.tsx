@@ -13,27 +13,26 @@ type ReplyMessageBarProps = {
 
 const ReplyMessageBar = ({ clearReply, message }: ReplyMessageBarProps) => {
 
-
-    const replyHeight = useSharedValue(0);
-
     return (
 
+        // <View style={styles.container}>
+            <Animated.View style={styles.container} entering={FadeInDown} >
+                <View style={styles.replyImageContainer}>
+                    <MaterialCommunityIcons name="reply" style={styles.replyImage} size={20} color={Colors.primary} />
+                </View>
 
-        <Animated.View style={styles.container} entering={FadeInDown} >
-            <View style={styles.replyImageContainer}>
-                <MaterialCommunityIcons name="reply" style={styles.replyImage} size={20} color={Colors.primary} />
-            </View>
-
-            <ScrollView contentContainerStyle={{}}>
+                <ScrollView contentContainerStyle={{}}>
                 <View style={styles.messageContainer}>
                     <Text>{message.text}</Text>
                 </View>
-            </ScrollView>
+                </ScrollView>
 
-            <TouchableOpacity style={styles.crossButton} onPress={clearReply}>
-                <Ionicons name="close-circle-outline" style={styles.crossButtonIcon} />
-            </TouchableOpacity>
-        </Animated.View>
+                <TouchableOpacity style={styles.crossButton} onPress={clearReply}>
+                    <Ionicons name="close-circle-outline" style={styles.crossButtonIcon} />
+                </TouchableOpacity>
+            </Animated.View>
+        // </View>
+
 
 
     )
@@ -41,7 +40,7 @@ const ReplyMessageBar = ({ clearReply, message }: ReplyMessageBarProps) => {
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
+        // flex: 1,
         flexDirection: "row",
         alignItems: "center",
         paddingVertical: 8,
