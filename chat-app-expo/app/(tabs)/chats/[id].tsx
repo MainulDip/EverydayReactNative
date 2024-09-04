@@ -25,6 +25,9 @@ const Page = () => {
   const insets = useSafeAreaInsets();
   const [text, setText] = useState("");
   const color = "#ffffff";
+  const [replyMessage, setReplyMessage] = useState<IMessage | null>(null);
+
+  const clearReplyMessage = () => setReplyMessage(null);
 
   const renderInputToolbar = (props: InputToolbarProps<IMessage>) => {
     return (
@@ -41,7 +44,7 @@ const Page = () => {
   };
 
   const rederAccessory = () => {
-    <ReplyMessageBar message={{ text: "Test reply message" }} clearReply={() => null} />
+    return replyMessage && ( <ReplyMessageBar message={{ text: replyMessage.text }} clearReply={clearReplyMessage} />)
   }
 
   useEffect(() => {
@@ -54,7 +57,7 @@ const Page = () => {
 
           user: {
             _id: message.from,
-            name: message.from ? "You" : "Bob",
+            name: message.from ? "You" : "BrederAccessoryob",
             avatar: message.img,
           },
         }
@@ -135,6 +138,13 @@ const Page = () => {
           )}
 
           renderInputToolbar={renderInputToolbar}
+          renderAccessory={replyMessage == null ? undefined : rederAccessory}
+          onLongPress={(_, message) => {
+            console.log(message)
+            setReplyMessage(message)
+          }
+          
+          }
         />
       </ImageBackground>
     </SafeAreaView>

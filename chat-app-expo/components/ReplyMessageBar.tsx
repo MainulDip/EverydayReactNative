@@ -1,8 +1,10 @@
-import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native'
+import { View, Text, StyleSheet, Image, TouchableOpacity, ScrollView } from 'react-native'
 import React from 'react'
 import Colors from '@/constants/Colors';
-import { Ionicons } from '@expo/vector-icons';
+import { FontAwesome, Ionicons, MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons';
 import { replyMessageBarHeight } from '@/constants/Chat.constants';
+import Animated, { FadeInDown, useSharedValue } from 'react-native-reanimated';
+import FadeInUp from 'react-native-reanimated';
 
 type ReplyMessageBarProps = {
     clearReply: () => void;
@@ -10,31 +12,43 @@ type ReplyMessageBarProps = {
 }
 
 const ReplyMessageBar = ({ clearReply, message }: ReplyMessageBarProps) => {
+
+
+    const replyHeight = useSharedValue(0);
+
     return (
-        <View style={styles.container}>
+
+
+        <Animated.View style={styles.container} entering={FadeInDown} >
             <View style={styles.replyImageContainer}>
-                <Ionicons name="share-outline" style={styles.replyImage} />
+                <MaterialCommunityIcons name="reply" style={styles.replyImage} size={20} color={Colors.primary} />
             </View>
 
-            <View style={styles.messageContainer}>
-                <Text>{message.text}</Text>
-            </View>
+            <ScrollView contentContainerStyle={{}}>
+                <View style={styles.messageContainer}>
+                    <Text>{message.text}</Text>
+                </View>
+            </ScrollView>
 
             <TouchableOpacity style={styles.crossButton} onPress={clearReply}>
                 <Ionicons name="close-circle-outline" style={styles.crossButtonIcon} />
             </TouchableOpacity>
-        </View>
+        </Animated.View>
+
+
     )
 }
 
 const styles = StyleSheet.create({
     container: {
+        flex: 1,
         flexDirection: "row",
         alignItems: "center",
         paddingVertical: 8,
         borderBottomWidth: 1,
         borderBottomColor: Colors.lightGray,
-        height: replyMessageBarHeight
+        height: replyMessageBarHeight,
+        // display: "none"
     },
     replyImage: {
         width: 20,

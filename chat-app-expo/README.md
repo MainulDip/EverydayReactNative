@@ -339,6 +339,9 @@ https://github.com/Kieran-McIntyre/react-native-section-alphabet-list
   - https://medium.com/@ravil.nell/react-native-chat-reply-on-swipe-like-in-telegram-9083f83f180c
   - https://github.com/nellu-art/react-native-chat-swipe
 
+    => implement the other way of hiding the replay message box
+    => implement gesture animation swipe
+
 ### Improvements Todo
 -> -> Gifted Chat Implementation 
   - send message pending->sent->delivered->read state ui changes implementation
