@@ -1,24 +1,25 @@
 import { View, Text, ImageBackground, StyleSheet, SafeAreaView } from 'react-native'
 import React, { useCallback, useEffect, useState } from 'react'
-import { Avatar, Bubble, GiftedChat, IMessage, InputToolbar, InputToolbarProps, Send, SystemMessage } from 'react-native-gifted-chat';
+import { Avatar, Bubble, GiftedChat, IMessage, InputToolbar, InputToolbarProps, Send, SystemMessage, Time, MessageProps } from 'react-native-gifted-chat';
 import messageData from "@/assets/data/messages.json";
 import backgroundChatPatternImg from "@/assets/images/pattern.png";
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import Colors from '@/constants/Colors';
-import { Ionicons } from '@expo/vector-icons';
+import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
 import ReplyMessageBar from '@/components/ReplyMessageBar';
 import { replyMessageBarHeight } from '@/constants/Chat.constants';
+import ChatMessageBox from '@/components/ChatMessageBox';
 
-export type MessageProps = {
-  _id: number;
-  text: string;
-  createdAt: Date;
-  user: {
-    _id: number;
-    name: string;
-    avatar: string;
-  }
-}
+// export type MessageProps = {
+//   _id: number;
+//   text: string;
+//   createdAt: Date;
+//   user: {
+//     _id: number;
+//     name: string;
+//     avatar: string;
+//   }
+// }
 
 const Page = () => {
 
@@ -29,6 +30,12 @@ const Page = () => {
   const [replyMessage, setReplyMessage] = useState<IMessage | null>(null);
 
   const clearReplyMessage = () => setReplyMessage(null);
+
+  const renderMessageBox = (props: MessageProps<IMessage>) => {
+    return (
+      <ChatMessageBox {...props} />
+    )
+  }
 
   const customRenderInputToolbar = (props: InputToolbarProps<IMessage>) => {
     return (
@@ -108,8 +115,12 @@ const Page = () => {
                 backgroundColor: Colors.lightGreen
               }
             }}
+            renderTime={(props) => <Time {...props} timeTextStyle={{
+              right: {
+                color: Colors.gray
+              }
+            }} />}
           />}
-
           renderSend={(props) => (
             <View
               style={{
@@ -145,7 +156,7 @@ const Page = () => {
             setReplyMessage(message)
           }}
           messagesContainerStyle={styles.messagesContainer}
-          // minInputToolbarHeight={100}
+          renderMessage={renderMessageBox}
         />
       </ImageBackground>
     </SafeAreaView>
