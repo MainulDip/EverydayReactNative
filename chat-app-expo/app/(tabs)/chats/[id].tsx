@@ -1,4 +1,4 @@
-import { View, Text, ImageBackground, StyleSheet, SafeAreaView } from 'react-native'
+import { View, Text, ImageBackground, StyleSheet, SafeAreaView, KeyboardAvoidingView, Platform, StatusBar } from 'react-native'
 import React, { useCallback, useEffect, useState } from 'react'
 import { Avatar, Bubble, GiftedChat, IMessage, InputToolbar, InputToolbarProps, Send, SystemMessage, Time, MessageProps } from 'react-native-gifted-chat';
 import messageData from "@/assets/data/messages.json";
@@ -93,71 +93,74 @@ const Page = () => {
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <ImageBackground source={backgroundChatPatternImg} style={{ flex: 1, marginBottom: insets.bottom, backgroundColor: Colors.background }}>
-        <GiftedChat
-          messages={messages}
-          onSend={messages => onSend(messages)}
-          onInputTextChanged={setText}
-          user={{
-            _id: 1,
-          }}
-          renderSystemMessage={(props) => <SystemMessage {...props} textStyle={{ color: Colors.red }} />}
-          renderBubble={(props) => <Bubble {...props}
-            textStyle={{
-              right: {
-                color: "#000"
-              }
+        {/* Move KeyboardAvoidingView to Layout */}
+        <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"} style={{ flex: 1, paddingTop: Platform.OS === "android" ? 0 : 0}}>
+          <GiftedChat
+            messages={messages}
+            onSend={messages => onSend(messages)}
+            onInputTextChanged={setText}
+            user={{
+              _id: 1,
             }}
-            wrapperStyle={{
-              left: {
-                backgroundColor: Colors.white,
-              },
-              right: {
-                backgroundColor: Colors.lightGreen
-              }
-            }}
-            renderTime={(props) => <Time {...props} timeTextStyle={{
-              right: {
-                color: Colors.gray
-              }
-            }} />}
-          />}
-          renderSend={(props) => (
-            <View
-              style={{
-                height: 44,
-                flexDirection: 'row',
-                alignItems: 'center',
-                justifyContent: 'center',
-                gap: 14,
-                paddingHorizontal: 14,
-              }}>
-              {text === '' && (
-                <>
-                  <Ionicons name="camera-outline" color={Colors.primary} size={28} />
-                  <Ionicons name="mic-outline" color={Colors.primary} size={28} />
-                </>
-              )}
-              {text !== '' && (
-                <Send
-                  {...props}
-                  containerStyle={{
-                    justifyContent: 'center',
-                  }}>
-                  <Ionicons name="send" color={Colors.primary} size={28} />
-                </Send>
-              )}
-            </View>
-          )}
+            renderSystemMessage={(props) => <SystemMessage {...props} textStyle={{ color: Colors.red }} />}
+            renderBubble={(props) => <Bubble {...props}
+              textStyle={{
+                right: {
+                  color: "#000"
+                }
+              }}
+              wrapperStyle={{
+                left: {
+                  backgroundColor: Colors.white,
+                },
+                right: {
+                  backgroundColor: Colors.lightGreen
+                }
+              }}
+              renderTime={(props) => <Time {...props} timeTextStyle={{
+                right: {
+                  color: Colors.gray
+                }
+              }} />}
+            />}
+            renderSend={(props) => (
+              <View
+                style={{
+                  height: 44,
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  gap: 14,
+                  paddingHorizontal: 14,
+                }}>
+                {text === '' && (
+                  <>
+                    <Ionicons name="camera-outline" color={Colors.primary} size={28} />
+                    <Ionicons name="mic-outline" color={Colors.primary} size={28} />
+                  </>
+                )}
+                {text !== '' && (
+                  <Send
+                    {...props}
+                    containerStyle={{
+                      justifyContent: 'center',
+                    }}>
+                    <Ionicons name="send" color={Colors.primary} size={28} />
+                  </Send>
+                )}
+              </View>
+            )}
 
-          renderInputToolbar={customRenderInputToolbar}
-          // renderAccessory={replyMessage == null ? undefined : rederAccessory}
-          renderAccessory={renderAccessory}
-          onLongPress={(context, message) => {
-            setReplyMessage(message)
-          }}
-          messagesContainerStyle={styles.messagesContainer}
-          renderMessage={renderMessageBox}
-        />
+            renderInputToolbar={customRenderInputToolbar}
+            // renderAccessory={replyMessage == null ? undefined : rederAccessory}
+            renderAccessory={renderAccessory}
+            onLongPress={(context, message) => {
+              setReplyMessage(message)
+            }}
+            messagesContainerStyle={styles.messagesContainer}
+            renderMessage={renderMessageBox}
+          />
+        </KeyboardAvoidingView>
       </ImageBackground>
     </SafeAreaView>
   )

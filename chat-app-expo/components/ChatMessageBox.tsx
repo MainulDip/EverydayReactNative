@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from 'react-native'
+import { Animated, StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 import { IMessage, Message, MessageProps } from 'react-native-gifted-chat'
 import { MaterialCommunityIcons } from '@expo/vector-icons';
@@ -7,13 +7,18 @@ import { Swipeable } from 'react-native-gesture-handler';
 
 const ChatMessageBox = (props: MessageProps<IMessage>) => {
 
-    const renderRightAction = () => (
-        <View style={styles.container}>
-            <View style={styles.replyImageWrapper}>
-                <MaterialCommunityIcons name="reply" size={30} color={Colors.lightGreen} />
+    const renderRightAction = (progressAnimatedValue: Animated.AnimatedInterpolation<number>) => {
+        
+
+
+        return (
+            <View style={styles.container}>
+                <View style={styles.replyImageWrapper}>
+                    <MaterialCommunityIcons name="reply" size={30} color={Colors.lightPurple} />
+                </View>
             </View>
-        </View>
-    );
+        );
+    }
 
     return (
         <Swipeable
