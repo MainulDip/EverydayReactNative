@@ -9,14 +9,25 @@ const ChatMessageBox = (props: MessageProps<IMessage>) => {
 
     const renderRightAction = (progressAnimatedValue: Animated.AnimatedInterpolation<number>) => {
         
+        const size = progressAnimatedValue.interpolate({
+            inputRange: [0, 1, 100],
+            outputRange: [0, 1, 1]
+        })
 
+        const trans = progressAnimatedValue.interpolate({
+            inputRange: [0, 1, 2],
+            outputRange: [0, -4, -16]
+        })
 
         return (
-            <View style={styles.container}>
+            <Animated.View style={[
+                styles.container, 
+                {transform: [{scale: size }, {translateX: trans}]},
+            ]}>
                 <View style={styles.replyImageWrapper}>
                     <MaterialCommunityIcons name="reply" size={30} color={Colors.lightPurple} />
                 </View>
-            </View>
+            </Animated.View>
         );
     }
 

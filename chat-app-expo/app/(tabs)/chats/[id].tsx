@@ -119,7 +119,7 @@ const Page = () => {
               }}
               renderTime={(props) => <Time {...props} timeTextStyle={{
                 right: {
-                  color: Colors.gray
+                  color: Colors.gray,
                 }
               }} />}
             />}
