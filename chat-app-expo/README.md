@@ -340,10 +340,13 @@ https://github.com/Kieran-McIntyre/react-native-section-alphabet-list
   - https://github.com/nellu-art/react-native-chat-swipe
   - https://github.com/nellu-art/react-native-chat-swipe
 
-    => implement the other way of hiding the replay message box
-    => implement gesture animation swipe
+    => fix bug (double swipe same message not closing the swiped message)
+    => useCallBack, useMemo, memo, useRef in depth (https://react.dev/reference/react/useCallback)
+    => attach reply message with sent message
+    => Impl Right Swipe for Other User and Left Swipe for Current 
 
 ### Improvements Todo
+-> Multiple Reply Stacked In Sent Message Once (as swiped orders sync)
 -> -> Gifted Chat Implementation 
   - send message pending->sent->delivered->read state ui changes implementation
 -> Bulletproof SingIn-SignUp-LogOut WorkFlow. Stop Unauthorize Chat View Access

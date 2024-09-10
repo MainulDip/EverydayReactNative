@@ -5,7 +5,12 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import Colors from '@/constants/Colors';
 import { Swipeable } from 'react-native-gesture-handler';
 
-const ChatMessageBox = (props: MessageProps<IMessage>) => {
+type ChatMessageBoxProps = {
+    setReplyOnSwipeOpen: (message: IMessage | null) => void;
+    updateRowRef: (ref: any) => void;
+} & MessageProps<IMessage>
+
+const ChatMessageBox = ({ setReplyOnSwipeOpen, updateRowRef, ...props }: ChatMessageBoxProps) => {
     const isNextMyMessage = props.currentMessage && props.nextMessage && isSameUser(props.currentMessage, props.nextMessage) && isSameDay(props.currentMessage, props.nextMessage)
 
     const renderRightAction = (progressAnimatedValue: Animated.AnimatedInterpolation<number>) => {
@@ -36,9 +41,11 @@ const ChatMessageBox = (props: MessageProps<IMessage>) => {
 
     return (
         <Swipeable
+            ref={updateRowRef}
             friction={2}
             rightThreshold={20}
             renderRightActions={renderRightAction}
+            onSwipeableOpen={() => { setReplyOnSwipeOpen(props.currentMessage) }}
         >
             <Message {...props} />
         </Swipeable>

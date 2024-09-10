@@ -1,5 +1,5 @@
 import { View, Text, ImageBackground, StyleSheet, SafeAreaView, KeyboardAvoidingView, Platform, StatusBar } from 'react-native'
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { Avatar, Bubble, GiftedChat, IMessage, InputToolbar, InputToolbarProps, Send, SystemMessage, Time, MessageProps } from 'react-native-gifted-chat';
 import messageData from "@/assets/data/messages.json";
 import backgroundChatPatternImg from "@/assets/images/pattern.png";
@@ -9,6 +9,7 @@ import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
 import ReplyMessageBar from '@/components/ReplyMessageBar';
 import { replyMessageBarHeight } from '@/constants/Chat.constants';
 import ChatMessageBox from '@/components/ChatMessageBox';
+import { Swipeable } from 'react-native-gesture-handler';
 
 // export type MessageProps = {
 //   _id: number;
@@ -28,12 +29,24 @@ const Page = () => {
   const [text, setText] = useState("");
   const color = "#ffffff";
   const [replyMessage, setReplyMessage] = useState<IMessage | null>(null);
+  const swipeableRowRef = useRef<Swipeable | null>(null);
 
   const clearReplyMessage = () => setReplyMessage(null);
 
+  const updateRowRef = useCallback((ref: any) => {
+    if (ref && replyMessage && ref.props.children.props.currentMessage?._id === replyMessage._id) {
+      swipeableRowRef.current = ref;
+    }
+  }, [replyMessage])
+
   const renderMessageBox = (props: MessageProps<IMessage>) => {
     return (
-      <ChatMessageBox {...props} />
+      <ChatMessageBox
+        setReplyOnSwipeOpen={(message: IMessage | null) => {
+          setReplyMessage(message);
+        }}
+        updateRowRef={updateRowRef}
+        {...props} />
     )
   }
 
@@ -55,6 +68,13 @@ const Page = () => {
   const renderAccessory = () => {
     return replyMessage && (<ReplyMessageBar message={{ text: replyMessage.text }} clearReply={clearReplyMessage} />)
   }
+
+  useEffect(() => {
+    if (replyMessage && swipeableRowRef.current) {
+      swipeableRowRef.current.close();
+      swipeableRowRef.current = null;
+    }
+  }, [replyMessage])
 
   useEffect(() => {
     setMessages([
@@ -94,7 +114,7 @@ const Page = () => {
     <SafeAreaView style={{ flex: 1 }}>
       <ImageBackground source={backgroundChatPatternImg} style={{ flex: 1, marginBottom: insets.bottom, backgroundColor: Colors.background }}>
         {/* Move KeyboardAvoidingView to Layout */}
-        <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"} style={{ flex: 1, paddingTop: Platform.OS === "android" ? 0 : 0}}>
+        <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"} style={{ flex: 1, paddingTop: Platform.OS === "android" ? 0 : 0 }}>
           <GiftedChat
             messages={messages}
             onSend={messages => onSend(messages)}
