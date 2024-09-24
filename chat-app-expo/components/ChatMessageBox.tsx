@@ -10,7 +10,9 @@ type ChatMessageBoxProps = {
     updateRowRef: (ref: any) => void;
 } & MessageProps<IMessage>
 
+
 const ChatMessageBox = ({ setReplyOnSwipeOpen, updateRowRef, ...props }: ChatMessageBoxProps) => {
+    
     const isNextMyMessage = props.currentMessage && props.nextMessage && isSameUser(props.currentMessage, props.nextMessage) && isSameDay(props.currentMessage, props.nextMessage)
 
     const renderRightAction = (progressAnimatedValue: Animated.AnimatedInterpolation<number>) => {
@@ -45,7 +47,12 @@ const ChatMessageBox = ({ setReplyOnSwipeOpen, updateRowRef, ...props }: ChatMes
             friction={2}
             rightThreshold={20}
             renderRightActions={renderRightAction}
-            onSwipeableOpen={() => { setReplyOnSwipeOpen(props.currentMessage) }}
+            onSwipeableOpen={(_, swipeable) => {
+                setReplyOnSwipeOpen(props.currentMessage)
+                setTimeout(() => {
+                    swipeable.close();
+                }, 100);
+            }}
         >
             <Message {...props} />
         </Swipeable>

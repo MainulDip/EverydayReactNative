@@ -36,6 +36,7 @@ const Page = () => {
   const updateRowRef = useCallback((ref: any) => {
     if (ref && replyMessage && ref.props.children.props.currentMessage?._id === replyMessage._id) {
       swipeableRowRef.current = ref;
+      // ref.close();
     }
   }, [replyMessage])
 
@@ -71,7 +72,7 @@ const Page = () => {
 
   useEffect(() => {
     if (replyMessage && swipeableRowRef.current) {
-      swipeableRowRef.current.close();
+      // swipeableRowRef.current.close();
       swipeableRowRef.current = null;
     }
   }, [replyMessage])

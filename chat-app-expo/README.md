@@ -333,6 +333,16 @@ https://github.com/Kieran-McIntyre/react-native-section-alphabet-list
 ### React Native Gifted Chat:
 `npx expo install react-native-gifted-chat`
 
+### Callback Ref | Ref Callback:
+Instead of a ref object (like the one returned by useRef), a callback function can be passed where the node itself is passed to the callback parameter.
+
+```jsx
+<Text ref={(node) => console.log(node)} />
+```
+
+https://react.dev/reference/react-dom/components/common#ref-callback
+https://legacy.reactjs.org/docs/refs-and-the-dom.html#callback-refs
+
 ### Next Task
 -> Gifted Chat Implementation
 -> Reply Gesture & Reply text on top of input text field 
