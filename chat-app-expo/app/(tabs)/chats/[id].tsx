@@ -1,6 +1,6 @@
 import { View, Text, ImageBackground, StyleSheet, SafeAreaView, KeyboardAvoidingView, Platform, StatusBar } from 'react-native'
 import React, { useCallback, useEffect, useRef, useState } from 'react'
-import { Avatar, Bubble, GiftedChat, IMessage, InputToolbar, InputToolbarProps, Send, SystemMessage, Time, MessageProps } from 'react-native-gifted-chat';
+import { Avatar, Bubble, GiftedChat, IMessage, InputToolbar, InputToolbarProps, Send, SystemMessage, Time, MessageProps, BubbleProps } from 'react-native-gifted-chat';
 import messageData from "@/assets/data/messages.json";
 import backgroundChatPatternImg from "@/assets/images/pattern.png";
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -22,6 +22,12 @@ import { Swipeable } from 'react-native-gesture-handler';
 //   }
 // }
 
+export type MessageWithReply = IMessage & {
+  replyMessage?: {
+    text: string
+  }
+}
+
 const Page = () => {
 
   const [messages, setMessages] = useState<IMessage[]>([])
@@ -31,7 +37,9 @@ const Page = () => {
   const [replyMessage, setReplyMessage] = useState<IMessage | null>(null);
   const swipeableRowRef = useRef<Swipeable | null>(null);
 
-  const clearReplyMessage = () => setReplyMessage(null);
+  const clearReplyMessage = () => {
+    // setReplyMessage(null)
+  };
 
   const updateRowRef = useCallback((ref: any) => {
     if (ref && replyMessage && ref.props.children.props.currentMessage?._id === replyMessage._id) {
@@ -105,11 +113,26 @@ const Page = () => {
     ])
   }, [])
 
-  const onSend = useCallback((messages: any = []) => {
+  const onSend = useCallback((messages: MessageWithReply[] = []) => {
+    console.log(replyMessage)
+    if (replyMessage) {
+      messages[0].replyMessage = {
+        text: replyMessage.text
+      }
+    }
     setMessages(previousMessages =>
       GiftedChat.append(previousMessages, messages),
     )
-  }, [])
+    setReplyMessage(null);
+  }, [replyMessage]);
+
+  const renderReplyMessageView = (props: BubbleProps<MessageWithReply>) =>
+    props.currentMessage && props.currentMessage.replyMessage && (
+      <View style={styles.replyMessageContainer}>
+        <Text>{props.currentMessage.replyMessage.text}</Text>
+        <View style={styles.replyMessageDivider} />
+      </View>
+    )
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
@@ -180,6 +203,7 @@ const Page = () => {
             }}
             messagesContainerStyle={styles.messagesContainer}
             renderMessage={renderMessageBox}
+            renderCustomView={renderReplyMessageView}
           />
         </KeyboardAvoidingView>
       </ImageBackground>
@@ -207,6 +231,15 @@ const styles = StyleSheet.create({
   },
   messagesContainer: {
     flex: 1
+  },
+  replyMessageContainer: {
+    padding: 7,
+    paddingBottom: 0,
+  },
+  replyMessageDivider: {
+    borderBottomWidth: 1,
+    borderBottomColor: Colors.lightGray,
+    paddingTop: 6
   }
 });
 
