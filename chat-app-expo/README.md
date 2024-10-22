@@ -355,6 +355,11 @@ https://legacy.reactjs.org/docs/refs-and-the-dom.html#callback-refs
     => attach reply message with sent message
     => Impl Right Swipe for Other User and Left Swipe for Current 
 
+
+
+
+    => Fix android message typing hight issue when keyboard popped
+
 ### Improvements Todo
 -> Multiple Reply Stacked In Sent Message Once (as swiped orders sync)
 -> -> Gifted Chat Implementation 
