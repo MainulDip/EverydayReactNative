@@ -92,6 +92,10 @@ Creating, Using and Providing/Modifying Context Value is exactly 3 steep process
 - get reference of the Context by `useContext(theCreatedContext)`
 - Wrap all the child Component with <TheReferencedContext.Provider value={supply_New_Or_Modify_Value_For_The_Referenced-Context}>{children} </TheReferencedContext.Provider>
 
+* Underlying example will render a page with different heading level (h1,h2,h3...) based on the depth of the `Section` component programmatically. 
+
+* The parent Section component will pass it's depth value as context-value and child will increment that values.
+
 ```jsx
 // App.js
 import Heading from './Heading.js';
@@ -120,13 +124,17 @@ export default function Page() {
   );
 }
 ```
+
 * Create the Context
+
 ```jsx
 // LevelContext.jsx
 import { createContext } from 'react';
 export const LevelContext = createContext(0);
 ```
+
 * Get reference of the context and Provide the context value 
+
 ```jsx
 // Section.js
 import { useContext } from 'react';
@@ -136,6 +144,7 @@ export default function Section({ children }) {
   const level = useContext(LevelContext);
   return (
     <section className="section">
+      {/* as there are multiple Sections in Page, each Child's level context will be incremented like looping */}
       <LevelContext.Provider value={level + 1}>
         {children}
       </LevelContext.Provider>
@@ -143,7 +152,9 @@ export default function Section({ children }) {
   );
 }
 ```
+
 * Get reference of the context and based on the context value, return different things
+
 ```jsx
 // Heading.js
 import { useContext } from 'react';

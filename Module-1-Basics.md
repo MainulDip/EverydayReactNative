@@ -1,4 +1,4 @@
-### Common Views and Layout Components of RN:
+### Common Views and Layout Components of React Native Lib:
 `<Text style={{fontSize: 24, color: 'blue'}}>Hello World!</Text>` For Text
 
 `<View>` It's a layout container (structure) for other components/elements, Uses FlexBox layout by Default....
